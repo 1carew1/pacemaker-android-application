@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="org.pacemaker.controllers.CreateActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/enter_activity_details"
+        android:id="@+id/createActivityTitle"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_activity"
+        android:id="@+id/createActivityButton"
+        android:onClick="createActivityButtonPressed"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp"/>
+
+    <EditText
+        android:id="@+id/activityType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/createActivityTitle"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/createActivityTitle"
+        android:layout_marginTop="27dp"
+        android:ems="10"
+        android:hint="@string/activityTypeHint" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/activityLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/activityType"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/activityType"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/activityLocationHint" />
+
+    <TextView
+        android:id="@+id/distanceLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/distanceLabel"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/activityLocation"
+        android:layout_alignRight="@+id/createActivityButton"
+        android:layout_alignEnd="@+id/createActivityButton"
+        android:layout_above="@+id/createActivityButton"
+        android:layout_alignLeft="@+id/createActivityButton"
+        android:layout_alignStart="@+id/createActivityButton" />
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/numberPicker"
+        android:layout_below="@+id/activityLocation"
+        android:layout_toRightOf="@+id/createActivityButton"
+        android:layout_toEndOf="@+id/createActivityButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/list_activities"
+        android:id="@+id/listActivitiesButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/createActivityButton"
+        android:layout_alignEnd="@+id/createActivityButton"
+        android:layout_alignLeft="@+id/createActivityButton"
+        android:onClick="listActivityButtonPressed"
+        android:layout_alignStart="@+id/createActivityButton"/>
+
+</RelativeLayout>

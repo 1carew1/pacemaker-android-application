@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Pacemaker</string>
+
+    <string name="enter_activity_details">Enter Activity Details</string>
+    <string name="activityTypeHint">Enter Activity type...</string>
+    <string name="activityLocationHint">Enter Location...</string>
+    <string name="distanceLabel">Distance</string>
+    <string name="create_activity">Create Activity</string>
+    <string name="activities">Activities</string>
+    <string name="list_activities">List Activities</string>
+
+    <string name="welcomeLogin">Login</string>
+    <string name="welcomeSignup">Sign up</string>
+
+    <string name="signupTitle">Sign up for the Pacemaker</string>
+    <string name="signupSubtitle">Enter details below</string>
+    <string name="signupFirstname">First name</string>
+    <string name="signupLastName">Last Name</string>
+    <string name="signupEmail">Email</string>
+    <string name="signupPassword">Password</string>
+    <string name="signupRegister">Register</string>
+
+    <string name="loginTitle">Login to Donation</string>
+    <string name="loginSubtitle">You must be reigstered</string>
+    <string name="loginSignin">Sign in</string>
+    <string name="loginEmail">Email</string>
+    <string name="loginPassword">Password</string>
+</resources>

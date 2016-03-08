@@ -1,20 +1,9 @@
 package org.pacemaker.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.pacemaker.R;
-import org.pacemaker.http.Response;
-import org.pacemaker.main.PacemakerApp;
-import org.pacemaker.models.MyActivity;
-
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,21 +12,42 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.pacemaker.R;
+import org.pacemaker.http.Response;
+import org.pacemaker.main.PacemakerApp;
+import org.pacemaker.models.MyActivity;
+import org.pacemaker.models.User;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class ActivitiesList extends android.app.Activity implements Response<MyActivity> {
+
+    public static final String TAG = "PacemakerPart1";
+
     private PacemakerApp app;
     private ListView activitiesListView;
+    private TextView textView;
     private ActivityAdapter activitiesAdapter;
     private List<MyActivity> activities = new ArrayList<MyActivity>();
+    private User loggedInUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activities_list);
-
         app = (PacemakerApp) getApplication();
+        loggedInUser = app.getLoggedInUser();
+        String loggedInUserString = loggedInUser.firstname + " " + loggedInUser.lastname;
+        Log.i(TAG, "In on create for Activities List View for " + loggedInUserString);
 
         activitiesListView = (ListView) findViewById(R.id.activitiesListView);
+
+        textView = (TextView) findViewById(R.id.textView);
+        Log.i(TAG, "Setting text of textView");
+        textView.setText("Activities of " + loggedInUserString);
+
         activitiesAdapter = new ActivityAdapter(this, activities);
         activitiesListView.setAdapter(activitiesAdapter);
 
@@ -49,6 +59,7 @@ public class ActivitiesList extends android.app.Activity implements Response<MyA
                                     long id) {
 
                 String messageForToast = "List item : " + position + " was pressed";
+                Log.i(TAG, messageForToast);
                 Toast toast = Toast.makeText(ActivitiesList.this, messageForToast, Toast.LENGTH_SHORT);
                 toast.show();
             }

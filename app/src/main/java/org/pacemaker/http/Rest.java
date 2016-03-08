@@ -14,7 +14,7 @@ import org.apache.http.params.HttpParams;
 
 public class Rest {
     private static DefaultHttpClient httpClient = null;
-    private static String URL = "http://176.61.13.223:9000";
+    private static String URL = "http://176.61.13.223";
 
     private static DefaultHttpClient httpClient() {
         if (httpClient == null) {

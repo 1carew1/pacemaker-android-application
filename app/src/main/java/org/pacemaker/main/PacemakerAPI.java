@@ -8,6 +8,7 @@ import org.pacemaker.models.JsonParser;
 import org.pacemaker.models.MyActivity;
 import org.pacemaker.models.User;
 import android.content.Context;
+import android.util.Log;
 
 public class PacemakerAPI
 {

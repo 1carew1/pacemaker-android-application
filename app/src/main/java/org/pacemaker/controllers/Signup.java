@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 public class Signup extends Activity 
 {
+  // TODO : Employ a check for Email + Password + Make sure user does not exist
   private PacemakerApp app;
 
   @Override

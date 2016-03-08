@@ -4,11 +4,14 @@ import static com.google.common.base.Objects.toStringHelper;
 
 import com.google.common.base.Objects;
 
+import org.joda.time.DateTime;
+
 public class MyActivity {
     public Long id;
     public String kind;
     public String location;
     public double distance;
+//    public DateTime startTime = null;
     public String duration = "";
 
     public MyActivity() {
@@ -20,6 +23,13 @@ public class MyActivity {
         this.distance = distance;
         this.duration = duration;
     }
+//    public MyActivity(String type, String location, double distance, DateTime startTime, String duration) {
+//        this.kind = type;
+//        this.location = location;
+//        this.distance = distance;
+//        this.duration = duration;
+//        this.startTime = startTime;
+//    }
 
     @Override
     public String toString() {

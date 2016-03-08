@@ -11,11 +11,13 @@ import org.pacemaker.models.MyActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,6 +42,17 @@ public class ActivitiesList extends android.app.Activity implements Response<MyA
         activitiesListView.setAdapter(activitiesAdapter);
 
         app.getActivities(this, this);
+
+        activitiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+
+                String messageForToast = "List item : " + position + " was pressed";
+                Toast toast = Toast.makeText(ActivitiesList.this, messageForToast, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 
 
@@ -55,8 +68,9 @@ public class ActivitiesList extends android.app.Activity implements Response<MyA
 
     @Override
     public void errorOccurred(Exception e) {
-        Toast toast = Toast.makeText(this, "Error Retrieving Activities...", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(this, "Error Retrieving Activities...\n" + e.getLocalizedMessage(), Toast.LENGTH_SHORT);
         toast.show();
+        Log.v("Getting Activities", e.getLocalizedMessage());
     }
 }
 

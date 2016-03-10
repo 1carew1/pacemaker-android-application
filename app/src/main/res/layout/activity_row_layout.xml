@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/type"
+        android:id="@+id/startTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -14,33 +14,14 @@
         android:text="" />
 
     <TextView
-        android:id="@+id/location"
+        android:id="@+id/type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/type"
-        android:layout_alignBottom="@+id/type"
-        android:layout_toRightOf="@id/type"
-        android:padding="5dip"
-        android:text="" />
-
-    <TextView
-        android:id="@+id/duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/location"
-        android:layout_alignBottom="@+id/location"
-        android:layout_toRightOf="@id/location"
-        android:padding="5dip"
-        android:text="" />
-
-    <TextView
-        android:id="@+id/distance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/type"
-        android:layout_alignBottom="@+id/type"
-        android:layout_toRightOf="@id/duration"
-        android:padding="5dip"
+        android:layout_alignBaseline="@+id/startTime"
+        android:layout_alignBottom="@+id/startTime"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="30dp"
         android:text="" />
 
 </RelativeLayout>

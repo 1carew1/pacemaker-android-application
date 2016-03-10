@@ -1,12 +1,15 @@
 package org.pacemaker.models;
 
-public class User 
+import java.util.List;
+
+public class User
 {
   public Long   id;
   public String firstname;
   public String lastname;
   public String email;
   public String password;
+  public List<MyActivity> activities = null;
  
   public User()
   {}

@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 public class PacemakerApp extends Application implements Response<User> {
     private Map<String, User> users = new HashMap<String, User>();
-    private Map<String, List<MyActivity>> activities = new HashMap<String, List<MyActivity>>();
     private User loggedInUser;
     private boolean connected = false;
 
@@ -38,7 +37,7 @@ public class PacemakerApp extends Application implements Response<User> {
     public void setResponse(User user) {
         connected = true;
         users.put(user.email, user);
-        activities.put(user.email, new ArrayList<MyActivity>());
+//        activities.put(user.email, new ArrayList<MyActivity>());
     }
 
     @Override

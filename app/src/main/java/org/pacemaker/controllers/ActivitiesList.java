@@ -101,15 +101,18 @@ class ActivityAdapter extends ArrayAdapter<MyActivity> {
 
         View view = inflater.inflate(R.layout.activity_row_layout, parent, false);
         MyActivity activity = activities.get(position);
+        TextView startTime = (TextView) view.findViewById(R.id.startTime);
         TextView type = (TextView) view.findViewById(R.id.type);
-        TextView location = (TextView) view.findViewById(R.id.location);
-        TextView distance = (TextView) view.findViewById(R.id.distance);
-        TextView duration = (TextView) view.findViewById(R.id.duration);
+//        TextView location = (TextView) view.findViewById(R.id.location);
+//        TextView distance = (TextView) view.findViewById(R.id.distance);
+//        TextView duration = (TextView) view.findViewById(R.id.duration);
+
+        startTime.setText(activity.startTime);
 
         type.setText(activity.kind);
-        location.setText(activity.location);
-        distance.setText("" + activity.distance);
-        duration.setText(activity.duration);
+//        location.setText(activity.location);
+//        distance.setText("" + activity.distance);
+//        duration.setText(activity.duration);
         return view;
     }
 

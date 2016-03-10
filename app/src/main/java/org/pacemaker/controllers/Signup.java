@@ -37,8 +37,9 @@ public class Signup extends Activity {
         if (listOfAllUserEmails.contains(newUserEmail)) {
             Toast toast = Toast.makeText(Signup.this, "A user with Email : " + newUserEmail + " already exists", Toast.LENGTH_SHORT);
             toast.show();
-        } else if (newUserPassword.isEmpty() || newUserEmail.isEmpty()) {
-            Toast toast = Toast.makeText(Signup.this, "Email and Password Must be filled out", Toast.LENGTH_SHORT);
+            // Check if user password + email are filled in
+        } else if (newUserPassword.isEmpty() || newUserEmail.isEmpty() || !newUserEmail.matches(".+?@.+\\..+")) {
+            Toast toast = Toast.makeText(Signup.this, "Email and Password Must be filled out Correclty", Toast.LENGTH_SHORT);
             toast.show();
         } else {
             User user = new User(firstName.getText().toString(), lastName.getText().toString(), newUserEmail, password.getText().toString());

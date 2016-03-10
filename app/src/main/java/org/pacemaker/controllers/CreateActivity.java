@@ -2,8 +2,12 @@ package org.pacemaker.controllers;
 
 import android.content.Intent;
 import android.util.Log;
+import android.widget.DatePicker;
 import android.widget.Toast;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.pacemaker.R;
 import org.pacemaker.http.Response;
 import org.pacemaker.main.PacemakerApp;
@@ -15,9 +19,12 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
 
 public class CreateActivity extends android.app.Activity implements Response<MyActivity> {
+    private static final String TAG = "Create Activity";
+
     private PacemakerApp app;
 
     private Button createActivityButton;
@@ -25,6 +32,7 @@ public class CreateActivity extends android.app.Activity implements Response<MyA
     private TextView activityLocation;
     private TextView activityDuration;
     private NumberPicker distancePicker;
+    private DatePicker datePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +46,38 @@ public class CreateActivity extends android.app.Activity implements Response<MyA
         activityLocation = (TextView) findViewById(R.id.activityLocation);
         activityDuration = (TextView) findViewById(R.id.activityDuration);
         distancePicker = (NumberPicker) findViewById(R.id.numberPicker);
+        datePicker = (DatePicker) findViewById(R.id.datePicker);
+
 
         distancePicker.setMinValue(0);
-        distancePicker.setMaxValue(20);
+        distancePicker.setMaxValue(25);
     }
 
     public void createActivityButtonPressed(View view) {
         double distance = distancePicker.getValue();
-        MyActivity activity = new MyActivity(activityType.getText().toString(), activityLocation.getText().toString(), distance, activityDuration.getText().toString());
+        String type = activityType.getText().toString();
+        String location = activityLocation.getText().toString();
+        String duration = activityDuration.getText().toString();
 
-        app.createActivity(this, activity, this);
+        if (type.isEmpty() || location.isEmpty() || duration.isEmpty() || !duration.matches("\\d{1,2}\\:\\d{2}")) {
+            Toast toast = Toast.makeText(CreateActivity.this, "Please Make sure everything is filled in correctly", Toast.LENGTH_SHORT);
+            toast.show();
+        } else {
+            int day = datePicker.getDayOfMonth();
+            int month = datePicker.getMonth() + 1; //Month starts from 0
+            int year = datePicker.getYear();
+            int hour = 0;
+            int minutes = 0;
+            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
+            String dateTime = year + "-" + month + "-" + day + " " + hour + ":" + minutes;
+            DateTime activietyDateTime = formatter.parseDateTime(dateTime);
+
+            MyActivity activity = new MyActivity(type, location, distance, activietyDateTime, duration);
+
+            app.createActivity(this, activity, this);
+        }
+
+
     }
 
     @Override

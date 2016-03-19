@@ -73,12 +73,11 @@
 
     <NumberPicker
         android:id="@+id/numberPicker"
-        android:layout_width="20dp"
+        android:layout_width="10dp"
         android:layout_height="60dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/distanceLabel"
-        android:layout_toEndOf="@+id/createActivityButton"
-        android:layout_toRightOf="@+id/createActivityButton" />
+        android:layout_toRightOf="@+id/datePicker" />
 
 
     <DatePicker

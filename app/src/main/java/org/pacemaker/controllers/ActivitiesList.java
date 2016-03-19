@@ -1,7 +1,10 @@
 package org.pacemaker.controllers;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import org.pacemaker.R;
 import org.pacemaker.http.Response;
@@ -39,7 +44,7 @@ public class ActivitiesList extends android.app.Activity implements Response<MyA
         setContentView(R.layout.activity_activities_list);
         app = (PacemakerApp) getApplication();
         loggedInUser = app.getLoggedInUser();
-        String loggedInUserString = loggedInUser.firstname + " " + loggedInUser.lastname;
+        final String loggedInUserString = loggedInUser.firstname + " " + loggedInUser.lastname;
         Log.i(TAG, "In on create for Activities List View for " + loggedInUserString);
 
         activitiesListView = (ListView) findViewById(R.id.activitiesListView);
@@ -58,12 +63,15 @@ public class ActivitiesList extends android.app.Activity implements Response<MyA
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
 
-                String messageForToast = "List item : " + position + " was pressed";
-                Log.i(TAG, messageForToast);
-                Toast toast = Toast.makeText(ActivitiesList.this, messageForToast, Toast.LENGTH_SHORT);
-                toast.show();
+
+                MyActivity userActivity = loggedInUser.activities.get(position);
+
+                Log.i(TAG, userActivity.toString());
+                listItemPressed(userActivity);
             }
         });
+
+
     }
 
 
@@ -82,6 +90,16 @@ public class ActivitiesList extends android.app.Activity implements Response<MyA
         Toast toast = Toast.makeText(this, "Error Retrieving Activities...\n" + e.getLocalizedMessage(), Toast.LENGTH_SHORT);
         toast.show();
         Log.v("Getting Activities", e.getLocalizedMessage());
+    }
+
+
+    public void listItemPressed(MyActivity selectedActivity) {
+
+        Gson gS = new Gson();
+        String target = gS.toJson(selectedActivity);
+        Intent showActivity = new Intent(this, ShowMyActivity.class);
+        showActivity.putExtra("SelectedActivity", target);
+        startActivity(showActivity);
     }
 }
 

@@ -55,7 +55,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/activityType"
+        android:layout_alignStart="@+id/activityType"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/activityLocation"
         android:ems="10"
         android:hint="@string/activityDurationHint"
@@ -66,6 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/activityDuration"
         android:layout_marginTop="5dp"
         android:text="@string/distanceLabel"
@@ -76,6 +79,7 @@
         android:layout_width="10dp"
         android:layout_height="60dp"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/distanceLabel"
         android:layout_toRightOf="@+id/datePicker" />
 
@@ -95,21 +99,11 @@
         android:id="@+id/createActivityButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
         android:layout_below="@+id/datePicker"
         android:layout_marginTop="60dp"
         android:onClick="createActivityButtonPressed"
         android:text="@string/create_activity" />
-
-    <Button
-        android:id="@+id/listActivitiesButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/datePicker"
-        android:layout_marginTop="60dp"
-        android:onClick="listActivityButtonPressed"
-        android:text="@string/list_activities" />
 
 
 </RelativeLayout>

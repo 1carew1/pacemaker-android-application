@@ -7,6 +7,7 @@
     <string name="activityDurationHint">01:00</string>
     <string name="distanceLabel">Distance (km)</string>
     <string name="create_activity">Create Activity</string>
+    <string name="update_activity">Update Activity</string>
     <string name="activities">Activities</string>
     <string name="list_activities">List Activities</string>
 

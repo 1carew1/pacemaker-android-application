@@ -9,6 +9,7 @@ import org.pacemaker.models.JsonParser;
 import org.pacemaker.models.MyActivity;
 import org.pacemaker.models.User;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -27,6 +28,13 @@ public class PacemakerAPI {
 
     public static void createActivity(Context context, User user, Response<MyActivity> response, String dialogMesssage, MyActivity activity) {
         new CreateActivity(context, user, response, dialogMesssage).execute(activity);
+    }
+
+    public static void updateActivity(Context context, User user, Response<MyActivity> response, String dialogMesssage, MyActivity activity) {
+        new UpdateActivity(context, user, activity, response, dialogMesssage).execute(activity);
+    }
+    public static void deleteActivity(Context context, User user, Response<MyActivity> response, String dialogMesssage, MyActivity activity) {
+        new DeleteActivity(context, user, activity, response, dialogMesssage).execute(activity);
     }
 }
 
@@ -84,5 +92,41 @@ class CreateActivity extends Request {
     protected MyActivity doRequest(Object... params) throws Exception {
         String response = Rest.post("/api/users/" + user.id + "/activities", JsonParser.activity2Json(params[0]));
         return JsonParser.json2Activity(response);
+    }
+}
+
+class UpdateActivity extends Request {
+    private User user;
+    private MyActivity activity;
+
+    public UpdateActivity(Context context, User user, MyActivity activity, Response<MyActivity> callback, String message) {
+        super(context, callback, message);
+        this.user = user;
+        this.activity = activity;
+    }
+
+    @Override
+    protected MyActivity doRequest(Object... params) throws Exception {
+
+        Rest.put("/api/users/" + user.id + "/activities/" + activity.id, JsonParser.activity2Json(params[0]));
+        return activity;
+    }
+}
+
+class DeleteActivity extends Request {
+    private User user;
+    private MyActivity activity;
+
+    public DeleteActivity(Context context, User user, MyActivity activity, Response<MyActivity> callback, String message) {
+        super(context, callback, message);
+        this.user = user;
+        this.activity = activity;
+    }
+
+    @Override
+    protected MyActivity doRequest(Object... params) throws Exception {
+
+        Rest.delete("/api/users/" + user.id + "/activities/" + activity.id);
+        return activity;
     }
 }

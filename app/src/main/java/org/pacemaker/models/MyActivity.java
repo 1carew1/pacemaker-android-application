@@ -11,8 +11,8 @@ public class MyActivity {
     public String kind;
     public String location;
     public double distance;
-    public String startTime = null;
-    public String duration = "";
+    public String startTime;
+    public String duration;
 
     public MyActivity() {
     }
@@ -23,6 +23,7 @@ public class MyActivity {
         this.distance = distance;
         this.duration = duration;
     }
+
     public MyActivity(String type, String location, double distance, DateTime startTime, String duration) {
         this.kind = type;
         this.location = location;
@@ -41,14 +42,13 @@ public class MyActivity {
                 .toString();
     }
 
+    // 2 activities are equal if their time is equal
     @Override
     public boolean equals(final Object obj) {
         if (obj instanceof MyActivity) {
             final MyActivity other = (MyActivity) obj;
-            return Objects.equal(kind, other.kind)
-                    && Objects.equal(location, other.location)
-                    && Objects.equal(distance, other.distance)
-                    && Objects.equal(duration, other.duration);
+            return Objects.equal(startTime, other.startTime)
+                    ;
         } else {
             return false;
         }

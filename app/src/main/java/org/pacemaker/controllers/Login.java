@@ -32,7 +32,7 @@ public class Login extends Activity
     boolean loggedIn = app.loginUser(email.getText().toString(), password.getText().toString());
     if (loggedIn)
     {
-      startActivity (new Intent(this, CreateActivity.class));
+      startActivity (new Intent(this, ActivitiesList.class));
     }
     else
     {

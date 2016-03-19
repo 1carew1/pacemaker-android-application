@@ -1,10 +1,10 @@
 package org.pacemaker.controllers;
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +37,7 @@ public class ActivitiesList extends android.app.Activity implements Response<MyA
     private ActivityAdapter activitiesAdapter;
     private List<MyActivity> activities = new ArrayList<MyActivity>();
     private User loggedInUser;
+    private MyActivity selectedActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,14 +65,59 @@ public class ActivitiesList extends android.app.Activity implements Response<MyA
                                     long id) {
 
 
-                MyActivity userActivity = loggedInUser.activities.get(position);
+                selectedActivity = loggedInUser.activities.get(position);
 
-                Log.i(TAG, userActivity.toString());
-                listItemPressed(userActivity);
+                Log.i(TAG, selectedActivity.toString());
+                listItemPressed(selectedActivity);
             }
         });
 
+        //Create a hold item listener
+        activitiesListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long id) {
 
+                // Prevent the on click listener executing when
+                // the on hold listener is executing
+                activitiesListView.setOnItemClickListener(null);
+
+                selectedActivity = loggedInUser.activities.get(position);
+
+                new AlertDialog.Builder(parent.getContext())
+                        .setTitle("Delete Activity")
+                        .setMessage("Are you sure you want to delete this activity?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                //Delete the activity
+                                app.deleteActivity(ActivitiesList.this, selectedActivity, ActivitiesList.this);
+//                                Toast.makeText(ActivitiesList.this, "Activity on the " + selectedActivity.startTime +
+//                                        " to " + selectedActivity.kind + " has been deleted"
+//                                        , Toast.LENGTH_SHORT).show();
+                                //Refresh the Activity
+                                onRestart();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                                Toast.makeText(ActivitiesList.this, "Activity Not Deleted", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .show();
+                return false;
+            }
+        });
+
+    }
+
+    //Using this to refresh the list when returned to from another activity
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        //When BACK BUTTON is pressed, the activity on the stack is restarted
+        //Do what you want on the refresh procedure here
+        this.recreate();
     }
 
 
@@ -101,6 +147,11 @@ public class ActivitiesList extends android.app.Activity implements Response<MyA
         showActivity.putExtra("SelectedActivity", target);
         startActivity(showActivity);
     }
+
+    public void createActivityButtonPressed(View view) {
+        Intent i = new Intent(ActivitiesList.this, CreateActivity.class);
+        startActivity(i);
+    }
 }
 
 class ActivityAdapter extends ArrayAdapter<MyActivity> {
@@ -121,16 +172,10 @@ class ActivityAdapter extends ArrayAdapter<MyActivity> {
         MyActivity activity = activities.get(position);
         TextView startTime = (TextView) view.findViewById(R.id.startTime);
         TextView type = (TextView) view.findViewById(R.id.type);
-//        TextView location = (TextView) view.findViewById(R.id.location);
-//        TextView distance = (TextView) view.findViewById(R.id.distance);
-//        TextView duration = (TextView) view.findViewById(R.id.duration);
 
         startTime.setText(activity.startTime);
 
         type.setText(activity.kind);
-//        location.setText(activity.location);
-//        distance.setText("" + activity.distance);
-//        duration.setText(activity.duration);
         return view;
     }
 

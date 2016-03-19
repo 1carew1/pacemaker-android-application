@@ -79,6 +79,18 @@ public class PacemakerApp extends Application implements Response<User> {
         }
     }
 
+    public void updateActivity(Context context, MyActivity activity, Response<MyActivity> responder) {
+        if (loggedInUser != null) {
+            PacemakerAPI.updateActivity(context, loggedInUser, responder, "Creating activity...", activity);
+        }
+    }
+
+    public void deleteActivity(Context context, MyActivity activity, Response<MyActivity> responder) {
+        if (loggedInUser != null) {
+            PacemakerAPI.deleteActivity(context, loggedInUser, responder, "Creating activity...", activity);
+        }
+    }
+
     public void getActivities(Context context, Response<MyActivity> responder) {
         PacemakerAPI.getActivities(context, loggedInUser, responder, "Retrieving Activities...");
     }

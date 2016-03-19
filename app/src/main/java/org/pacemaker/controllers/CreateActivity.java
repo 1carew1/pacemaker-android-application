@@ -50,7 +50,7 @@ public class CreateActivity extends android.app.Activity implements Response<MyA
 
 
         distancePicker.setMinValue(0);
-        distancePicker.setMaxValue(25);
+        distancePicker.setMaxValue(200);
     }
 
     public void createActivityButtonPressed(View view) {
@@ -60,8 +60,8 @@ public class CreateActivity extends android.app.Activity implements Response<MyA
         String duration = activityDuration.getText().toString();
 
         if (type.isEmpty() || location.isEmpty() || duration.isEmpty() || !duration.matches("\\d{1,2}\\:\\d{2}")) {
-            Toast toast = Toast.makeText(CreateActivity.this, "Please Make sure everything is filled in correctly", Toast.LENGTH_SHORT);
-            toast.show();
+            Toast errorToast = Toast.makeText(CreateActivity.this, "Please Make sure everything is filled in correctly", Toast.LENGTH_SHORT);
+            errorToast.show();
         } else {
             int day = datePicker.getDayOfMonth();
             int month = datePicker.getMonth() + 1; //Month starts from 0
@@ -75,6 +75,9 @@ public class CreateActivity extends android.app.Activity implements Response<MyA
             MyActivity activity = new MyActivity(type, location, distance, activietyDateTime, duration);
 
             app.createActivity(this, activity, this);
+            Toast finishToast = Toast.makeText(CreateActivity.this, "Activity Created", Toast.LENGTH_SHORT);
+            finishToast.show();
+            finish();
         }
 
 
@@ -92,10 +95,5 @@ public class CreateActivity extends android.app.Activity implements Response<MyA
     public void errorOccurred(Exception e) {
         Toast toast = Toast.makeText(this, "Failed to create Activity", Toast.LENGTH_SHORT);
         toast.show();
-    }
-
-    public void listActivityButtonPressed(View view) {
-        Log.v("Pacemaker", "List Activities Button Pressed");
-        startActivity(new Intent(this, ActivitiesList.class));
     }
 }

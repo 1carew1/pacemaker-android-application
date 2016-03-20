@@ -22,10 +22,16 @@
     <string name="signupPassword">Password</string>
     <string name="signupRegister">Register</string>
 
-    <string name="loginTitle">Login to Donation</string>
+    <string name="loginTitle">Login to Pacemaker</string>
     <string name="loginSubtitle">You must be reigstered</string>
     <string name="loginSignin">Sign in</string>
     <string name="loginEmail">Email</string>
     <string name="loginPassword">Password</string>
     <string name="title_activity_show_my">ShowMyActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

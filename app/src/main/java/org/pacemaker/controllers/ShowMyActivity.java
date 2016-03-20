@@ -2,6 +2,7 @@ package org.pacemaker.controllers;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,7 @@ import org.pacemaker.models.MyActivity;
 import java.util.List;
 
 
-public class ShowMyActivity extends Activity implements Response<MyActivity> {
+public class ShowMyActivity extends AppCompatActivity implements Response<MyActivity> {
     private static final String TAG = "UpdateActivity";
 
     private MyActivity selectedActivity;
@@ -54,8 +55,8 @@ public class ShowMyActivity extends Activity implements Response<MyActivity> {
         Gson gS = new Gson();
         String target = getIntent().getStringExtra("SelectedActivity");
         selectedActivity = gS.fromJson(target, MyActivity.class);
-//        Toast toast = Toast.makeText(this, selectedActivity.toString(), Toast.LENGTH_SHORT);
-//        toast.show();
+        Toast toast = Toast.makeText(this, selectedActivity.routes.toString(), Toast.LENGTH_SHORT);
+        toast.show();
 
         //Create a way of parsing the date
         String dateString = selectedActivity.startTime;

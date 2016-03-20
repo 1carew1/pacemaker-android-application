@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,9 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ActivitiesList extends android.app.Activity implements Response<MyActivity> {
+public class ActivitiesList extends AppCompatActivity implements Response<MyActivity> {
 
-    public static final String TAG = "PacemakerPart1";
+    public static final String TAG = "ActivitiesList";
 
     private PacemakerApp app;
     private ListView activitiesListView;
@@ -39,10 +40,13 @@ public class ActivitiesList extends android.app.Activity implements Response<MyA
     private User loggedInUser;
     private MyActivity selectedActivity;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activities_list);
+
+
         app = (PacemakerApp) getApplication();
         loggedInUser = app.getLoggedInUser();
         final String loggedInUserString = loggedInUser.firstname + " " + loggedInUser.lastname;
@@ -152,6 +156,7 @@ public class ActivitiesList extends android.app.Activity implements Response<MyA
         Intent i = new Intent(ActivitiesList.this, CreateActivity.class);
         startActivity(i);
     }
+
 }
 
 class ActivityAdapter extends ArrayAdapter<MyActivity> {

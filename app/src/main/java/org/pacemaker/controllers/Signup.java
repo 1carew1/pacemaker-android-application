@@ -7,13 +7,15 @@ import org.pacemaker.models.User;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
-public class Signup extends Activity {
+public class Signup extends AppCompatActivity {
+    public static final String TAG = "SignUp";
     // TODO : Employ a check for Email + Password + Make sure user does not exist
     private PacemakerApp app;
     private List<String> listOfAllUserEmails;

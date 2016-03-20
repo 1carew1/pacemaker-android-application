@@ -1,6 +1,7 @@
 package org.pacemaker.controllers;
 
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.Toast;
@@ -22,8 +23,8 @@ import android.widget.TextView;
 import java.util.Date;
 import java.util.List;
 
-public class CreateActivity extends android.app.Activity implements Response<MyActivity> {
-    private static final String TAG = "Create Activity";
+public class CreateActivity extends AppCompatActivity implements Response<MyActivity> {
+    private static final String TAG = "CreateActivity";
 
     private PacemakerApp app;
 

@@ -6,6 +6,9 @@ import com.google.common.base.Objects;
 
 import org.joda.time.DateTime;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyActivity {
     public Long id;
     public String kind;
@@ -13,6 +16,7 @@ public class MyActivity {
     public double distance;
     public String startTime;
     public String duration;
+    public List<Location> routes = new ArrayList<>();
 
     public MyActivity() {
     }

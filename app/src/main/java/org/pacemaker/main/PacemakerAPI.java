@@ -6,6 +6,7 @@ import org.pacemaker.http.Request;
 import org.pacemaker.http.Response;
 import org.pacemaker.http.Rest;
 import org.pacemaker.models.JsonParser;
+import org.pacemaker.models.Location;
 import org.pacemaker.models.MyActivity;
 import org.pacemaker.models.User;
 
@@ -33,6 +34,7 @@ public class PacemakerAPI {
     public static void updateActivity(Context context, User user, Response<MyActivity> response, String dialogMesssage, MyActivity activity) {
         new UpdateActivity(context, user, activity, response, dialogMesssage).execute(activity);
     }
+
     public static void deleteActivity(Context context, User user, Response<MyActivity> response, String dialogMesssage, MyActivity activity) {
         new DeleteActivity(context, user, activity, response, dialogMesssage).execute(activity);
     }
@@ -75,6 +77,11 @@ class GetActivities extends Request {
     protected List<MyActivity> doRequest(Object... params) throws Exception {
         String response = Rest.get("/api/users/" + user.id + "/activities");
         List<MyActivity> activityList = JsonParser.json2Activities(response);
+        //This is used to give each activity the correct locations
+        for (MyActivity activity : activityList) {
+            String getLocationsString = Rest.get("/api/users/" + user.id + "/activities/" + activity.id + "/routes");
+            activity.routes = JsonParser.json2Locations(getLocationsString);
+        }
         user.activities = activityList;
         return activityList;
     }

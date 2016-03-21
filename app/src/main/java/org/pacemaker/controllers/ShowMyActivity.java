@@ -55,8 +55,6 @@ public class ShowMyActivity extends AppCompatActivity implements Response<MyActi
         Gson gS = new Gson();
         String target = getIntent().getStringExtra("SelectedActivity");
         selectedActivity = gS.fromJson(target, MyActivity.class);
-        Toast toast = Toast.makeText(this, selectedActivity.routes.toString(), Toast.LENGTH_SHORT);
-        toast.show();
 
         //Create a way of parsing the date
         String dateString = selectedActivity.startTime;

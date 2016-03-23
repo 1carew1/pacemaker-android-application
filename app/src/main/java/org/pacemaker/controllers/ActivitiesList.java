@@ -157,6 +157,11 @@ public class ActivitiesList extends AppCompatActivity implements Response<MyActi
         startActivity(i);
     }
 
+    public void showFriendsButtonPressed(View view) {
+        Intent i = new Intent(ActivitiesList.this, FriendsList.class);
+        startActivity(i);
+    }
+
 }
 
 class ActivityAdapter extends ArrayAdapter<MyActivity> {

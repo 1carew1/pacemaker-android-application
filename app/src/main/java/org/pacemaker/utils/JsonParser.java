@@ -1,4 +1,9 @@
-package org.pacemaker.models;
+package org.pacemaker.utils;
+
+import org.pacemaker.models.Friends;
+import org.pacemaker.models.Location;
+import org.pacemaker.models.MyActivity;
+import org.pacemaker.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,4 +48,9 @@ public class JsonParser {
     public static List<Location> json2Locations(String json) {
         return new JSONDeserializer<ArrayList<Location>>().use("values", Location.class).deserialize(json);
     }
+
+    public static List<Friends> json2Friends(String json) {
+        return new JSONDeserializer<ArrayList<Friends>>().use("values", Friends.class).deserialize(json);
+    }
+
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,17 +8,16 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="org.pacemaker.pacemaker.ActivitiesList">
-
-    <!-- android:background="@drawable/pacemaker_runner" -->
-
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="org.pacemaker.controllers.FriendsList"
+    tools:showIn="@layout/activity_friends_list">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/activities"
-        android:id="@+id/textView"
+        android:text="@string/friends"
+        android:id="@+id/pageTitle"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -25,33 +25,13 @@
         android:layout_alignParentEnd="true"/>
 
 
-
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/activitiesListView"
+        android:id="@+id/friendsListView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/textView"/>
-
-    <Button
-        android:id="@+id/createActivityButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/activitiesListView"
-        android:layout_marginTop="10dp"
-        android:onClick="createActivityButtonPressed"
-        android:text="@string/create_activity" />
+        android:layout_below="@+id/pageTitle"/>
 
 
-    <Button
-        android:id="@+id/friendsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/createActivityButton"
-        android:layout_marginTop="10dp"
-        android:onClick="showFriendsButtonPressed"
-        android:text="@string/friends" />
 </RelativeLayout>

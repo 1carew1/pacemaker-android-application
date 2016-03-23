@@ -1,6 +1,5 @@
 package org.pacemaker.controllers;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,6 +19,7 @@ import org.pacemaker.R;
 import org.pacemaker.http.Response;
 import org.pacemaker.main.PacemakerApp;
 import org.pacemaker.models.MyActivity;
+import org.pacemaker.utils.MyDatePicker;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class ShowMyActivity extends AppCompatActivity implements Response<MyActi
         activityLocation = (TextView) findViewById(R.id.activityLocation);
         activityDuration = (TextView) findViewById(R.id.activityDuration);
         distancePicker = (NumberPicker) findViewById(R.id.numberPicker);
-        datePicker = (DatePicker) findViewById(R.id.datePicker);
+        datePicker = (MyDatePicker) findViewById(R.id.datePicker);
 
         //Get the MyActivity from the Activity List
         Gson gS = new Gson();

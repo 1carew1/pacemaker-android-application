@@ -5,14 +5,12 @@ import java.util.List;
 import org.pacemaker.http.Request;
 import org.pacemaker.http.Response;
 import org.pacemaker.http.Rest;
-import org.pacemaker.models.JsonParser;
-import org.pacemaker.models.Location;
+import org.pacemaker.models.Friends;
+import org.pacemaker.utils.JsonParser;
 import org.pacemaker.models.MyActivity;
 import org.pacemaker.models.User;
 
-import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 
 public class PacemakerAPI {
     public static void getUsers(Context context, Response<User> response, String dialogMesssage) {
@@ -37,6 +35,10 @@ public class PacemakerAPI {
 
     public static void deleteActivity(Context context, User user, Response<MyActivity> response, String dialogMesssage, MyActivity activity) {
         new DeleteActivity(context, user, activity, response, dialogMesssage).execute(activity);
+    }
+
+    public static void getFriends(Context context, User user, Response<Friends> response, String dialogMesssage) {
+        new GetFriends(context, user, response, dialogMesssage).execute();
     }
 }
 
@@ -135,5 +137,22 @@ class DeleteActivity extends Request {
 
         Rest.delete("/api/users/" + user.id + "/activities/" + activity.id);
         return activity;
+    }
+}
+
+class GetFriends extends Request {
+    private User user;
+
+    public GetFriends(Context context, User user, Response<Friends> callback, String message) {
+        super(context, callback, message);
+        this.user = user;
+    }
+
+    @Override
+    protected List<Friends> doRequest(Object... params) throws Exception {
+        String response = Rest.get("/api/users/" + user.id + "/friends");
+        List<Friends> friendsList = JsonParser.json2Friends(response);
+        user.friendsList = friendsList;
+        return friendsList;
     }
 }

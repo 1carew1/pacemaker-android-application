@@ -1,8 +1,6 @@
 package org.pacemaker.controllers;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.Toast;
 
@@ -13,6 +11,7 @@ import org.pacemaker.R;
 import org.pacemaker.http.Response;
 import org.pacemaker.main.PacemakerApp;
 import org.pacemaker.models.MyActivity;
+import org.pacemaker.utils.MyDatePicker;
 
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +19,6 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import java.util.Date;
 import java.util.List;
 
 public class CreateActivity extends AppCompatActivity implements Response<MyActivity> {
@@ -47,7 +45,7 @@ public class CreateActivity extends AppCompatActivity implements Response<MyActi
         activityLocation = (TextView) findViewById(R.id.activityLocation);
         activityDuration = (TextView) findViewById(R.id.activityDuration);
         distancePicker = (NumberPicker) findViewById(R.id.numberPicker);
-        datePicker = (DatePicker) findViewById(R.id.datePicker);
+        datePicker = (MyDatePicker) findViewById(R.id.datePicker);
 
 
         distancePicker.setMinValue(0);

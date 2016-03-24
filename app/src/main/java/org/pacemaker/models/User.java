@@ -1,5 +1,6 @@
 package org.pacemaker.models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,8 +11,9 @@ public class User {
     public String lastname;
     public String email;
     public String password;
-    public List<MyActivity> activities = null;
-    public List<Friends> friendsList = null;
+    public List<MyActivity> activities = new ArrayList<>();
+    public List<User> friendsList = new ArrayList<>();
+    public List<Friends> friendObjecList = new ArrayList<>();
 
     public User() {
     }

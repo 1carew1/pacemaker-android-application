@@ -26,7 +26,8 @@
         <activity
             android:name=".controllers.FriendsList"
             android:label="@string/title_activity_friends_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".controllers.ShowFriend"></activity>
     </application>
 
 </manifest>

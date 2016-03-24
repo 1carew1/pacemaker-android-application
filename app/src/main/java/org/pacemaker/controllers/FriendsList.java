@@ -1,14 +1,11 @@
 package org.pacemaker.controllers;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,11 +17,12 @@ import org.pacemaker.http.Response;
 import org.pacemaker.main.PacemakerApp;
 import org.pacemaker.models.Friends;
 import org.pacemaker.models.User;
+import org.pacemaker.utils.FriendsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendsList extends AppCompatActivity implements Response<Friends> {
+public class FriendsList extends AppCompatActivity implements Response<User> {
 
     public static final String TAG = "FriendsList";
 
@@ -32,7 +30,7 @@ public class FriendsList extends AppCompatActivity implements Response<Friends> 
     private ListView friendsListView;
     private TextView pageTitle;
     private FriendsAdapter friendsAdapter;
-    private List<Friends> friendsList = new ArrayList<>();
+    private List<User> friendsList = new ArrayList<>();
     private User loggedInUser;
     private User selectedFriend;
 
@@ -62,7 +60,7 @@ public class FriendsList extends AppCompatActivity implements Response<Friends> 
                                     long id) {
 
 
-                selectedFriend = app.getFriends().get(position);
+                selectedFriend = loggedInUser.friendsList.get(position);
                 Log.i(TAG, selectedFriend.toString());
                 listItemPressed(selectedFriend);
             }
@@ -74,9 +72,9 @@ public class FriendsList extends AppCompatActivity implements Response<Friends> 
 
         Gson gS = new Gson();
         String target = gS.toJson(friend);
-//        Intent showFriend = new Intent(this, ShowFriend.class);
-//        showFriend.putExtra("SelectedActivity", target);
-//        startActivity(showFriend);
+        Intent showFriend = new Intent(this, ShowFriend.class);
+        showFriend.putExtra("MyFriend", target);
+        startActivity(showFriend);
     }
 
     //Using this to refresh the list when returned to from another activity
@@ -90,13 +88,13 @@ public class FriendsList extends AppCompatActivity implements Response<Friends> 
 
 
     @Override
-    public void setResponse(List<Friends> aList) {
+    public void setResponse(List<User> aList) {
         friendsAdapter.friendsList = aList;
         friendsAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void setResponse(Friends anObject) {
+    public void setResponse(User anObject) {
     }
 
     @Override
@@ -107,33 +105,4 @@ public class FriendsList extends AppCompatActivity implements Response<Friends> 
     }
 
 
-}
-
-class FriendsAdapter extends ArrayAdapter<Friends> {
-    private Context context;
-    public List<Friends> friendsList;
-
-    public FriendsAdapter(Context context, List<Friends> friendsList) {
-        super(context, R.layout.activity_row_layout, friendsList);
-        this.context = context;
-        this.friendsList = friendsList;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View view = inflater.inflate(R.layout.friend_row_layout, parent, false);
-        Friends friend = friendsList.get(position);
-
-
-        TextView friendName = (TextView) view.findViewById(R.id.friendName);
-        friendName.setText(friend.accepted);
-        return view;
-    }
-
-    @Override
-    public int getCount() {
-        return friendsList.size();
-    }
 }

@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.pacemaker.utils.ActivityAdapter;
 
 import com.google.gson.Gson;
 
@@ -164,33 +165,3 @@ public class ActivitiesList extends AppCompatActivity implements Response<MyActi
 
 }
 
-class ActivityAdapter extends ArrayAdapter<MyActivity> {
-    private Context context;
-    public List<MyActivity> activities;
-
-    public ActivityAdapter(Context context, List<MyActivity> activities) {
-        super(context, R.layout.activity_row_layout, activities);
-        this.context = context;
-        this.activities = activities;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View view = inflater.inflate(R.layout.activity_row_layout, parent, false);
-        MyActivity activity = activities.get(position);
-        TextView startTime = (TextView) view.findViewById(R.id.startTime);
-        TextView type = (TextView) view.findViewById(R.id.type);
-
-        startTime.setText(activity.startTime);
-
-        type.setText(activity.kind);
-        return view;
-    }
-
-    @Override
-    public int getCount() {
-        return activities.size();
-    }
-}

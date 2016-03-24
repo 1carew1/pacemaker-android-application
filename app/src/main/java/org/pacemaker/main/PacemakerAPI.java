@@ -1,6 +1,8 @@
 package org.pacemaker.main;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.pacemaker.http.Request;
 import org.pacemaker.http.Response;
@@ -11,6 +13,7 @@ import org.pacemaker.models.MyActivity;
 import org.pacemaker.models.User;
 
 import android.content.Context;
+import android.util.ArrayMap;
 
 public class PacemakerAPI {
     public static void getUsers(Context context, Response<User> response, String dialogMesssage) {
@@ -37,7 +40,7 @@ public class PacemakerAPI {
         new DeleteActivity(context, user, activity, response, dialogMesssage).execute(activity);
     }
 
-    public static void getFriends(Context context, User user, Response<Friends> response, String dialogMesssage) {
+    public static void getFriends(Context context, User user, Response<User> response, String dialogMesssage) {
         new GetFriends(context, user, response, dialogMesssage).execute();
     }
 }
@@ -143,16 +146,33 @@ class DeleteActivity extends Request {
 class GetFriends extends Request {
     private User user;
 
-    public GetFriends(Context context, User user, Response<Friends> callback, String message) {
+    public GetFriends(Context context, User user, Response<User> callback, String message) {
         super(context, callback, message);
         this.user = user;
     }
 
     @Override
-    protected List<Friends> doRequest(Object... params) throws Exception {
+    protected List<User> doRequest(Object... params) throws Exception {
+        GetUsers getUsers = new GetUsers(null, null, null);
+        List<User> listOfAllUsers = getUsers.doRequest();
+        // Update to API level 19
+        Map<Long, User> listOfAllUsersMap = new ArrayMap<Long, User>();
+        for (User u : listOfAllUsers) {
+            listOfAllUsersMap.put(u.id, u);
+        }
         String response = Rest.get("/api/users/" + user.id + "/friends");
         List<Friends> friendsList = JsonParser.json2Friends(response);
-        user.friendsList = friendsList;
-        return friendsList;
+        user.friendObjecList = friendsList;
+
+        List<User> allFriends = new ArrayList<>();
+        for (Friends f : friendsList) {
+            // For the time being only add accepted friends
+            if (f.accepted.equalsIgnoreCase("Yes")) {
+                User u = listOfAllUsersMap.get(f.friendId);
+                allFriends.add(u);
+            }
+        }
+        user.friendsList = allFriends;
+        return allFriends;
     }
 }

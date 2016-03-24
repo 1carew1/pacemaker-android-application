@@ -100,12 +100,8 @@ public class PacemakerApp extends Application implements Response<User> {
         PacemakerAPI.getActivities(context, loggedInUser, responder, "Retrieving Activities...");
     }
 
-    public void getFriends(Context context, Response<Friends> responder) {
+    public void getFriends(Context context, Response<User> responder) {
         PacemakerAPI.getFriends(context, loggedInUser, responder, "Retrieving Friends...");
-        for (Friends f : loggedInUser.friendsList) {
-            User u = userMapViaId.get(f.friendId);
-            friendsOfLoggedInUser.add(u);
-        }
     }
 
     public List<User> getFriends() {

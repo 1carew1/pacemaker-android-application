@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import org.pacemaker.utils.ActivityAdapter;
 
 import com.google.gson.Gson;
@@ -161,6 +162,11 @@ public class ActivitiesList extends AppCompatActivity implements Response<MyActi
     public void showFriendsButtonPressed(View view) {
         Intent i = new Intent(ActivitiesList.this, FriendsList.class);
         startActivity(i);
+    }
+
+    public void logoutButtonPressed(View view) {
+        app.logout();
+        finish();
     }
 
 }

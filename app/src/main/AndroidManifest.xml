@@ -12,11 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".controllers.Welcome">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
+
         </activity>
         <activity android:name=".controllers.Signup" />
         <activity android:name=".controllers.Login" />
@@ -27,7 +25,19 @@
             android:name=".controllers.FriendsList"
             android:label="@string/title_activity_friends_list"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".controllers.ShowFriend"></activity>
+        <activity android:name=".controllers.ShowFriend" />
+        <activity
+            android:name=".controllers.Dashboard"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
     </application>
 
 </manifest>

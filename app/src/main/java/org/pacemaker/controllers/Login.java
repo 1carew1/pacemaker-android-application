@@ -29,10 +29,19 @@ public class Login extends AppCompatActivity {
 
         boolean loggedIn = app.loginUser(email.getText().toString(), password.getText().toString());
         if (loggedIn) {
-            startActivity(new Intent(this, ActivitiesList.class));
+            startActivity(new Intent(this, Dashboard.class));
         } else {
             Toast toast = Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT);
             toast.show();
         }
+    }
+
+    //Using this to refresh the list when returned to from another activity
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        //When BACK BUTTON is pressed or another activity is finished, the activity on the stack is restarted
+        //Finish the activity
+        finish();
     }
 }

@@ -10,7 +10,7 @@
     <string name="create_activity">Create Activity</string>
     <string name="update_activity">Update Activity</string>
     <string name="activities">Activities</string>
-    <string name="list_activities">List Activities</string>
+    <string name="list_activities">Activities</string>
 
     <string name="welcomeLogin">Login</string>
     <string name="welcomeSignup">Sign up</string>
@@ -35,7 +35,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="title_activity_friends_list">FriendsList</string>
+    <string name="title_activity_friends_list">Friends List</string>
+    <string name="show_users">All Users</string>
 
     <string name="friends">Friends List</string>
     <string name="logout">Logout</string>

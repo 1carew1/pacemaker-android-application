@@ -12,32 +12,37 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".controllers.Welcome">
-
-
-
-        </activity>
-        <activity android:name=".controllers.Signup" />
-        <activity android:name=".controllers.Login" />
-        <activity android:name=".controllers.CreateActivity" />
-        <activity android:name=".controllers.ActivitiesList" />
-        <activity android:name=".controllers.ShowMyActivity" />
-        <activity
-            android:name=".controllers.FriendsList"
-            android:label="@string/title_activity_friends_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".controllers.ShowFriend" />
-        <activity
-            android:name=".controllers.Dashboard"
-            android:label="@string/title_activity_dashboard"
-            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
+        <activity
+            android:name=".controllers.Signup"
+            android:label="@string/signupTitle" />
+        <activity
+            android:name=".controllers.Login"
+            android:label="@string/loginTitle" />
+        <activity
+            android:name=".controllers.CreateActivity"
+            android:label="@string/create_activity" />
+        <activity
+            android:name=".controllers.ActivitiesList"
+            android:label="@string/list_activities" />
+        <activity
+            android:name=".controllers.ShowMyActivity"
+            android:label="@string/list_activities" />
+        <activity
+            android:name=".controllers.FriendsList"
+            android:label="@string/title_activity_friends_list" />
+        <activity
+            android:name=".controllers.ShowFriend"
+            android:label="@string/title_activity_friends_list" />
+        <activity
+            android:name=".controllers.Dashboard"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

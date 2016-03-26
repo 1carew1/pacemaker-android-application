@@ -13,11 +13,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import org.pacemaker.R;
+import org.pacemaker.main.PacemakerApp;
+import org.pacemaker.models.User;
+
+import java.util.Map;
 
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String TAG = "Dashboard";
+
+    private TextView messageToUser;
+    private User loggedInUser;
+    private PacemakerApp app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +39,16 @@ public class Dashboard extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        // Use this if you want to create an email button bottom right of the page
+        // Alos need to uncomment from app_bar_dashboard.xml
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -43,6 +58,13 @@ public class Dashboard extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        app = (PacemakerApp) getApplication();
+        loggedInUser = app.getLoggedInUser();
+        messageToUser = (TextView) findViewById(R.id.dashboardMessage);
+        String messageToUserString = "Hello " + loggedInUser.firstname + " and welcome to your dashboard";
+        messageToUser.setText(messageToUserString);
+
     }
 
     @Override
@@ -71,6 +93,8 @@ public class Dashboard extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent nextAct = new Intent(this, Welcome.class);
+            startActivity(nextAct);
             return true;
         }
 
@@ -82,20 +106,31 @@ public class Dashboard extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Intent i = new Intent(this, Welcome.class);
+        boolean willIStartTheActivity = true;
 
-        if (id == R.id.activitiesNavigation) {
-            Intent i = new Intent(this, Welcome.class);
+        if (id == R.id.activitiesList) {
+            i = new Intent(this, ActivitiesList.class);
+            willIStartTheActivity = true;
+        } else if (id == R.id.createActivity) {
+            i = new Intent(this, CreateActivity.class);
+            willIStartTheActivity = true;
+        } else if (id == R.id.friendsList) {
+            i = new Intent(this, FriendsList.class);
+            willIStartTheActivity = true;
+        } else if (id == R.id.viewAllUsers) {
+            //put something here
+        } else if (id == R.id.logoutFromDashboard) {
+            willIStartTheActivity = false;
+            app.logout();
+            finish();
+        } else {
+            willIStartTheActivity = false;
+            app.logout();
+            finish();
+        }
+        if (willIStartTheActivity) {
             startActivity(i);
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -97,10 +97,6 @@ public class ActivitiesList extends AppCompatActivity implements Response<MyActi
                             public void onClick(DialogInterface dialog, int which) {
                                 //Delete the activity
                                 app.deleteActivity(ActivitiesList.this, selectedActivity, ActivitiesList.this);
-//                                Toast.makeText(ActivitiesList.this, "Activity on the " + selectedActivity.startTime +
-//                                        " to " + selectedActivity.kind + " has been deleted"
-//                                        , Toast.LENGTH_SHORT).show();
-                                //Refresh the Activity
                                 onRestart();
                             }
                         })
@@ -152,21 +148,6 @@ public class ActivitiesList extends AppCompatActivity implements Response<MyActi
         Intent showActivity = new Intent(this, ShowMyActivity.class);
         showActivity.putExtra("SelectedActivity", target);
         startActivity(showActivity);
-    }
-
-    public void createActivityButtonPressed(View view) {
-        Intent i = new Intent(ActivitiesList.this, CreateActivity.class);
-        startActivity(i);
-    }
-
-    public void showFriendsButtonPressed(View view) {
-        Intent i = new Intent(ActivitiesList.this, FriendsList.class);
-        startActivity(i);
-    }
-
-    public void logoutButtonPressed(View view) {
-        app.logout();
-        finish();
     }
 
 }

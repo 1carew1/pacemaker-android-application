@@ -15,16 +15,15 @@ import com.google.gson.Gson;
 import org.pacemaker.R;
 import org.pacemaker.http.Response;
 import org.pacemaker.main.PacemakerApp;
-import org.pacemaker.models.Friends;
 import org.pacemaker.models.User;
 import org.pacemaker.utils.FriendsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendsList extends AppCompatActivity implements Response<User> {
+public class UserList extends AppCompatActivity implements Response<User> {
 
-    public static final String TAG = "FriendsList";
+    public static final String TAG = "UserList";
 
     private PacemakerApp app;
     private ListView friendsListView;
@@ -32,7 +31,7 @@ public class FriendsList extends AppCompatActivity implements Response<User> {
     private FriendsAdapter friendsAdapter;
     private List<User> friendsList = new ArrayList<>();
     private User loggedInUser;
-    private User selectedFriend;
+    private User selectedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,17 +51,32 @@ public class FriendsList extends AppCompatActivity implements Response<User> {
         friendsAdapter = new FriendsAdapter(this, friendsList);
         friendsListView.setAdapter(friendsAdapter);
 
-        app.getFriends(this, this);
+        Gson gS = new Gson();
+        String target = getIntent().getStringExtra("FriendsOrNot");
+        final boolean areWeFriends = gS.fromJson(target, Boolean.class);
+
+        if (areWeFriends) {
+            app.getFriends(this, this);
+
+        } else {
+            app.getUsersWhoAreNotFriends(this, this);
+        }
+
 
         friendsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
 
+                if (areWeFriends) {
+                    selectedUser = loggedInUser.friendsList.get(position);
 
-                selectedFriend = loggedInUser.friendsList.get(position);
-                Log.i(TAG, selectedFriend.toString());
-                listItemPressed(selectedFriend);
+                } else {
+                    selectedUser = loggedInUser.notFriendsList.get(position);
+                }
+
+                Log.i(TAG, selectedUser.toString());
+                listItemPressed(selectedUser);
             }
         });
 

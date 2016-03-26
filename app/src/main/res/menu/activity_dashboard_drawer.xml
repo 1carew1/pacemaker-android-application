@@ -21,9 +21,9 @@
                     android:icon="@drawable/friend"
                     android:title="@string/title_activity_friends_list" />
                 <item
-                    android:id="@+id/viewAllUsers"
+                    android:id="@+id/notFriendsList"
                     android:icon="@drawable/users"
-                    android:title="@string/show_users" />
+                    android:title="@string/add_friends" />
             </menu>
         </item>
         <item android:title="Options">

@@ -21,7 +21,6 @@ import android.widget.Toast;
 public class PacemakerApp extends Application implements Response<User> {
     private Map<String, User> userMapViaEmail = new HashMap<String, User>();
     private Map<Long, User> userMapViaId = new HashMap<Long, User>();
-    private List<User> friendsOfLoggedInUser = new ArrayList<>();
     private User loggedInUser;
     private boolean connected = false;
 
@@ -104,8 +103,9 @@ public class PacemakerApp extends Application implements Response<User> {
         PacemakerAPI.getFriends(context, loggedInUser, responder, "Retrieving Friends...");
     }
 
-    public List<User> getFriends() {
-        return friendsOfLoggedInUser;
+
+    public void getUsersWhoAreNotFriends(Context context, Response<User> responder) {
+        PacemakerAPI.getUsersWhoAreNotFriends(context, loggedInUser, responder, "Retrieving Friends...");
     }
 
 

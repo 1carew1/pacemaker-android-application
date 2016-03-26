@@ -2,9 +2,6 @@ package org.pacemaker.controllers;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,11 +18,12 @@ import org.pacemaker.R;
 import org.pacemaker.main.PacemakerApp;
 import org.pacemaker.models.User;
 
-import java.util.Map;
-
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    //TODO : Add in a message in the dashboard telling the user of their next activity
+    //TODO : Add and unfriend people
+    //TODO : add profile photos
+    // TODO : Add a settings page
     public static final String TAG = "Dashboard";
 
     private TextView messageToUser;
@@ -108,6 +106,10 @@ public class Dashboard extends AppCompatActivity
         int id = item.getItemId();
         Intent i = new Intent(this, Welcome.class);
         boolean willIStartTheActivity = true;
+        boolean areWeFriends = true;
+
+        Gson gS = new Gson();
+
 
         if (id == R.id.activitiesList) {
             i = new Intent(this, ActivitiesList.class);
@@ -116,10 +118,17 @@ public class Dashboard extends AppCompatActivity
             i = new Intent(this, CreateActivity.class);
             willIStartTheActivity = true;
         } else if (id == R.id.friendsList) {
-            i = new Intent(this, FriendsList.class);
+            areWeFriends = true;
+            i = new Intent(this, UserList.class);
+            String target = gS.toJson(areWeFriends);
+            i.putExtra("FriendsOrNot", target);
             willIStartTheActivity = true;
-        } else if (id == R.id.viewAllUsers) {
-            //put something here
+        } else if (id == R.id.notFriendsList) {
+            areWeFriends = false;
+            i = new Intent(this, UserList.class);
+            String target = gS.toJson(areWeFriends);
+            i.putExtra("FriendsOrNot", target);
+            willIStartTheActivity = true;
         } else if (id == R.id.logoutFromDashboard) {
             willIStartTheActivity = false;
             app.logout();

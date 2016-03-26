@@ -43,6 +43,10 @@ public class PacemakerAPI {
     public static void getFriends(Context context, User user, Response<User> response, String dialogMesssage) {
         new GetFriends(context, user, response, dialogMesssage).execute();
     }
+
+    public static void getUsersWhoAreNotFriends(Context context, User user, Response<User> response, String dialogMesssage) {
+        new GetUsersWhoAreNotFriends(context, user, response, dialogMesssage).execute();
+    }
 }
 
 class GetUsers extends Request {
@@ -174,5 +178,40 @@ class GetFriends extends Request {
         }
         user.friendsList = allFriends;
         return allFriends;
+    }
+}
+
+class GetUsersWhoAreNotFriends extends Request {
+    private User user;
+
+    public GetUsersWhoAreNotFriends(Context context, User user, Response<User> callback, String message) {
+        super(context, callback, message);
+        this.user = user;
+    }
+
+    @Override
+    protected List<User> doRequest(Object... params) throws Exception {
+        GetUsers getUsers = new GetUsers(null, null, null);
+        List<User> listOfAllUsers = getUsers.doRequest();
+        GetFriends getFriends = new GetFriends(null, user, null, null);
+        List<User> listOfAllFriends = getFriends.doRequest();
+        if (listOfAllFriends.isEmpty() || listOfAllFriends == null) {
+            listOfAllFriends = new ArrayList<>();
+        }
+        List<User> notFriends = new ArrayList<>();
+        if (listOfAllUsers.isEmpty() || listOfAllUsers == null) {
+            //Do Nothing
+        } else {
+            for (User u : listOfAllUsers) {
+                if (listOfAllFriends.contains(u) || user.equals(u)) {
+                    //Do nothing
+                } else {
+                    notFriends.add(u);
+                }
+            }
+        }
+        user.notFriendsList = notFriends;
+
+        return notFriends;
     }
 }

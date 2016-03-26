@@ -34,7 +34,7 @@
             android:name=".controllers.ShowMyActivity"
             android:label="@string/list_activities" />
         <activity
-            android:name=".controllers.FriendsList"
+            android:name=".controllers.UserList"
             android:label="@string/title_activity_friends_list" />
         <activity
             android:name=".controllers.ShowFriend"

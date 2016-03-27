@@ -26,10 +26,12 @@ public class CreateActivity extends AppCompatActivity implements Response<MyActi
 
     private PacemakerApp app;
 
-    private Button createActivityButton;
     private TextView activityType;
     private TextView activityLocation;
-    private TextView activityDuration;
+    private NumberPicker activityDurationHour;
+    private NumberPicker activityDurationMinute;
+    private NumberPicker activityTimeHour;
+    private NumberPicker activityTimeMinute;
     private NumberPicker distancePicker;
     private DatePicker datePicker;
 
@@ -40,47 +42,47 @@ public class CreateActivity extends AppCompatActivity implements Response<MyActi
 
         app = (PacemakerApp) getApplication();
 
-        createActivityButton = (Button) findViewById(R.id.createActivityButton);
         activityType = (TextView) findViewById(R.id.activityType);
         activityLocation = (TextView) findViewById(R.id.activityLocation);
-        activityDuration = (TextView) findViewById(R.id.activityDuration);
-        distancePicker = (NumberPicker) findViewById(R.id.numberPicker);
+        activityDurationHour = (NumberPicker) findViewById(R.id.durationPickerHour);
+        activityDurationMinute = (NumberPicker) findViewById(R.id.durationPickerMinute);
+        activityTimeHour = (NumberPicker) findViewById(R.id.timePickerHour);
+        activityTimeMinute = (NumberPicker) findViewById(R.id.timePickerMinute);
+        distancePicker = (NumberPicker) findViewById(R.id.distnacePicker);
         datePicker = (MyDatePicker) findViewById(R.id.datePicker);
 
 
         distancePicker.setMinValue(0);
         distancePicker.setMaxValue(200);
+        activityDurationHour.setMinValue(0);
+        activityDurationHour.setMaxValue(23);
+        activityDurationMinute.setMinValue(0);
+        activityDurationMinute.setMaxValue(59);
+        activityTimeHour.setMinValue(0);
+        activityTimeHour.setMaxValue(23);
+        activityTimeMinute.setMinValue(0);
+        activityTimeMinute.setMaxValue(59);
     }
 
     public void createActivityButtonPressed(View view) {
-        double distance = distancePicker.getValue();
-        String type = activityType.getText().toString();
-        String location = activityLocation.getText().toString();
-        String duration = activityDuration.getText().toString();
 
-        if (type.isEmpty() || location.isEmpty() || duration.isEmpty() || !duration.matches("\\d{1,2}\\:\\d{2}")) {
-            Toast errorToast = Toast.makeText(CreateActivity.this, "Please Make sure everything is filled in correctly", Toast.LENGTH_SHORT);
-            errorToast.show();
+        MyActivity activity = new MyActivity();
+        activity = org.pacemaker.utils.ActivtyUtils.changeActivity(this, activity,
+                distancePicker.getValue(), activityType.getText().toString(), activityLocation.getText().toString(),
+                activityDurationHour.getValue(), activityDurationMinute.getValue(),
+                datePicker, activityTimeHour.getValue(), activityTimeMinute.getValue());
+
+        if (activity.kind.equals("IncorrectChange")) {
+
         } else {
-            int day = datePicker.getDayOfMonth();
-            int month = datePicker.getMonth() + 1; //Month starts from 0
-            int year = datePicker.getYear();
-            int hour = 0;
-            int minutes = 0;
-            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
-            String dateTime = year + "-" + month + "-" + day + " " + hour + ":" + minutes;
-            DateTime activietyDateTime = formatter.parseDateTime(dateTime);
-
-            MyActivity activity = new MyActivity(type, location, distance, activietyDateTime, duration);
-
             app.createActivity(this, activity, this);
             Toast finishToast = Toast.makeText(CreateActivity.this, "Activity Created", Toast.LENGTH_SHORT);
             finishToast.show();
             finish();
         }
 
-
     }
+
 
     @Override
     public void setResponse(List<MyActivity> aList) {

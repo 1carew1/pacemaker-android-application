@@ -21,5 +21,13 @@
         android:text="@string/enter_activity_details"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <ImageView
+        android:id="@+id/profilePhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/friendName"
+        android:layout_marginTop="20dp"/>
+
 
 </RelativeLayout>

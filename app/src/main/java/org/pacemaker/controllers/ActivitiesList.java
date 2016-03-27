@@ -102,8 +102,17 @@ public class ActivitiesList extends AppCompatActivity implements Response<MyActi
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // do nothing
+                                // Put back the click listener for the item
                                 Toast.makeText(ActivitiesList.this, "Activity Not Deleted", Toast.LENGTH_SHORT).show();
+                                activitiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position,
+                                                            long id) {
+                                        selectedActivity = loggedInUser.activities.get(position);
+                                        Log.i(TAG, selectedActivity.toString());
+                                        listItemPressed(selectedActivity);
+                                    }
+                                });
                             }
                         })
                         .show();

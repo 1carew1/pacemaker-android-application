@@ -54,18 +54,80 @@
             android:hint="@string/activityLocationHint"
             android:padding="10dip" />
 
-        <EditText
-            android:id="@+id/activityDuration"
+        <TextView
+            android:id="@+id/durationLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/activityType"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignStart="@+id/activityType"
+            android:layout_alignParentLeft="true"
             android:layout_below="@+id/activityLocation"
-            android:ems="10"
-            android:hint="@string/activityDurationHint"
-            android:padding="10dip" />
+            android:padding="10dip"
+            android:text="Duration"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/timeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/activityLocation"
+            android:padding="10dip"
+            android:text="Time"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <NumberPicker
+            android:id="@+id/timePickerHour"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/durationLabel"
+            android:layout_marginTop="1dp"
+            android:layout_toLeftOf="@+id/timeSemiColon" />
+
+        <TextView
+            android:id="@+id/timeSemiColon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/durationLabel"
+            android:layout_toLeftOf="@+id/timePickerMinute"
+            android:padding="8dip"
+            android:text=":"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <NumberPicker
+            android:id="@+id/timePickerMinute"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/durationLabel"
+            android:layout_marginTop="1dp" />
+
+        <NumberPicker
+            android:id="@+id/durationPickerHour"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:layout_alignLeft="@+id/activityType"
+            android:layout_alignParentLeft="true"
+            android:layout_alignStart="@+id/activityType"
+            android:layout_below="@+id/durationLabel"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="1dp" />
+
+        <TextView
+            android:id="@+id/durationSemiColon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/durationLabel"
+            android:layout_toRightOf="@+id/durationPickerHour"
+            android:padding="8dip"
+            android:text=":"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <NumberPicker
+            android:id="@+id/durationPickerMinute"
+            android:layout_width="20dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/durationLabel"
+            android:layout_marginTop="1dp"
+            android:layout_toRightOf="@+id/durationSemiColon" />
 
         <TextView
             android:id="@+id/distanceLabel"
@@ -73,20 +135,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/activityDuration"
+            android:layout_below="@+id/durationPickerHour"
             android:layout_marginTop="5dp"
             android:text="@string/distanceLabel"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <NumberPicker
-            android:id="@+id/numberPicker"
+            android:id="@+id/distnacePicker"
             android:layout_width="10dp"
             android:layout_height="60dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/distanceLabel"
-            android:layout_toRightOf="@+id/datePicker"
-            android:layout_toEndOf="@+id/datePicker"/>
+            android:layout_toEndOf="@+id/datePicker"
+            android:layout_toRightOf="@+id/datePicker" />
 
 
         <org.pacemaker.utils.MyDatePicker

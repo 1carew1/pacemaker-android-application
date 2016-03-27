@@ -2,6 +2,7 @@ package org.pacemaker.controllers;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -17,6 +18,7 @@ public class ShowFriend extends AppCompatActivity {
 
 
     private TextView friendName;
+    private ImageView profilePhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +29,13 @@ public class ShowFriend extends AppCompatActivity {
         app = (PacemakerApp) getApplication();
 
         friendName = (TextView) findViewById(R.id.friendName);
+        profilePhoto = (ImageView) findViewById(R.id.profilePhoto);
 
         Gson gS = new Gson();
         String target = getIntent().getStringExtra("MyFriend");
         myFriend = gS.fromJson(target, User.class);
 
         friendName.setText(myFriend.firstname + " " + myFriend.lastname);
+        org.pacemaker.utils.ImageUtils.setUserImage(profilePhoto, myFriend.profilePhoto);
     }
 }

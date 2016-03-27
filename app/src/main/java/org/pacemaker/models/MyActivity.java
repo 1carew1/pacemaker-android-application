@@ -47,19 +47,36 @@ public class MyActivity {
     }
 
     // 2 activities are equal if their time is equal
+
     @Override
-    public boolean equals(final Object obj) {
-        if (obj instanceof MyActivity) {
-            final MyActivity other = (MyActivity) obj;
-            return Objects.equal(startTime, other.startTime)
-                    ;
-        } else {
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MyActivity activity = (MyActivity) o;
+
+        if (Double.compare(activity.distance, distance) != 0) return false;
+        if (id != null ? !id.equals(activity.id) : activity.id != null) return false;
+        if (kind != null ? !kind.equals(activity.kind) : activity.kind != null) return false;
+        if (location != null ? !location.equals(activity.location) : activity.location != null)
             return false;
-        }
+        if (startTime != null ? !startTime.equals(activity.startTime) : activity.startTime != null)
+            return false;
+        return !(duration != null ? !duration.equals(activity.duration) : activity.duration != null);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(this.id, this.kind, this.location, this.distance, this.duration);
+        int result;
+        long temp;
+        result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (kind != null ? kind.hashCode() : 0);
+        result = 31 * result + (location != null ? location.hashCode() : 0);
+        temp = Double.doubleToLongBits(distance);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (startTime != null ? startTime.hashCode() : 0);
+        result = 31 * result + (duration != null ? duration.hashCode() : 0);
+        return result;
     }
 }

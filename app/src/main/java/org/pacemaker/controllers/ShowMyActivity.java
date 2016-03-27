@@ -33,7 +33,10 @@ public class ShowMyActivity extends AppCompatActivity implements Response<MyActi
     private Button updateActivityButton;
     private TextView activityType;
     private TextView activityLocation;
-    private TextView activityDuration;
+    private NumberPicker activityDurationHour;
+    private NumberPicker activityDurationMinute;
+    private NumberPicker activityTimeHour;
+    private NumberPicker activityTimeMinute;
     private NumberPicker distancePicker;
     private DatePicker datePicker;
 
@@ -47,8 +50,11 @@ public class ShowMyActivity extends AppCompatActivity implements Response<MyActi
         updateActivityButton = (Button) findViewById(R.id.createActivityButton);
         activityType = (TextView) findViewById(R.id.activityType);
         activityLocation = (TextView) findViewById(R.id.activityLocation);
-        activityDuration = (TextView) findViewById(R.id.activityDuration);
-        distancePicker = (NumberPicker) findViewById(R.id.numberPicker);
+        activityDurationHour = (NumberPicker) findViewById(R.id.durationPickerHour);
+        activityDurationMinute = (NumberPicker) findViewById(R.id.durationPickerMinute);
+        activityTimeHour = (NumberPicker) findViewById(R.id.timePickerHour);
+        activityTimeMinute = (NumberPicker) findViewById(R.id.timePickerMinute);
+        distancePicker = (NumberPicker) findViewById(R.id.distnacePicker);
         datePicker = (MyDatePicker) findViewById(R.id.datePicker);
 
         //Get the MyActivity from the Activity List
@@ -60,8 +66,12 @@ public class ShowMyActivity extends AppCompatActivity implements Response<MyActi
         String dateString = selectedActivity.startTime;
         //Temporary Fix to parse dates
         // TODO : Implement better method of date parsing
+        //TODO : Fix this for time parsing + Date parsing
         if (dateString.contains("+")) {
             dateString = dateString.replaceAll("\\+\\d{2}\\:\\d{2}", "");
+        }
+        if (dateString.contains("IST")) {
+            dateString = dateString.replaceAll("IST", "GMT");
         }
         String dateFormatter = "EEE MMM dd HH:mm:ss z yyyy";
 
@@ -74,11 +84,25 @@ public class ShowMyActivity extends AppCompatActivity implements Response<MyActi
 
         activityType.setText(selectedActivity.kind);
         activityLocation.setText(selectedActivity.location);
-        activityDuration.setText(selectedActivity.duration);
+
+        int durationHour = Integer.parseInt(selectedActivity.duration.replaceAll(":\\d{1,2}", ""));
+        int durationMinute = Integer.parseInt(selectedActivity.duration.replaceAll("\\d{1,2}:", ""));
 
         distancePicker.setMinValue(0);
         distancePicker.setMaxValue(200);
         distancePicker.setValue((int) selectedActivity.distance);
+        activityDurationHour.setMinValue(0);
+        activityDurationHour.setMaxValue(23);
+        activityDurationHour.setValue(durationHour);
+        activityDurationMinute.setMinValue(0);
+        activityDurationMinute.setMaxValue(59);
+        activityDurationMinute.setValue(durationMinute);
+        activityTimeHour.setMinValue(0);
+        activityTimeHour.setMaxValue(23);
+        activityTimeHour.setValue(dt.getHourOfDay());
+        activityTimeMinute.setMinValue(0);
+        activityTimeMinute.setMaxValue(59);
+        activityTimeMinute.setValue(dt.getMinuteOfHour());
 
         //Remove the list view option as the same xml is being used for Edit + Create
         updateActivityButton.setText("Update Activity");
@@ -90,38 +114,20 @@ public class ShowMyActivity extends AppCompatActivity implements Response<MyActi
 
 
     public void createActivityButtonPressed(View view) {
-        double distance = distancePicker.getValue();
-        String type = activityType.getText().toString();
-        String location = activityLocation.getText().toString();
-        String duration = activityDuration.getText().toString();
+        selectedActivity = org.pacemaker.utils.ActivtyUtils.changeActivity(this, selectedActivity,
+                distancePicker.getValue(), activityType.getText().toString(), activityLocation.getText().toString(),
+                activityDurationHour.getValue(), activityDurationMinute.getValue(),
+                datePicker, activityTimeHour.getValue(), activityTimeMinute.getValue());
 
-        if (type.isEmpty() || location.isEmpty() || duration.isEmpty() || !duration.matches("\\d{1,2}\\:\\d{2}")) {
-            Toast errorToast = Toast.makeText(this, "Please Make sure everything is filled in correctly", Toast.LENGTH_SHORT);
-            errorToast.show();
+        if (selectedActivity.kind.equals("IncorrectChange")) {
+
         } else {
-            int day = datePicker.getDayOfMonth();
-            int month = datePicker.getMonth() + 1; //Month starts from 0
-            int year = datePicker.getYear();
-            int hour = 0;
-            int minutes = 0;
-            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
-            String dateTime = year + "-" + month + "-" + day + " " + hour + ":" + minutes;
-            DateTime activietyDateTime = formatter.parseDateTime(dateTime);
-
-            selectedActivity.startTime = activietyDateTime.toDate().toString();
-            selectedActivity.kind = type;
-            selectedActivity.distance = distance;
-            selectedActivity.duration = duration;
-            selectedActivity.location = location;
-
             app.updateActivity(this, selectedActivity, this);
             Toast finishToast = Toast.makeText(ShowMyActivity.this, "Activity Updated", Toast.LENGTH_SHORT);
             finishToast.show();
             finish();
         }
-
     }
-
 
 
     @Override

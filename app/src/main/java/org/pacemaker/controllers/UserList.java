@@ -44,9 +44,7 @@ public class UserList extends AppCompatActivity implements Response<User> {
         Log.i(TAG, "In on create for Friends List View for " + loggedInUserString);
 
         friendsListView = (ListView) findViewById(R.id.friendsListView);
-        pageTitle = (TextView) findViewById(R.id.pageTitle);
-        Log.i(TAG, "Setting text of pageTitle");
-        pageTitle.setText("Friends of " + loggedInUserString);
+
 
         friendsAdapter = new FriendsAdapter(this, friendsList);
         friendsListView.setAdapter(friendsAdapter);
@@ -55,12 +53,18 @@ public class UserList extends AppCompatActivity implements Response<User> {
         String target = getIntent().getStringExtra("FriendsOrNot");
         final boolean areWeFriends = gS.fromJson(target, Boolean.class);
 
+        String pageTitleString = "";
         if (areWeFriends) {
             app.getFriends(this, this);
+            pageTitleString = "Friends of " + loggedInUserString;
 
         } else {
             app.getUsersWhoAreNotFriends(this, this);
+            pageTitleString = "Users List";
         }
+        pageTitle = (TextView) findViewById(R.id.pageTitle);
+        Log.i(TAG, "Setting text of pageTitle");
+        pageTitle.setText(pageTitleString);
 
 
         friendsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

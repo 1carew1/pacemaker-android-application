@@ -11,6 +11,7 @@ public class User {
     public String lastname;
     public String email;
     public String password;
+    public String profilePhoto = "images/profilePhotos/default.jpg";
     public List<MyActivity> activities = new ArrayList<>();
     public List<User> friendsList = new ArrayList<>();
     public List<User> notFriendsList = new ArrayList<>();

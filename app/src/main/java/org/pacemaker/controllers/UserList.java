@@ -80,18 +80,20 @@ public class UserList extends AppCompatActivity implements Response<User> {
                 }
 
                 Log.i(TAG, selectedUser.toString());
-                listItemPressed(selectedUser);
+                listItemPressed(selectedUser, areWeFriends);
             }
         });
 
     }
 
-    public void listItemPressed(User friend) {
+    public void listItemPressed(User friend, Boolean weAreFriends) {
 
         Gson gS = new Gson();
-        String target = gS.toJson(friend);
+        String userJson = gS.toJson(friend);
+        String areWeFriends = gS.toJson(weAreFriends);
         Intent showFriend = new Intent(this, ShowFriend.class);
-        showFriend.putExtra("MyFriend", target);
+        showFriend.putExtra("MyFriend", userJson);
+        showFriend.putExtra("WeAreFriendsCheck", areWeFriends);
         startActivity(showFriend);
     }
 

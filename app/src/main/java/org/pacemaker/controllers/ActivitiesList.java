@@ -1,5 +1,6 @@
 package org.pacemaker.controllers;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -48,8 +50,8 @@ public class ActivitiesList extends AppCompatActivity implements Response<MyActi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activities_list);
 
-
         app = (PacemakerApp) getApplication();
+
         loggedInUser = app.getLoggedInUser();
         final String loggedInUserString = loggedInUser.firstname + " " + loggedInUser.lastname;
         Log.i(TAG, "In on create for Activities List View for " + loggedInUserString);
@@ -57,68 +59,79 @@ public class ActivitiesList extends AppCompatActivity implements Response<MyActi
         activitiesListView = (ListView) findViewById(R.id.activitiesListView);
 
         textView = (TextView) findViewById(R.id.textView);
+
         Log.i(TAG, "Setting text of textView");
         textView.setText("Activities of " + loggedInUserString);
 
-        activitiesAdapter = new ActivityAdapter(this, activities);
+        activitiesAdapter = new
+
+                ActivityAdapter(this, activities);
+
         activitiesListView.setAdapter(activitiesAdapter);
+
 
         app.getActivities(this, this);
 
         activitiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
+                                                      @Override
+                                                      public void onItemClick(AdapterView<?> parent, View view, int position,
+                                                                              long id) {
 
 
-                selectedActivity = loggedInUser.activities.get(position);
+                                                          selectedActivity = loggedInUser.activities.get(position);
 
-                Log.i(TAG, selectedActivity.toString());
-                listItemPressed(selectedActivity);
-            }
-        });
+                                                          Log.i(TAG, selectedActivity.toString());
+                                                          listItemPressed(selectedActivity);
+                                                      }
+                                                  }
+
+        );
 
         //Create a hold item listener
-        activitiesListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view,
-                                           int position, long id) {
+        activitiesListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
 
-                // Prevent the on click listener executing when
-                // the on hold listener is executing
-                activitiesListView.setOnItemClickListener(null);
+                                                      {
+                                                          @Override
+                                                          public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                                                                         int position, long id) {
 
-                selectedActivity = loggedInUser.activities.get(position);
+                                                              // Prevent the on click listener executing when
+                                                              // the on hold listener is executing
+                                                              activitiesListView.setOnItemClickListener(null);
 
-                new AlertDialog.Builder(parent.getContext())
-                        .setTitle("Delete Activity")
-                        .setMessage("Are you sure you want to delete this activity?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                //Delete the activity
-                                app.deleteActivity(ActivitiesList.this, selectedActivity, ActivitiesList.this);
-                                onRestart();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // Put back the click listener for the item
-                                Toast.makeText(ActivitiesList.this, "Activity Not Deleted", Toast.LENGTH_SHORT).show();
-                                activitiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(AdapterView<?> parent, View view, int position,
-                                                            long id) {
-                                        selectedActivity = loggedInUser.activities.get(position);
-                                        Log.i(TAG, selectedActivity.toString());
-                                        listItemPressed(selectedActivity);
-                                    }
-                                });
-                            }
-                        })
-                        .show();
-                return false;
-            }
-        });
+                                                              selectedActivity = loggedInUser.activities.get(position);
+
+                                                              new AlertDialog.Builder(parent.getContext())
+                                                                      .setTitle("Delete Activity")
+                                                                      .setMessage("Are you sure you want to delete this activity?")
+                                                                      .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                                                          public void onClick(DialogInterface dialog, int which) {
+                                                                              //Delete the activity
+                                                                              app.deleteActivity(ActivitiesList.this, selectedActivity, ActivitiesList.this);
+                                                                              onRestart();
+                                                                          }
+                                                                      })
+                                                                      .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                                                          public void onClick(DialogInterface dialog, int which) {
+                                                                              // Put back the click listener for the item
+                                                                              Toast.makeText(ActivitiesList.this, "Activity Not Deleted", Toast.LENGTH_SHORT).show();
+                                                                              activitiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                                                                  @Override
+                                                                                  public void onItemClick(AdapterView<?> parent, View view, int position,
+                                                                                                          long id) {
+                                                                                      selectedActivity = loggedInUser.activities.get(position);
+                                                                                      Log.i(TAG, selectedActivity.toString());
+                                                                                      listItemPressed(selectedActivity);
+                                                                                  }
+                                                                              });
+                                                                          }
+                                                                      })
+                                                                      .show();
+                                                              return false;
+                                                          }
+                                                      }
+
+        );
 
     }
 

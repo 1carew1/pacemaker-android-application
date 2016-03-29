@@ -38,7 +38,8 @@
     <string name="title_activity_friends_list">Users</string>
     <string name="add_friends">Add Friends</string>
 
-    <string name="friends">Friends List</string>
+    <string name="friends">Friends</string>
+    <string name="compare">Compare Workouts</string>
     <string name="logout">Logout</string>
     <string name="title_activity_dashboard">Dashboard</string>
 </resources>

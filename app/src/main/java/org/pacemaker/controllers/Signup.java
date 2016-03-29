@@ -16,7 +16,6 @@ import java.util.List;
 
 public class Signup extends AppCompatActivity {
     public static final String TAG = "SignUp";
-    // TODO : Employ a check for Email + Password + Make sure user does not exist
     private PacemakerApp app;
     private List<String> listOfAllUserEmails;
 

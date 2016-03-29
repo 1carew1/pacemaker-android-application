@@ -12,6 +12,16 @@
                     android:id="@+id/createActivity"
                     android:icon="@drawable/ic_menu_send"
                     android:title="Create a New Activity" />
+
+                <item
+                    android:id="@+id/progressReports"
+                    android:icon="@drawable/ic_menu_send"
+                    android:title="Progress Reports" />
+
+                <item
+                    android:id="@+id/suggestedWorkouts"
+                    android:icon="@drawable/ic_menu_send"
+                    android:title="Suggested Workouts" />
             </menu>
         </item>
         <item android:title="Friends">
@@ -19,7 +29,11 @@
                 <item
                     android:id="@+id/friendsList"
                     android:icon="@drawable/friend"
-                    android:title="@string/title_activity_friends_list" />
+                    android:title="@string/friends" />
+                <item
+                    android:id="@+id/compareWorkouts"
+                    android:icon="@drawable/compare_w"
+                    android:title="@string/compare" />
                 <item
                     android:id="@+id/notFriendsList"
                     android:icon="@drawable/users"

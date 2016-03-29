@@ -43,6 +43,10 @@
             android:name=".controllers.Dashboard"
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".controllers.Settings" />
+        <activity android:name=".controllers.ProgressReports" />
+        <activity android:name=".controllers.SuggestedWorkouts" />
+        <activity android:name=".controllers.CompareWorkouts"></activity>
     </application>
 
 </manifest>

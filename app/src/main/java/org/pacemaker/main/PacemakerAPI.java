@@ -3,6 +3,7 @@ package org.pacemaker.main;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.pacemaker.http.Request;
 import org.pacemaker.http.Response;
@@ -46,6 +47,10 @@ public class PacemakerAPI {
 
     public static void getUsersWhoAreNotFriends(Context context, User user, Response<User> response, String dialogMesssage) {
         new GetUsersWhoAreNotFriends(context, user, response, dialogMesssage).execute();
+    }
+
+    public static void addFriend(Context context, User user, Long friendId, Response<User> response, String dialogMesssage) {
+        new AddFriend(context, user, friendId, response, dialogMesssage).execute();
     }
 }
 
@@ -213,5 +218,21 @@ class GetUsersWhoAreNotFriends extends Request {
         user.notFriendsList = notFriends;
 
         return notFriends;
+    }
+}
+
+class AddFriend extends Request {
+    private User user;
+    private long friendId;
+
+    public AddFriend(Context context, User user, Long friendId, Response<User> callback, String message) {
+        super(context, callback, message);
+        this.user = user;
+        this.friendId = friendId;
+    }
+
+    @Override
+    protected Object doRequest(Object... params) throws Exception {
+        return Rest.post("/api/users/" + user.id + "/friends/" + friendId, "");
     }
 }

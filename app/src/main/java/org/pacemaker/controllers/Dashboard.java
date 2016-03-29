@@ -22,8 +22,9 @@ public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     //TODO : Add in a message in the dashboard telling the user of their next activity
     //TODO : Add and unfriend people
-    //TODO : add profile photos
+    //TODO : add profile photos upload + deletion
     // TODO : Add a settings page
+    //TODO : Look into storing data + autologin
     public static final String TAG = "Dashboard";
 
     private TextView messageToUser;
@@ -91,8 +92,8 @@ public class Dashboard extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent nextAct = new Intent(this, Welcome.class);
-            startActivity(nextAct);
+            Intent settingsActivity = new Intent(this, Settings.class);
+            startActivity(settingsActivity);
             return true;
         }
 
@@ -133,6 +134,15 @@ public class Dashboard extends AppCompatActivity
             willIStartTheActivity = false;
             app.logout();
             finish();
+        } else if (id == R.id.progressReports) {
+            i = new Intent(this, ProgressReports.class);
+            willIStartTheActivity = true;
+        } else if (id == R.id.suggestedWorkouts) {
+            i = new Intent(this, SuggestedWorkouts.class);
+            willIStartTheActivity = true;
+        } else if (id == R.id.compareWorkouts) {
+            i = new Intent(this, CompareWorkouts.class);
+            willIStartTheActivity = true;
         } else {
             willIStartTheActivity = false;
             app.logout();

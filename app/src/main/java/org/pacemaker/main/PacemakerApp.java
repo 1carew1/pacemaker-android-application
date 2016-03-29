@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.pacemaker.controllers.Login;
 import org.pacemaker.http.Response;
 import org.pacemaker.models.Friends;
 import org.pacemaker.models.MyActivity;
@@ -13,6 +14,8 @@ import org.pacemaker.models.User;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.widget.Toast;
@@ -74,6 +77,11 @@ public class PacemakerApp extends Application implements Response<User> {
     }
 
     public void logout() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        prefs
+                .edit()
+                .clear()
+                .apply();
         loggedInUser = null;
     }
 
@@ -106,6 +114,10 @@ public class PacemakerApp extends Application implements Response<User> {
 
     public void getUsersWhoAreNotFriends(Context context, Response<User> responder) {
         PacemakerAPI.getUsersWhoAreNotFriends(context, loggedInUser, responder, "Retrieving Friends...");
+    }
+
+    public void addFriend(Long friendId) {
+        PacemakerAPI.addFriend(this, loggedInUser, friendId, this, "Adding Friend.....");
     }
 
 

@@ -7,5 +7,6 @@
     <item name="ic_menu_send" type="drawable">@android:drawable/ic_menu_send</item>
     <item name="activity" type="drawable">@android:drawable/spinner_background</item>
     <item name="friend" type="drawable">@android:drawable/stat_notify_chat</item>
+    <item name="compare_w" type="drawable">@android:drawable/ic_media_rew</item>
     <item name="users" type="drawable">@android:drawable/presence_invisible</item>
 </resources>

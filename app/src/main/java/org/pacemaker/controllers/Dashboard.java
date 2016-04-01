@@ -20,6 +20,25 @@ import org.pacemaker.models.User;
 
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    /*
+    Implement/ed Patterns:
+   Creational
+        Builder - Used when deleting an activity - Dialog Builder
+        Dependency Injection - Will be using shared preferences for this - http://google.github.io/dagger/
+        Singleton - Used as the Application
+
+   Structural
+        Adapter - Used anywhere we have an Adapter
+        Facade - Ion is Facade and this application does not care how Ion pulls the image - Also see http://square.github.io/retrofit/
+
+  Behavioral
+        Command - To be added - See https://github.com/greenrobot/EventBus
+        Observer - To be added - https://github.com/ReactiveX/RxAndroid
+        Model View Controller - Android, Models are User, View are the xml layout and Controllers are the Activities
+
+     */
+
+
     //TODO : Add in a message in the dashboard telling the user of their next activity
     //TODO : Add and unfriend people
     //TODO : add profile photos upload + deletion

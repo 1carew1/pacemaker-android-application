@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="org.pacemaker.controllers.Login" >
+    tools:context="org.pacemaker.controllers.Login">
 
     <TextView
         android:id="@+id/loginTitle"
@@ -39,7 +39,7 @@
         android:layout_marginTop="17dp"
         android:ems="10"
         android:hint="@string/loginEmail"
-        android:inputType="textEmailAddress" >
+        android:inputType="textEmailAddress">
 
         <requestFocus />
     </EditText>
@@ -59,9 +59,10 @@
         android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/loginPassword"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:onClick="signinPressed"        
+        android:layout_marginTop="10dp"
+        android:onClick="signinPressed"
         android:text="@string/loginSignin" />
 
 </RelativeLayout>

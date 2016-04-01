@@ -32,32 +32,17 @@ public class Login extends AppCompatActivity {
         String userEmail = email.getText().toString();
         String userPassword = password.getText().toString();
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        String PREF_USER_NAME = "userEmail";
-        String PREF_PASSWORD = "userPassword";
 
-        if(prefs.getString(PREF_USER_NAME, "NONE").isEmpty()) {
-            boolean loggedIn = app.loginUser(userEmail, userPassword);
-            if (loggedIn) {
-//            edit.clear();
-                prefs
-                        .edit()
-                        .putString(PREF_USER_NAME, userEmail)
-                        .putString(PREF_PASSWORD, userPassword)
-                        .apply();
+        boolean loggedIn = app.loginUser(userEmail, userPassword);
+        if (loggedIn) {
 
-                startActivity(new Intent(this, Dashboard.class));
-            } else {
-                Toast toast = Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        } else {
             startActivity(new Intent(this, Dashboard.class));
+        } else {
+            Toast toast = Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT);
+            toast.show();
         }
-
-
-
     }
+
 
     //Using this to refresh the list when returned to from another activity
     @Override

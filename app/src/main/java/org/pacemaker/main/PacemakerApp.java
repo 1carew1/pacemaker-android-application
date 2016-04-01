@@ -14,7 +14,6 @@ import org.pacemaker.models.User;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.ArrayMap;
 import android.util.Log;
@@ -77,11 +76,6 @@ public class PacemakerApp extends Application implements Response<User> {
     }
 
     public void logout() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        prefs
-                .edit()
-                .clear()
-                .apply();
         loggedInUser = null;
     }
 

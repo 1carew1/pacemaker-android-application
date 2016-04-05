@@ -1,24 +1,24 @@
 package org.pacemaker.main;
 
 
+import android.app.Application;
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+
+import org.pacemaker.database.SQLLiteDataSource;
+import org.pacemaker.http.Response;
+import org.pacemaker.models.MyActivity;
+import org.pacemaker.models.User;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.pacemaker.controllers.Login;
-import org.pacemaker.http.Response;
-import org.pacemaker.models.Friends;
-import org.pacemaker.models.MyActivity;
-import org.pacemaker.models.User;
-
-import android.app.Application;
-import android.content.Context;
-import android.preference.PreferenceManager;
-import android.util.ArrayMap;
-import android.util.Log;
-import android.widget.Toast;
-
+//TODO : Replace this with alternative method Application This is only good for temporary data
+//TODO : Save data to device storage ! - Used Shared Preferences or SQL Like DB
+// android.database.sqllite
 
 public class PacemakerApp extends Application implements Response<User> {
     private Map<String, User> userMapViaEmail = new HashMap<String, User>();

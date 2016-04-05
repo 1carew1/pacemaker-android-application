@@ -1,6 +1,7 @@
 package org.pacemaker.controllers;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,16 +11,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import org.pacemaker.R;
+import org.pacemaker.database.SQLLiteDataSource;
 import org.pacemaker.main.PacemakerApp;
 import org.pacemaker.models.User;
 
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private SQLLiteDataSource datasource;
     /*
     Implement/ed Patterns:
    Creational
@@ -56,6 +62,8 @@ public class Dashboard extends AppCompatActivity
         setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        datasource = new SQLLiteDataSource(this);
+        searchDatabase();
 
         // Use this if you want to create an email button bottom right of the page
         // Alos need to uncomment from app_bar_dashboard.xml
@@ -174,5 +182,20 @@ public class Dashboard extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void searchDatabase() {
+
+
+        Cursor cursor = datasource.getUser();
+        if (cursor.moveToNext()) {
+            String name = cursor.getString(cursor.getColumnIndex(SQLLiteDataSource.FIRST_NAME));
+            name += " " + cursor.getString(cursor.getColumnIndex(SQLLiteDataSource.LAST_NAME));
+            Toast.makeText(Dashboard.this, name + " has been saved to db", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(Dashboard.this, "Person not found", Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 }

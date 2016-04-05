@@ -15,8 +15,11 @@ import org.pacemaker.models.User;
 
 import android.content.Context;
 import android.util.ArrayMap;
+import android.util.Log;
 
 public class PacemakerAPI {
+    public static final String TAG = "PacemakerAPI";
+
     public static void getUsers(Context context, Response<User> response, String dialogMesssage) {
         new GetUsers(context, response, dialogMesssage).execute();
     }
@@ -222,6 +225,7 @@ class GetUsersWhoAreNotFriends extends Request {
 }
 
 class AddFriend extends Request {
+    public static final String TAG = "AddFriendInPacemakerAPI";
     private User user;
     private long friendId;
 
@@ -233,6 +237,9 @@ class AddFriend extends Request {
 
     @Override
     protected Object doRequest(Object... params) throws Exception {
-        return Rest.post("/api/users/" + user.id + "/friends/" + friendId, "");
+        String addFriend = "/api/users/" + user.id + "/friends/" + friendId;
+        Log.i(TAG, addFriend);
+        String response = Rest.post(addFriend, "{}");
+        return JsonParser.json2User(response);
     }
 }

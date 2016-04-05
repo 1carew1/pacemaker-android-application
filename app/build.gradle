@@ -33,4 +33,5 @@ dependencies {
     compile 'com.android.support:design:23.2.0'
     compile 'com.google.code.gson:gson:2.2.+'
     compile 'com.koushikdutta.ion:ion:2.+'
+    androidTestCompile 'junit:junit:4.12'
 }

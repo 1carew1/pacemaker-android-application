@@ -52,6 +52,7 @@ public class Dashboard extends AppCompatActivity
     //TODO : add profile photos upload + deletion
     // TODO : Add a settings page
     //TODO : Look into storing data + autologin
+    //TODO : Remove users from the list that are pending ! and devise a way to accept
     public static final String TAG = "Dashboard";
 
     private TextView messageToUser;

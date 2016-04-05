@@ -26,6 +26,8 @@ public class PacemakerApp extends Application implements Response<User> {
     private User loggedInUser;
     private boolean connected = false;
 
+    private static final String TAG = "PacemakerApp";
+
     public void connectToPacemakerAPI(Context context) {
         PacemakerAPI.getUsers(context, this, "Retrieving list of users");
     }
@@ -48,9 +50,10 @@ public class PacemakerApp extends Application implements Response<User> {
 
     @Override
     public void errorOccurred(Exception e) {
-        connected = false;
+       // connected = false;
         Toast toast = Toast.makeText(this, "Failed to connect to Pacemaker Service", Toast.LENGTH_SHORT);
         toast.show();
+        Log.i(TAG, e.getLocalizedMessage());
     }
 
     public void registerUser(Context context, User user) {
@@ -110,8 +113,8 @@ public class PacemakerApp extends Application implements Response<User> {
         PacemakerAPI.getUsersWhoAreNotFriends(context, loggedInUser, responder, "Retrieving Friends...");
     }
 
-    public void addFriend(Long friendId) {
-        PacemakerAPI.addFriend(this, loggedInUser, friendId, this, "Adding Friend.....");
+    public void addFriend(Context context, Long friendId) {
+        PacemakerAPI.addFriend(context, loggedInUser, friendId, this, "Adding Friend.....");
     }
 
 
@@ -119,6 +122,10 @@ public class PacemakerApp extends Application implements Response<User> {
     public void onCreate() {
         super.onCreate();
         Log.v("Pacemaker", "Pacemaker App Started");
+    }
+
+    public Map<String, User> getUserMap() {
+        return  userMapViaEmail;
     }
 }
 

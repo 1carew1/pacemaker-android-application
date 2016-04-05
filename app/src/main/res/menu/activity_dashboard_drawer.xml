@@ -2,29 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:title="Activities">
+        <item android:title="@string/activities">
             <menu>
                 <item
                     android:id="@+id/activitiesList"
                     android:icon="@drawable/activity"
-                    android:title="List of Activites" />
+                    android:title="@string/list_of_activities"/>
                 <item
                     android:id="@+id/createActivity"
                     android:icon="@drawable/ic_menu_send"
-                    android:title="Create a New Activity" />
+                    android:title="@string/create_activity" />
 
                 <item
                     android:id="@+id/progressReports"
-                    android:icon="@drawable/ic_menu_send"
-                    android:title="Progress Reports" />
+                    android:icon="@drawable/progress"
+                    android:title="@string/progress_reports" />
 
                 <item
                     android:id="@+id/suggestedWorkouts"
-                    android:icon="@drawable/ic_menu_send"
-                    android:title="Suggested Workouts" />
+                    android:icon="@drawable/suggest"
+                    android:title="@string/suggested_workouts" />
             </menu>
         </item>
-        <item android:title="Friends">
+        <item android:title="@string/friends">
             <menu>
                 <item
                     android:id="@+id/friendsList"
@@ -40,7 +40,7 @@
                     android:title="@string/add_friends" />
             </menu>
         </item>
-        <item android:title="Options">
+        <item android:title="@string/options">
             <menu>
                 <item
                     android:id="@+id/logoutFromDashboard"

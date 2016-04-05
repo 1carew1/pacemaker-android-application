@@ -2,6 +2,7 @@ package org.pacemaker.controllers;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -11,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import org.pacemaker.R;
 import org.pacemaker.database.SQLLiteDataSource;
 import org.pacemaker.main.PacemakerApp;
 import org.pacemaker.models.User;
+import org.pacemaker.utils.ImageUtils;
 
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -53,6 +55,8 @@ public class Dashboard extends AppCompatActivity
     public static final String TAG = "Dashboard";
 
     private TextView messageToUser;
+    private TextView userName;
+    private ImageView profilePhoto;
     private User loggedInUser;
     private PacemakerApp app;
 
@@ -88,8 +92,14 @@ public class Dashboard extends AppCompatActivity
         app = (PacemakerApp) getApplication();
         loggedInUser = app.getLoggedInUser();
         messageToUser = (TextView) findViewById(R.id.dashboardMessage);
+        userName = (TextView) findViewById(R.id.userName);
+        profilePhoto = (ImageView) findViewById(R.id.userPhoto);
         String messageToUserString = "Hello " + loggedInUser.firstname + " and welcome to your dashboard";
         messageToUser.setText(messageToUserString);
+        userName.setText(loggedInUser.firstname + " " + loggedInUser.lastname);
+        //Make username bold
+        userName.setTypeface(null, Typeface.BOLD);
+        ImageUtils.setUserImage(profilePhoto, loggedInUser.profilePhoto);
 
     }
 

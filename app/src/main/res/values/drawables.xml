@@ -8,5 +8,7 @@
     <item name="activity" type="drawable">@android:drawable/spinner_background</item>
     <item name="friend" type="drawable">@android:drawable/stat_notify_chat</item>
     <item name="compare_w" type="drawable">@android:drawable/ic_media_rew</item>
+    <item name="suggest" type="drawable">@android:drawable/arrow_up_float</item>
+    <item name="progress" type="drawable">@android:drawable/alert_light_frame</item>
     <item name="users" type="drawable">@android:drawable/presence_invisible</item>
 </resources>

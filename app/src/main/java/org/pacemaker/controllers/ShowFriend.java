@@ -73,17 +73,17 @@ public class ShowFriend extends AppCompatActivity {
             addOrRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Delete Friend
+                    app.unFriend(ShowFriend.this, myFriend.id);
                     finish();
                 }
             });
         } else if (weAreFriends.equalsIgnoreCase(PacemakerENUMs.PENDING.toString())) {
-            addOrRemove.setText("Wait For Their Responde");
-            addOrRemove.getBackground().setColorFilter(Color.parseColor("#cc3300"), PorterDuff.Mode.MULTIPLY);
+            addOrRemove.setText("Accept");
+            addOrRemove.getBackground().setColorFilter(Color.parseColor("#33ccff"), PorterDuff.Mode.MULTIPLY);
             addOrRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Delete Friend
+                    app.acceptFriend(ShowFriend.this, myFriend.id);
                     finish();
                 }
             });

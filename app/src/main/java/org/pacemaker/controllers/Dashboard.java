@@ -159,12 +159,17 @@ public class Dashboard extends AppCompatActivity
             areWeFriends = PacemakerENUMs.FRIENDS.toString();
             i = new Intent(this, UserList.class);
             String target = gS.toJson(areWeFriends);
-            i.putExtra("FriendsOrNot", target);
+            i.putExtra(PacemakerENUMs.FRIENDSORNOT.toString(), target);
         } else if (id == R.id.notFriendsList) {
             areWeFriends = PacemakerENUMs.NOTHING.toString();
             i = new Intent(this, UserList.class);
             String target = gS.toJson(areWeFriends);
-            i.putExtra("FriendsOrNot", target);
+            i.putExtra(PacemakerENUMs.FRIENDSORNOT.toString(), target);
+        } else if (id == R.id.pendingFriends) {
+            areWeFriends = PacemakerENUMs.PENDING.toString();
+            i = new Intent(this, UserList.class);
+            String target = gS.toJson(areWeFriends);
+            i.putExtra(PacemakerENUMs.FRIENDSORNOT.toString(), target);
         } else if (id == R.id.logoutFromDashboard) {
             willIStartTheActivity = false;
             app.logout();

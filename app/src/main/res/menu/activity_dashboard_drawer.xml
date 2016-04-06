@@ -32,7 +32,7 @@
                     android:title="@string/friends" />
                 <item
                     android:id="@+id/pendingFriends"
-                    android:icon="@drawable/friend"
+                    android:icon="@drawable/pending_friend"
                     android:title="@string/pending_friends" />
                 <item
                     android:id="@+id/compareWorkouts"

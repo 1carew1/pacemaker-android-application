@@ -58,6 +58,14 @@ public class PacemakerAPI {
     public static void addFriend(Context context, User user, Long friendId, Response<User> response, String dialogMesssage) {
         new AddFriend(context, user, friendId, response, dialogMesssage).execute();
     }
+
+    public static void acceptFriend(Context context, User user, Long friendId, Response<User> response, String dialogMesssage) {
+        new AcceptFriend(context, user, friendId, response, dialogMesssage).execute();
+    }
+
+    public static void unFriend(Context context, User user, Long friendId, Response<User> response, String dialogMesssage) {
+        new UnFriend(context, user, friendId, response, dialogMesssage).execute();
+    }
 }
 
 class GetUsers extends Request {
@@ -177,7 +185,7 @@ class GetFriends extends Request {
         }
         String response = Rest.get("/api/users/" + user.id + "/friends");
         List<Friends> friendsList = JsonParser.json2Friends(response);
-        user.friendObjecList = friendsList;
+        //user.friendObjecList = friendsList;
 
         List<User> allFriends = new ArrayList<>();
         for (Friends f : friendsList) {
@@ -277,14 +285,13 @@ class GetPendingFriendsThatAddedMe extends Request {
         }
         String response = Rest.get("/api/users/" + user.id + "/friendsWhoAddedMe");
         List<Friends> friendsList = JsonParser.json2Friends(response);
-        user.friendObjecList = friendsList;
 
         List<User> allFriends = new ArrayList<>();
         for (Friends f : friendsList) {
             User u = listOfAllUsersMap.get(f.userId);
             allFriends.add(u);
         }
-        user.friendsList = allFriends;
+        user.pendingFriendsList = allFriends;
         return allFriends;
     }
 }
@@ -309,15 +316,52 @@ class GetPendingFriendsThatIAdded extends Request {
         }
         String response = Rest.get("/api/users/" + user.id + "/friendsWhoIAdded");
         List<Friends> friendsList = JsonParser.json2Friends(response);
-        user.friendObjecList = friendsList;
 
         List<User> allFriends = new ArrayList<>();
         for (Friends f : friendsList) {
             User u = listOfAllUsersMap.get(f.friendId);
             allFriends.add(u);
         }
-        user.friendsList = allFriends;
+        //user.friendsList = allFriends;
         return allFriends;
+    }
+}
+
+class AcceptFriend extends Request {
+    public static final String TAG = "AddFriendInPacemakerAPI";
+    private User user;
+    private long friendId;
+
+    public AcceptFriend(Context context, User user, Long friendId, Response<User> callback, String message) {
+        super(context, callback, message);
+        this.user = user;
+        this.friendId = friendId;
+    }
+
+    @Override
+    protected Object doRequest(Object... params) throws Exception {
+        String accept = "/api/users/" + user.id + "/acceptFriend/" + friendId;
+        Log.i(TAG, accept);
+        String response = Rest.post(accept, "{}");
+        return new User();
+    }
+}
+
+class UnFriend extends Request {
+    private User user;
+    private Long friendId;
+
+    public UnFriend(Context context, User user, Long friendId, Response<User> callback, String message) {
+        super(context, callback, message);
+        this.user = user;
+        this.friendId = friendId;
+    }
+
+    @Override
+    protected User doRequest(Object... params) throws Exception {
+
+        Rest.delete("/api/users/" + user.id + "/friends/" + friendId);
+        return new User();
     }
 }
 

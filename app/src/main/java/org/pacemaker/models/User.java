@@ -15,6 +15,7 @@ public class User {
     public List<MyActivity> activities = new ArrayList<>();
     public List<User> friendsList = new ArrayList<>();
     public List<User> notFriendsList = new ArrayList<>();
+    public List<User> pendingFriendsList = new ArrayList<>();
     public List<Friends> friendObjecList = new ArrayList<>();
 
     public User() {

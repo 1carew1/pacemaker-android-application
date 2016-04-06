@@ -43,7 +43,7 @@ public class UserList extends AppCompatActivity implements Response<User> {
         app = (PacemakerApp) getApplication();
         loggedInUser = app.getLoggedInUser();
         final String loggedInUserString = loggedInUser.firstname + " " + loggedInUser.lastname;
-        Log.i(TAG, "In on create for FRIENDS List View for " + loggedInUserString);
+        Log.i(TAG, "In on create for Friends List View for " + loggedInUserString);
 
         friendsListView = (ListView) findViewById(R.id.friendsListView);
 
@@ -52,17 +52,17 @@ public class UserList extends AppCompatActivity implements Response<User> {
         friendsListView.setAdapter(friendsAdapter);
 
         Gson gS = new Gson();
-        String target = getIntent().getStringExtra("FriendsOrNot");
+        String target = getIntent().getStringExtra(PacemakerENUMs.FRIENDSORNOT.toString());
         areWeFriends = gS.fromJson(target, String.class);
 
         String pageTitleString = "";
         if (areWeFriends.equals(PacemakerENUMs.FRIENDS.toString())) {
             app.getFriends(this, this);
-            pageTitleString = "FRIENDS of " + loggedInUserString;
-        }  else  if (areWeFriends.equals(PacemakerENUMs.NOTHING.toString())){
+            pageTitleString = "Friends of " + loggedInUserString;
+        } else if (areWeFriends.equals(PacemakerENUMs.NOTHING.toString())) {
             app.getUsersWhoAreNotFriends(this, this);
             pageTitleString = "Users List";
-        }  else  if (areWeFriends.equals(PacemakerENUMs.PENDING.toString())) {
+        } else if (areWeFriends.equals(PacemakerENUMs.PENDING.toString())) {
             app.getPendingFriends(this, this);
             pageTitleString = "Pending Friends";
         }
@@ -79,9 +79,10 @@ public class UserList extends AppCompatActivity implements Response<User> {
 
                 if (areWeFriends.equalsIgnoreCase(PacemakerENUMs.FRIENDS.toString())) {
                     selectedUser = loggedInUser.friendsList.get(position);
-
-                } else  if (areWeFriends.equalsIgnoreCase(PacemakerENUMs.NOTHING.toString())) {
+                } else if (areWeFriends.equalsIgnoreCase(PacemakerENUMs.NOTHING.toString())) {
                     selectedUser = loggedInUser.notFriendsList.get(position);
+                } else if (areWeFriends.equalsIgnoreCase(PacemakerENUMs.PENDING.toString())) {
+                    selectedUser = loggedInUser.pendingFriendsList.get(position);
                 }
                 Log.i(TAG, selectedUser.toString());
                 listItemPressed(selectedUser, areWeFriends);
@@ -123,9 +124,9 @@ public class UserList extends AppCompatActivity implements Response<User> {
 
     @Override
     public void errorOccurred(Exception e) {
-        Toast toast = Toast.makeText(this, "Error Retrieving Activities...\n" + e.getLocalizedMessage(), Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(this, "Error Retrieving Users...\n" + e.getLocalizedMessage(), Toast.LENGTH_SHORT);
         toast.show();
-        Log.v("Getting Activities", e.getLocalizedMessage());
+        Log.v(TAG, e.getLocalizedMessage());
     }
 
 

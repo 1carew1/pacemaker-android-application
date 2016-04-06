@@ -105,20 +105,28 @@ public class PacemakerApp extends Application implements Response<User> {
     }
 
     public void getFriends(Context context, Response<User> responder) {
-        PacemakerAPI.getFriends(context, loggedInUser, responder, "Retrieving FRIENDS...");
+        PacemakerAPI.getFriends(context, loggedInUser, responder, "Retrieving Friends...");
     }
 
 
     public void getUsersWhoAreNotFriends(Context context, Response<User> responder) {
-        PacemakerAPI.getUsersWhoAreNotFriends(context, loggedInUser, responder, "Retrieving FRIENDS...");
+        PacemakerAPI.getUsersWhoAreNotFriends(context, loggedInUser, responder, "Retrieving Friends to Add...");
     }
 
     public void getPendingFriends(Context context, Response<User> responder) {
-        PacemakerAPI.getPendingFriends(context, loggedInUser, responder, "Retrieving FRIENDS...");
+        PacemakerAPI.getPendingFriends(context, loggedInUser, responder, "Retrieving Pending Friends...");
     }
 
     public void addFriend(Context context, Long friendId) {
         PacemakerAPI.addFriend(context, loggedInUser, friendId, this, "Adding Friend.....");
+    }
+
+    public void acceptFriend(Context context, Long friendId) {
+        PacemakerAPI.acceptFriend(context, loggedInUser, friendId, this, "Acepting Friend.....");
+    }
+
+    public void unFriend(Context context, Long friendId) {
+        PacemakerAPI.unFriend(context, loggedInUser, friendId, this, "Deleting Friend.....");
     }
 
 

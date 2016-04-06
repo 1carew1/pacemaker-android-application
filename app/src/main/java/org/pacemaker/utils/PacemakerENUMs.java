@@ -4,7 +4,7 @@ package org.pacemaker.utils;
  * Created by colmcarew on 06/04/16.
  */
 public enum PacemakerENUMs {
-    NOTHING("nothing"), FRIENDS("friends"), PENDING("pending");
+    NOTHING("nothing"), FRIENDS("friends"), PENDING("pending"), FRIENDSORNOT("friendsornot");
 
     private String s;
 

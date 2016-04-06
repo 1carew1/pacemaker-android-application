@@ -23,6 +23,7 @@ import org.pacemaker.database.SQLLiteDataSource;
 import org.pacemaker.main.PacemakerApp;
 import org.pacemaker.models.User;
 import org.pacemaker.utils.ImageUtils;
+import org.pacemaker.utils.PacemakerENUMs;
 
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -145,42 +146,35 @@ public class Dashboard extends AppCompatActivity
         int id = item.getItemId();
         Intent i = new Intent(this, Welcome.class);
         boolean willIStartTheActivity = true;
-        boolean areWeFriends = true;
+        String areWeFriends;
 
         Gson gS = new Gson();
 
 
         if (id == R.id.activitiesList) {
             i = new Intent(this, ActivitiesList.class);
-            willIStartTheActivity = true;
         } else if (id == R.id.createActivity) {
             i = new Intent(this, CreateActivity.class);
-            willIStartTheActivity = true;
         } else if (id == R.id.friendsList) {
-            areWeFriends = true;
+            areWeFriends = PacemakerENUMs.FRIENDS.toString();
             i = new Intent(this, UserList.class);
             String target = gS.toJson(areWeFriends);
             i.putExtra("FriendsOrNot", target);
-            willIStartTheActivity = true;
         } else if (id == R.id.notFriendsList) {
-            areWeFriends = false;
+            areWeFriends = PacemakerENUMs.NOTHING.toString();
             i = new Intent(this, UserList.class);
             String target = gS.toJson(areWeFriends);
             i.putExtra("FriendsOrNot", target);
-            willIStartTheActivity = true;
         } else if (id == R.id.logoutFromDashboard) {
             willIStartTheActivity = false;
             app.logout();
             finish();
         } else if (id == R.id.progressReports) {
             i = new Intent(this, ProgressReports.class);
-            willIStartTheActivity = true;
         } else if (id == R.id.suggestedWorkouts) {
             i = new Intent(this, SuggestedWorkouts.class);
-            willIStartTheActivity = true;
         } else if (id == R.id.compareWorkouts) {
             i = new Intent(this, CompareWorkouts.class);
-            willIStartTheActivity = true;
         } else {
             willIStartTheActivity = false;
             app.logout();

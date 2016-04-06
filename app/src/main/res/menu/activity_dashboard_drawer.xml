@@ -31,6 +31,10 @@
                     android:icon="@drawable/friend"
                     android:title="@string/friends" />
                 <item
+                    android:id="@+id/pendingFriends"
+                    android:icon="@drawable/friend"
+                    android:title="@string/pending_friends" />
+                <item
                     android:id="@+id/compareWorkouts"
                     android:icon="@drawable/compare_w"
                     android:title="@string/compare" />

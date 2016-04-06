@@ -3,7 +3,6 @@ package org.pacemaker.main;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import org.pacemaker.http.Request;
 import org.pacemaker.http.Response;
@@ -50,6 +49,10 @@ public class PacemakerAPI {
 
     public static void getUsersWhoAreNotFriends(Context context, User user, Response<User> response, String dialogMesssage) {
         new GetUsersWhoAreNotFriends(context, user, response, dialogMesssage).execute();
+    }
+
+    public static void getPendingFriends(Context context, User user, Response<User> response, String dialogMesssage) {
+        new GetPendingFriendsThatAddedMe(context, user, response, dialogMesssage).execute();
     }
 
     public static void addFriend(Context context, User user, Long friendId, Response<User> response, String dialogMesssage) {
@@ -201,8 +204,19 @@ class GetUsersWhoAreNotFriends extends Request {
     protected List<User> doRequest(Object... params) throws Exception {
         GetUsers getUsers = new GetUsers(null, null, null);
         List<User> listOfAllUsers = getUsers.doRequest();
+
         GetFriends getFriends = new GetFriends(null, user, null, null);
         List<User> listOfAllFriends = getFriends.doRequest();
+
+        GetPendingFriendsThatAddedMe pendingFriends = new GetPendingFriendsThatAddedMe(null, user, null, null);
+        List<User> listOfPendingFriends = pendingFriends.doRequest();
+
+        GetPendingFriendsThatIAdded pendingFriendsIAdded = new GetPendingFriendsThatIAdded(null, user, null, null);
+        List<User> listOfPendingFriendsIAdded = pendingFriendsIAdded.doRequest();
+
+        listOfAllFriends.addAll(listOfPendingFriends);
+        listOfAllFriends.addAll(listOfPendingFriendsIAdded);
+
         if (listOfAllFriends.isEmpty() || listOfAllFriends == null) {
             listOfAllFriends = new ArrayList<>();
         }
@@ -240,6 +254,70 @@ class AddFriend extends Request {
         String addFriend = "/api/users/" + user.id + "/friends/" + friendId;
         Log.i(TAG, addFriend);
         String response = Rest.post(addFriend, "{}");
-        return JsonParser.json2User(response);
+        return new User();
     }
 }
+
+class GetPendingFriendsThatAddedMe extends Request {
+    private User user;
+
+    public GetPendingFriendsThatAddedMe(Context context, User user, Response<User> callback, String message) {
+        super(context, callback, message);
+        this.user = user;
+    }
+
+    @Override
+    protected List<User> doRequest(Object... params) throws Exception {
+        GetUsers getUsers = new GetUsers(null, null, null);
+        List<User> listOfAllUsers = getUsers.doRequest();
+        // Update to API level 19
+        Map<Long, User> listOfAllUsersMap = new ArrayMap<Long, User>();
+        for (User u : listOfAllUsers) {
+            listOfAllUsersMap.put(u.id, u);
+        }
+        String response = Rest.get("/api/users/" + user.id + "/friendsWhoAddedMe");
+        List<Friends> friendsList = JsonParser.json2Friends(response);
+        user.friendObjecList = friendsList;
+
+        List<User> allFriends = new ArrayList<>();
+        for (Friends f : friendsList) {
+            User u = listOfAllUsersMap.get(f.userId);
+            allFriends.add(u);
+        }
+        user.friendsList = allFriends;
+        return allFriends;
+    }
+}
+
+
+class GetPendingFriendsThatIAdded extends Request {
+    private User user;
+
+    public GetPendingFriendsThatIAdded(Context context, User user, Response<User> callback, String message) {
+        super(context, callback, message);
+        this.user = user;
+    }
+
+    @Override
+    protected List<User> doRequest(Object... params) throws Exception {
+        GetUsers getUsers = new GetUsers(null, null, null);
+        List<User> listOfAllUsers = getUsers.doRequest();
+        // Update to API level 19
+        Map<Long, User> listOfAllUsersMap = new ArrayMap<Long, User>();
+        for (User u : listOfAllUsers) {
+            listOfAllUsersMap.put(u.id, u);
+        }
+        String response = Rest.get("/api/users/" + user.id + "/friendsWhoIAdded");
+        List<Friends> friendsList = JsonParser.json2Friends(response);
+        user.friendObjecList = friendsList;
+
+        List<User> allFriends = new ArrayList<>();
+        for (Friends f : friendsList) {
+            User u = listOfAllUsersMap.get(f.friendId);
+            allFriends.add(u);
+        }
+        user.friendsList = allFriends;
+        return allFriends;
+    }
+}
+

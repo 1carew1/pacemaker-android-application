@@ -17,6 +17,7 @@ import org.pacemaker.http.Response;
 import org.pacemaker.main.PacemakerApp;
 import org.pacemaker.models.User;
 import org.pacemaker.utils.FriendsAdapter;
+import org.pacemaker.utils.PacemakerENUMs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class UserList extends AppCompatActivity implements Response<User> {
     private List<User> friendsList = new ArrayList<>();
     private User loggedInUser;
     private User selectedUser;
+    private String areWeFriends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class UserList extends AppCompatActivity implements Response<User> {
         app = (PacemakerApp) getApplication();
         loggedInUser = app.getLoggedInUser();
         final String loggedInUserString = loggedInUser.firstname + " " + loggedInUser.lastname;
-        Log.i(TAG, "In on create for Friends List View for " + loggedInUserString);
+        Log.i(TAG, "In on create for FRIENDS List View for " + loggedInUserString);
 
         friendsListView = (ListView) findViewById(R.id.friendsListView);
 
@@ -51,17 +53,20 @@ public class UserList extends AppCompatActivity implements Response<User> {
 
         Gson gS = new Gson();
         String target = getIntent().getStringExtra("FriendsOrNot");
-        final boolean areWeFriends = gS.fromJson(target, Boolean.class);
+        areWeFriends = gS.fromJson(target, String.class);
 
         String pageTitleString = "";
-        if (areWeFriends) {
+        if (areWeFriends.equals(PacemakerENUMs.FRIENDS.toString())) {
             app.getFriends(this, this);
-            pageTitleString = "Friends of " + loggedInUserString;
-
-        } else {
+            pageTitleString = "FRIENDS of " + loggedInUserString;
+        }  else  if (areWeFriends.equals(PacemakerENUMs.NOTHING.toString())){
             app.getUsersWhoAreNotFriends(this, this);
             pageTitleString = "Users List";
+        }  else  if (areWeFriends.equals(PacemakerENUMs.PENDING.toString())) {
+            app.getPendingFriends(this, this);
+            pageTitleString = "Pending Friends";
         }
+
         pageTitle = (TextView) findViewById(R.id.pageTitle);
         Log.i(TAG, "Setting text of pageTitle");
         pageTitle.setText(pageTitleString);
@@ -72,13 +77,12 @@ public class UserList extends AppCompatActivity implements Response<User> {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
 
-                if (areWeFriends) {
+                if (areWeFriends.equalsIgnoreCase(PacemakerENUMs.FRIENDS.toString())) {
                     selectedUser = loggedInUser.friendsList.get(position);
 
-                } else {
+                } else  if (areWeFriends.equalsIgnoreCase(PacemakerENUMs.NOTHING.toString())) {
                     selectedUser = loggedInUser.notFriendsList.get(position);
                 }
-
                 Log.i(TAG, selectedUser.toString());
                 listItemPressed(selectedUser, areWeFriends);
             }
@@ -86,7 +90,7 @@ public class UserList extends AppCompatActivity implements Response<User> {
 
     }
 
-    public void listItemPressed(User friend, Boolean weAreFriends) {
+    public void listItemPressed(User friend, String weAreFriends) {
 
         Gson gS = new Gson();
         String userJson = gS.toJson(friend);

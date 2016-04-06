@@ -20,12 +20,13 @@ import org.pacemaker.http.Rest;
 import org.pacemaker.main.PacemakerApp;
 import org.pacemaker.models.Friends;
 import org.pacemaker.models.User;
+import org.pacemaker.utils.PacemakerENUMs;
 
 public class ShowFriend extends AppCompatActivity {
     private static final String TAG = "ShowFriendActivity";
 
     private User myFriend;
-    private boolean weAreFriends;
+    private String weAreFriends;
     private PacemakerApp app;
 
 
@@ -51,11 +52,11 @@ public class ShowFriend extends AppCompatActivity {
         String userJson = getIntent().getStringExtra("MyFriend");
         String weAreFriendsJson = getIntent().getStringExtra("WeAreFriendsCheck");
         myFriend = gS.fromJson(userJson, User.class);
-        weAreFriends = gS.fromJson(weAreFriendsJson, Boolean.class);
+        weAreFriends = gS.fromJson(weAreFriendsJson, String.class);
 
 
         friendName.setText(myFriend.firstname + " " + myFriend.lastname);
-        if (!weAreFriends) {
+        if (weAreFriends.equalsIgnoreCase(PacemakerENUMs.NOTHING.toString())) {
             addOrRemove.setText("Add Friend");
             addOrRemove.getBackground().setColorFilter(Color.parseColor("#33ccff"), PorterDuff.Mode.MULTIPLY);
             //TODO : Implement method of adding + removing friends
@@ -66,8 +67,18 @@ public class ShowFriend extends AppCompatActivity {
                     finish();
                 }
             });
-        } else {
+        } else if (weAreFriends.equalsIgnoreCase(PacemakerENUMs.FRIENDS.toString())) {
             addOrRemove.setText("Unfriend");
+            addOrRemove.getBackground().setColorFilter(Color.parseColor("#cc3300"), PorterDuff.Mode.MULTIPLY);
+            addOrRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Delete Friend
+                    finish();
+                }
+            });
+        } else if (weAreFriends.equalsIgnoreCase(PacemakerENUMs.PENDING.toString())) {
+            addOrRemove.setText("Wait For Their Responde");
             addOrRemove.getBackground().setColorFilter(Color.parseColor("#cc3300"), PorterDuff.Mode.MULTIPLY);
             addOrRemove.setOnClickListener(new View.OnClickListener() {
                 @Override

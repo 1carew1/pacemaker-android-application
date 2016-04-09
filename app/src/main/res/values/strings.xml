@@ -47,4 +47,6 @@
     <string name="compare">Compare Workouts</string>
     <string name="logout">Logout</string>
     <string name="title_activity_dashboard">Dashboard</string>
+    <string name="uploadProfilePhoto">Upload Profile Photo</string>
+    <string name="submit">Submit</string>
 </resources>

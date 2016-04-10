@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,25 +9,40 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="org.pacemaker.controllers.ProgressReports">
 
-    <TextView
-        android:id="@+id/progressReportsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/activities"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/progressReportsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/activities"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
-    <ListView
-        android:id="@+id/finishedActivitiesListView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/progressReportsTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        <ListView
+            android:id="@+id/finishedActivitiesListView"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_below="@+id/progressReportsTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/perscribeMyWorkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/finishedActivitiesListView"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:onClick="perscribeMyWorkoutClick"
+            android:text="@string/perscribeMyWorkout"/>
+    </RelativeLayout>
+
+</ScrollView>

@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -43,17 +43,22 @@ public class Settings extends AppCompatActivity {
         userImage = (ImageView) findViewById(R.id.uploadedImage);
         submit = (Button) findViewById(R.id.submitButton);
         //Make submit invisible until photo selected
-        submit.setVisibility(View.GONE);
+        submit.setVisibility(View.INVISIBLE);
         //Set the photo to be user user photo
         ImageUtils.setUserImage(userImage, loggedInUser.profilePhoto);
     }
 
     public void uploadImage(View view) {
+        Log.i(TAG, "User picking photo");
         startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
     }
 
     public void submitPhoto(View view) {
-        //TODO : Use REST to push photo to server
+        try {
+            ImageUtils.uploadUserProfilePhoto(Settings.this, bitmap, loggedInUser.id);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Toast submitToast = Toast.makeText(Settings.this, "About to upload photo to production", Toast.LENGTH_SHORT);
         submitToast.show();
     }
@@ -62,7 +67,7 @@ public class Settings extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.i(TAG, "About to get the photo and display on screen");
         //Detects request codes
         if (requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
             Uri selectedImage = data.getData();

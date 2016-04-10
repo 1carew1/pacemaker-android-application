@@ -1,7 +1,6 @@
 package org.pacemaker.controllers;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,21 +13,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import org.pacemaker.R;
-import org.pacemaker.database.SQLLiteDataSource;
 import org.pacemaker.main.PacemakerApp;
 import org.pacemaker.models.User;
 import org.pacemaker.utils.ImageUtils;
 import org.pacemaker.utils.PacemakerENUMs;
 
+import io.realm.Realm;
+
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private SQLLiteDataSource datasource;
+
     /*
     Implement/ed Patterns:
    Creational
@@ -61,6 +60,7 @@ public class Dashboard extends AppCompatActivity
     private ImageView profilePhoto;
     private User loggedInUser;
     private PacemakerApp app;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +68,6 @@ public class Dashboard extends AppCompatActivity
         setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        datasource = new SQLLiteDataSource(this);
-        searchDatabase();
 
         // Use this if you want to create an email button bottom right of the page
         // Alos need to uncomment from app_bar_dashboard.xml
@@ -92,6 +90,7 @@ public class Dashboard extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         app = (PacemakerApp) getApplication();
+        realm = Realm.getInstance(this);
         loggedInUser = app.getLoggedInUser();
         messageToUser = (TextView) findViewById(R.id.dashboardMessage);
         userName = (TextView) findViewById(R.id.userName);
@@ -194,18 +193,4 @@ public class Dashboard extends AppCompatActivity
         return true;
     }
 
-    public void searchDatabase() {
-
-
-        Cursor cursor = datasource.getUser();
-        if (cursor.moveToNext()) {
-            String name = cursor.getString(cursor.getColumnIndex(SQLLiteDataSource.FIRST_NAME));
-            name += " " + cursor.getString(cursor.getColumnIndex(SQLLiteDataSource.LAST_NAME));
-            Toast.makeText(Dashboard.this, name + " has been saved to db", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(Dashboard.this, "Person not found", Toast.LENGTH_SHORT).show();
-        }
-
-
-    }
 }

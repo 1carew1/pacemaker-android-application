@@ -64,21 +64,7 @@ public class ShowMyActivity extends AppCompatActivity implements Response<MyActi
 
         //Create a way of parsing the date
         String dateString = selectedActivity.startTime;
-        //Temporary Fix to parse dates
-        // TODO : Implement better method of date parsing
-        //TODO : Fix this for time parsing + Date parsing
-        if (dateString.contains("+")) {
-            dateString = dateString.replaceAll("\\+\\d{2}\\:\\d{2}", "");
-        }
-        if (dateString.contains("IST")) {
-            dateString = dateString.replaceAll("IST", "GMT");
-        }
-        String dateFormatter = "EEE MMM dd HH:mm:ss z yyyy";
-
-
-        DateTimeFormatter formatter = DateTimeFormat.forPattern(dateFormatter);
-        DateTime dt = formatter.parseDateTime(dateString);
-
+        DateTime dt = org.pacemaker.utils.ActivtyUtils.stringToDatetime(dateString);
         //Set the date in the date picker
         datePicker.updateDate(dt.getYear(), dt.getMonthOfYear() - 1, dt.getDayOfMonth());
 

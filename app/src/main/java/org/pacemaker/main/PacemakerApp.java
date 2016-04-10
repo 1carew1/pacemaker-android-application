@@ -6,7 +6,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.pacemaker.database.SQLLiteDataSource;
 import org.pacemaker.http.Response;
 import org.pacemaker.models.MyActivity;
 import org.pacemaker.models.User;

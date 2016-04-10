@@ -105,6 +105,7 @@ class GetActivities extends Request {
     protected List<MyActivity> doRequest(Object... params) throws Exception {
         String response = Rest.get("/api/users/" + user.id + "/activities");
         List<MyActivity> activityList = JsonParser.json2Activities(response);
+        activityList = org.pacemaker.utils.ActivtyUtils.sortActivitiesByDate(activityList);
         //This is used to give each activity the correct locations
         for (MyActivity activity : activityList) {
             String getLocationsString = Rest.get("/api/users/" + user.id + "/activities/" + activity.id + "/routes");

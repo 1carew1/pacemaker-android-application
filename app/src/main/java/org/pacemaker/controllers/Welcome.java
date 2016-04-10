@@ -30,4 +30,10 @@ public class Welcome extends AppCompatActivity {
     public void signupPressed(View view) {
         startActivity(new Intent(this, Signup.class));
     }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        app.connectToPacemakerAPI(this);
+    }
 }

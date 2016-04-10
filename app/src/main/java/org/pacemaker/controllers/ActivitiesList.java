@@ -1,24 +1,16 @@
 package org.pacemaker.controllers;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.pacemaker.utils.ActivityAdapter;
 
 import com.google.gson.Gson;
 
@@ -27,6 +19,7 @@ import org.pacemaker.http.Response;
 import org.pacemaker.main.PacemakerApp;
 import org.pacemaker.models.MyActivity;
 import org.pacemaker.models.User;
+import org.pacemaker.utils.ActivityAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,9 +56,7 @@ public class ActivitiesList extends AppCompatActivity implements Response<MyActi
         Log.i(TAG, "Setting text of textView");
         textView.setText("Activities of " + loggedInUserString);
 
-        activitiesAdapter = new
-
-                ActivityAdapter(this, activities);
+        activitiesAdapter = new ActivityAdapter(this, activities);
 
         activitiesListView.setAdapter(activitiesAdapter);
 
@@ -159,7 +150,7 @@ public class ActivitiesList extends AppCompatActivity implements Response<MyActi
     public void errorOccurred(Exception e) {
         Toast toast = Toast.makeText(this, "Error Retrieving Activities...\n" + e.getLocalizedMessage(), Toast.LENGTH_SHORT);
         toast.show();
-        Log.v("Getting Activities", e.getLocalizedMessage());
+        Log.v(TAG, e.getLocalizedMessage());
     }
 
 

@@ -20,14 +20,14 @@ public class LoseFat implements PerscribeExercise {
             Double totalDistance = 0d;
             for (MyActivity userActivity : userActivities) {
                 totalDurationMilliSeconds += (ActivtyUtils.activityDuration(userActivity.duration).getMillis());
-                totalDistance = userActivity.distance;
+                totalDistance += userActivity.distance;
             }
             Long totalDurationHours = totalDurationMilliSeconds / (1000 * 60 * 60);
             Double avgKmPerHour = totalDistance / totalDurationHours;
             if (avgKmPerHour >= 10 /* This is just the avg km/hr user has done overall - 10 picked arbitrarily */) {
                 suggestedWorkout = "Try some weights and strength building exercises";
             } else {
-                suggestedWorkout = "Increate running/walking speed to 0.5-1 km/hr and excersie for same amount of time";
+                suggestedWorkout = "Increase running/walking speed by 0.5-1 km/hr and excersie for same amount of time";
             }
         }
         return suggestedWorkout;

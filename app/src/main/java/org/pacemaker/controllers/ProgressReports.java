@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.pacemaker.R;
@@ -14,6 +15,7 @@ import org.pacemaker.main.PacemakerApp;
 import org.pacemaker.models.MyActivity;
 import org.pacemaker.models.User;
 import org.pacemaker.utils.ActivityAdapter;
+import org.pacemaker.utils.ActivtyUtils;
 import org.pacemaker.workouts.LoseFat;
 
 import java.util.List;
@@ -26,23 +28,31 @@ public class ProgressReports extends AppCompatActivity implements Response<MyAct
     private User loggedInUser;
     private ActivityAdapter activitiesAdapter;
     private ListView finishedActivitiesListView;
+    private TextView lastWeekOfWorkoutsResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress_reports);
         finishedActivitiesListView = (ListView) findViewById(R.id.finishedActivitiesListView);
+
         app = (PacemakerApp) getApplication();
         loggedInUser = app.getLoggedInUser();
         app.getActivities(this, this);
-        ;
+
     }
 
     @Override
     public void setResponse(List<MyActivity> aList) {
-        finishedActivities = org.pacemaker.utils.ActivtyUtils.finishedActivities(loggedInUser.activities);
+        Log.i(TAG, "Getting All Finished Activities");
+        finishedActivities = ActivtyUtils.finishedActivities(loggedInUser.activities);
         activitiesAdapter = new ActivityAdapter(this, finishedActivities);
         finishedActivitiesListView.setAdapter(activitiesAdapter);
+
+        Log.i(TAG, "Getting Activities In Last Week");
+        lastWeekOfWorkoutsResults = (TextView) findViewById(R.id.lastWeekOfWorkoutsResults);
+        String userProgress = ActivtyUtils.kmAndTimeAsStringFromActivities(ActivtyUtils.activitiesInLastXDays(finishedActivities, 7)) + " in the last week";
+        lastWeekOfWorkoutsResults.setText(userProgress);
     }
 
     @Override

@@ -103,4 +103,43 @@ public class ActivtyUtils {
         Duration timeDuration = p.toStandardDuration();
         return timeDuration;
     }
+
+    public static List<MyActivity> activitiesInLastXDays(List<MyActivity> allActivities, int numberOfDays) {
+        DateTime now = new DateTime();
+        DateTime oneWeekAgo = new DateTime().minusDays(numberOfDays);
+        Log.i(TAG, "The current time is : " + now.toDate().toString());
+        Log.i(TAG, "One week ago : " + oneWeekAgo.toDate().toString());
+        List<MyActivity> finishedActivities = new ArrayList<>();
+        if (allActivities != null && !allActivities.isEmpty()) {
+            for (MyActivity activity : allActivities) {
+                DateTime dt = stringToDatetime(activity.startTime);
+                if (dt.isBefore(now) && dt.isAfter(oneWeekAgo)) {
+                    Log.i(TAG, "Activty on : " + dt.toDate().toString() + " to " + activity.kind + " has been added");
+                    finishedActivities.add(activity);
+                }
+            }
+            finishedActivities = sortActivitiesByDate(finishedActivities);
+        }
+
+        return finishedActivities;
+    }
+
+    public static String kmAndTimeAsStringFromActivities(List<MyActivity> userActivities) {
+        String kmAndTime = "You have done nothing in this time";
+
+//        if (userActivities != null && !userActivities.isEmpty()) {
+        Log.i(TAG, "Going through " + userActivities.size() + " activities in ActivityUtils");
+        Long totalDurationMilliSeconds = 0l;
+        Double totalDistance = 0d;
+        for (MyActivity userActivity : userActivities) {
+            totalDurationMilliSeconds += (ActivtyUtils.activityDuration(userActivity.duration).getMillis());
+            totalDistance += userActivity.distance;
+        }
+        Long totalDurationHours = totalDurationMilliSeconds / (1000 * 60 * 60);
+        double avgKmPerHour = ((Math.round((totalDistance * 100 / totalDurationHours)))) / 100;
+        kmAndTime = "You have traversed " + totalDistance + "km in " + totalDurationHours +
+                " hours giving an average of " + avgKmPerHour + "km/hr";
+//        }
+        return kmAndTime;
+    }
 }

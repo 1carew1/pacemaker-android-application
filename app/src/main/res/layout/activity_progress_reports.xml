@@ -39,10 +39,88 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/finishedActivitiesListView"
-            android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
             android:onClick="perscribeMyWorkoutClick"
-            android:text="@string/perscribeMyWorkout"/>
+            android:text="@string/perscribeMyWorkout" />
+
+        <View
+            android:id="@+id/lineDivider1"
+            style="@style/Divider"
+            android:layout_below="@+id/perscribeMyWorkout"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:id="@+id/lastWeekOfWorkouts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/lineDivider1"
+            android:layout_marginTop="10dp"
+            android:text="Results of Last Week of workouts"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lastWeekOfWorkoutsResults"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/lastWeekOfWorkouts"
+            android:layout_marginTop="10dp" />
+
+        <View
+            android:id="@+id/lineDivider2"
+            style="@style/Divider"
+            android:layout_below="@+id/lastWeekOfWorkoutsResults"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/lastMonthOfWorkouts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/lineDivider2"
+            android:layout_marginTop="10dp"
+            android:text="Results of Last Month of workouts"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lastMonthOfWorkoutsResults"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/lastMonthOfWorkouts"
+            android:layout_marginTop="10dp" />
+
+        <View
+            android:id="@+id/lineDivider3"
+            style="@style/Divider"
+            android:layout_below="@+id/lastMonthOfWorkoutsResults"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/overallWorkout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/lineDivider3"
+            android:layout_marginTop="10dp"
+            android:text="Results of All Workouts"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/overallWorkoutResults"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/overallWorkout"
+            android:layout_marginTop="10dp" />
     </RelativeLayout>
 
 </ScrollView>

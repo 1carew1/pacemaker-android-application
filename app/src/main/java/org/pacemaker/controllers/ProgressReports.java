@@ -29,6 +29,8 @@ public class ProgressReports extends AppCompatActivity implements Response<MyAct
     private ActivityAdapter activitiesAdapter;
     private ListView finishedActivitiesListView;
     private TextView lastWeekOfWorkoutsResults;
+    private TextView lastMonthOfWorkoutsResults;
+    private TextView allTimeWorkoutResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +51,20 @@ public class ProgressReports extends AppCompatActivity implements Response<MyAct
         activitiesAdapter = new ActivityAdapter(this, finishedActivities);
         finishedActivitiesListView.setAdapter(activitiesAdapter);
 
-        Log.i(TAG, "Getting Activities In Last Week");
+        Log.i(TAG, "Getting Activities performace In Last Week");
         lastWeekOfWorkoutsResults = (TextView) findViewById(R.id.lastWeekOfWorkoutsResults);
         String userProgress = ActivtyUtils.kmAndTimeAsStringFromActivities(ActivtyUtils.activitiesInLastXDays(finishedActivities, 7)) + " in the last week";
         lastWeekOfWorkoutsResults.setText(userProgress);
+
+        Log.i(TAG, "Getting Activities performace In Last Month");
+        lastMonthOfWorkoutsResults = (TextView) findViewById(R.id.lastMonthOfWorkoutsResults);
+        userProgress = ActivtyUtils.kmAndTimeAsStringFromActivities(ActivtyUtils.activitiesInLastXDays(finishedActivities, 31)) + " in the last 31 days";
+        lastMonthOfWorkoutsResults.setText(userProgress);
+
+        Log.i(TAG, "Getting Activities performace for all finished activities");
+        allTimeWorkoutResults = (TextView) findViewById(R.id.overallWorkoutResults);
+        userProgress = ActivtyUtils.kmAndTimeAsStringFromActivities(finishedActivities) + " in this app's history of your exercise";
+        allTimeWorkoutResults.setText(userProgress);
     }
 
     @Override

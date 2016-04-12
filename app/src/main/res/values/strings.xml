@@ -50,4 +50,6 @@
     <string name="uploadProfilePhoto">Upload Profile Photo</string>
     <string name="submit">Submit</string>
     <string name="perscribeMyWorkout">Perscribe My Workout</string>
+    <string name="finishedActivities">Finished Activities</string>
+    <string name="progressReports">Progress Report</string>
 </resources>

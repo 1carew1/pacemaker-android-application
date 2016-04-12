@@ -22,7 +22,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:text="@string/activities"
+            android:text="@string/finishedActivities"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
@@ -44,10 +44,22 @@
             android:onClick="perscribeMyWorkoutClick"
             android:text="@string/perscribeMyWorkout" />
 
+        <TextView
+            android:id="@+id/progressTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/perscribeMyWorkout"
+            android:layout_marginTop="20dp"
+            android:text="Progress Reports"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
+
         <View
             android:id="@+id/lineDivider1"
             style="@style/Divider"
-            android:layout_below="@+id/perscribeMyWorkout"
+            android:layout_below="@+id/progressTextView"
             android:layout_marginTop="10dp" />
 
         <TextView
@@ -110,7 +122,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/lineDivider3"
             android:layout_marginTop="10dp"
-            android:text="Results of All Workouts"
+            android:text="Results of All Time Workouts"
             android:textStyle="bold" />
 
         <TextView

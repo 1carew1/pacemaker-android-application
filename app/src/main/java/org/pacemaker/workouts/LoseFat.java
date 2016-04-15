@@ -13,7 +13,7 @@ public class LoseFat implements PerscribeExercise {
     @Override
     public String workout(List<MyActivity> userActivities) {
         String suggestedWorkout = "Light Cardio";
-        if (userActivities.isEmpty()) {
+        if (userActivities == null || userActivities.isEmpty()) {
             suggestedWorkout = "Start walking/jogging for 1 hour 3-4 times a week";
         } else {
             Long totalDurationMilliSeconds = 0l;

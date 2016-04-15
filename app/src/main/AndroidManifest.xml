@@ -49,8 +49,12 @@
         <activity
             android:name=".controllers.ProgressReports"
             android:label="@string/progressReports" />
-        <activity android:name=".controllers.SuggestedWorkouts" />
-        <activity android:name=".controllers.CompareWorkouts"></activity>
+        <activity
+            android:name=".controllers.SuggestedWorkouts"
+            android:label="@string/suggested_workouts" />
+        <activity
+            android:name=".controllers.CompareWorkouts"
+            android:label="@string/compare" />
     </application>
 
 </manifest>

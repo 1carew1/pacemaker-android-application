@@ -23,7 +23,8 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:text="@string/finishedActivities"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
 
 
         <ListView
@@ -34,23 +35,13 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp" />
 
-        <Button
-            android:id="@+id/perscribeMyWorkout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/finishedActivitiesListView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:onClick="perscribeMyWorkoutClick"
-            android:text="@string/perscribeMyWorkout" />
-
         <TextView
             android:id="@+id/progressTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/perscribeMyWorkout"
+            android:layout_below="@+id/finishedActivitiesListView"
             android:layout_marginTop="20dp"
             android:text="Progress Reports"
             android:textAppearance="?android:attr/textAppearanceLarge"

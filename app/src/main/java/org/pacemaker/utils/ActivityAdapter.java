@@ -33,8 +33,10 @@ public class ActivityAdapter extends ArrayAdapter<MyActivity> {
         MyActivity activity = activities.get(position);
         TextView startTime = (TextView) view.findViewById(R.id.startTime);
         TextView type = (TextView) view.findViewById(R.id.type);
+        //String used to get the day + date ie Sat Mar 12 rather than the entire date string
+        String dateStringForActivity = activity.startTime.replaceAll("(.*?)\\d{2}\\:.+", "$1") + " - ";
 
-        startTime.setText(activity.startTime);
+        startTime.setText(dateStringForActivity);
 
         type.setText(activity.kind);
         return view;

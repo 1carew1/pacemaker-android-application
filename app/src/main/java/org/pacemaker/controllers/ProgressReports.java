@@ -77,12 +77,4 @@ public class ProgressReports extends AppCompatActivity implements Response<MyAct
         errorRetrivingActivitesToast.show();
         Log.v(TAG, e.getLocalizedMessage());
     }
-
-    public void perscribeMyWorkoutClick(View view) {
-        //TODO : Add popup and list here asking what workout they want and have multiple startegies in place for this
-        LoseFat loseFat = new LoseFat();
-        Log.v(TAG, "Getting user workout");
-        Toast newWorkoutToast = Toast.makeText(ProgressReports.this, loseFat.workout(finishedActivities), Toast.LENGTH_SHORT);
-        newWorkoutToast.show();
-    }
 }

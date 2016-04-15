@@ -177,8 +177,6 @@ public class Dashboard extends AppCompatActivity
             i = new Intent(this, ProgressReports.class);
         } else if (id == R.id.suggestedWorkouts) {
             i = new Intent(this, SuggestedWorkouts.class);
-        } else if (id == R.id.compareWorkouts) {
-            i = new Intent(this, CompareWorkouts.class);
         } else {
             willIStartTheActivity = false;
             app.logout();

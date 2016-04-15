@@ -7,7 +7,7 @@
                 <item
                     android:id="@+id/activitiesList"
                     android:icon="@drawable/activity"
-                    android:title="@string/list_of_activities"/>
+                    android:title="@string/list_of_activities" />
                 <item
                     android:id="@+id/createActivity"
                     android:icon="@drawable/ic_menu_send"
@@ -34,10 +34,6 @@
                     android:id="@+id/pendingFriends"
                     android:icon="@drawable/pending_friend"
                     android:title="@string/pending_friends" />
-                <item
-                    android:id="@+id/compareWorkouts"
-                    android:icon="@drawable/compare_w"
-                    android:title="@string/compare" />
                 <item
                     android:id="@+id/notFriendsList"
                     android:icon="@drawable/users"

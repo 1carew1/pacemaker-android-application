@@ -59,7 +59,7 @@ public class Settings extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Toast submitToast = Toast.makeText(Settings.this, "About to upload photo to production", Toast.LENGTH_SHORT);
+        Toast submitToast = Toast.makeText(Settings.this, "We are sorry, this feature is currently in development and not yet completed", Toast.LENGTH_SHORT);
         submitToast.show();
     }
 

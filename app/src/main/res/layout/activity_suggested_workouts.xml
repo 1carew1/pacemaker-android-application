@@ -14,26 +14,63 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/perscribeMyWorkout"
-            android:layout_width="wrap_content"
+            android:id="@+id/loseWeight"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="10dp"
             android:onClick="perscribeMyWorkoutClick"
-            android:text="@string/perscribeMyWorkout" />
+            android:text="@string/loseWeight" />
 
         <Button
             android:id="@+id/buildMuscle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/loseWeight"
+            android:onClick="buildMuscle"
+            android:text="@string/buildMuscle" />
+
+        <Button
+            android:id="@+id/increaseFitness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/buildMuscle"
+            android:onClick="increaseFitness"
+            android:text="@string/improveFitness" />
+
+        <View
+            android:id="@+id/lineDividerSuggestedWorkout"
+            style="@style/Divider"
+            android:layout_below="@+id/increaseFitness"
+            android:layout_marginTop="20dp" />
+
+
+        <TextView
+            android:id="@+id/suggestedWorkoutTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/perscribeMyWorkout"
-            android:layout_marginTop="10dp"
-            android:onClick="buildMuscle"
-            android:text="@string/buildMuscle" />
+            android:layout_below="@+id/lineDividerSuggestedWorkout"
+            android:layout_marginTop="20dp"
+            android:text="@string/suggested_workout"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/suggestedWorkoutTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/suggestedWorkoutTitle"
+            android:layout_marginTop="10dp" />
 
     </RelativeLayout>
 

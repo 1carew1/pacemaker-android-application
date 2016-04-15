@@ -40,7 +40,7 @@ public class ProgressReports extends AppCompatActivity implements Response<MyAct
 
         app = (PacemakerApp) getApplication();
         loggedInUser = app.getLoggedInUser();
-        app.getActivities(this, this);
+        app.getActivities(this, this, loggedInUser);
 
     }
 

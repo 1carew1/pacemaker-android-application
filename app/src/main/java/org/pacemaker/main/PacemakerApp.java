@@ -49,7 +49,7 @@ public class PacemakerApp extends Application implements Response<User> {
 
     @Override
     public void errorOccurred(Exception e) {
-       // connected = false;
+        // connected = false;
         Toast toast = Toast.makeText(this, "Failed to connect to Pacemaker Service", Toast.LENGTH_SHORT);
         toast.show();
         Log.i(TAG, e.getLocalizedMessage());
@@ -99,8 +99,8 @@ public class PacemakerApp extends Application implements Response<User> {
         }
     }
 
-    public void getActivities(Context context, Response<MyActivity> responder) {
-        PacemakerAPI.getActivities(context, loggedInUser, responder, "Retrieving Activities...");
+    public void getActivities(Context context, Response<MyActivity> responder, User userToGetActivitiesOf) {
+        PacemakerAPI.getActivities(context, userToGetActivitiesOf, responder, "Retrieving Activities...");
     }
 
     public void getFriends(Context context, Response<User> responder) {
@@ -136,7 +136,7 @@ public class PacemakerApp extends Application implements Response<User> {
     }
 
     public Map<String, User> getUserMap() {
-        return  userMapViaEmail;
+        return userMapViaEmail;
     }
 }
 

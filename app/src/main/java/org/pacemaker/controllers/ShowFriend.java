@@ -1,5 +1,6 @@
 package org.pacemaker.controllers;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,7 @@ public class ShowFriend extends AppCompatActivity {
 
     private TextView friendName;
     private Button addOrRemove;
+    private Button compareWorkouts;
     private ImageView profilePhoto;
     private User loggedInUser;
 
@@ -46,9 +48,12 @@ public class ShowFriend extends AppCompatActivity {
 
         friendName = (TextView) findViewById(R.id.friendName);
         addOrRemove = (Button) findViewById(R.id.addOrRemoveFriend);
+        compareWorkouts = (Button) findViewById(R.id.compareWorkouts);
         profilePhoto = (ImageView) findViewById(R.id.profilePhoto);
 
-        Gson gS = new Gson();
+        compareWorkouts.setVisibility(View.INVISIBLE);
+
+        final Gson gS = new Gson();
         String userJson = getIntent().getStringExtra("MyFriend");
         String weAreFriendsJson = getIntent().getStringExtra("WeAreFriendsCheck");
         myFriend = gS.fromJson(userJson, User.class);
@@ -77,6 +82,18 @@ public class ShowFriend extends AppCompatActivity {
                     finish();
                 }
             });
+            compareWorkouts.setVisibility(View.VISIBLE);
+            compareWorkouts.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.i(TAG, "Compare Workouts clicked - Going to compare workouts");
+                    Intent compareWorkouts = new Intent(ShowFriend.this, CompareWorkouts.class);
+                    String userJson = gS.toJson(myFriend);
+                    compareWorkouts.putExtra(PacemakerENUMs.MYFRIEND.toString(), userJson);
+                    startActivity(compareWorkouts);
+                }
+            });
+
         } else if (weAreFriends.equalsIgnoreCase(PacemakerENUMs.PENDING.toString())) {
             addOrRemove.setText("Accept");
             addOrRemove.getBackground().setColorFilter(Color.parseColor("#33ccff"), PorterDuff.Mode.MULTIPLY);

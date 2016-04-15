@@ -14,6 +14,7 @@
     <string name="list_of_activities">List of Activities</string>
     <string name="progress_reports">Progress Reports</string>
     <string name="suggested_workouts">Suggested Workouts</string>
+    <string name="suggested_workout">Suggested Workout</string>
 
     <string name="welcomeLogin">Login</string>
     <string name="welcomeSignup">Sign up</string>
@@ -49,8 +50,9 @@
     <string name="title_activity_dashboard">Dashboard</string>
     <string name="uploadProfilePhoto">Upload Profile Photo</string>
     <string name="submit">Submit</string>
-    <string name="perscribeMyWorkout">Perscribe My Workout</string>
+    <string name="loseWeight">Lose Weight</string>
     <string name="buildMuscle">Build Muscle</string>
+    <string name="improveFitness">Improve Fitness</string>
     <string name="finishedActivities">Finished Activities</string>
     <string name="progressReports">Progress Report</string>
 </resources>

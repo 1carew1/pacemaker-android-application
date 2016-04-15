@@ -40,6 +40,15 @@
             android:layout_below="@+id/profilePhoto"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp" />
+
+        <Button
+            android:id="@+id/compareWorkouts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addOrRemoveFriend"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:text="@string/compare"/>
     </RelativeLayout>
 
 </ScrollView>

@@ -61,7 +61,7 @@ public class ActivitiesList extends AppCompatActivity implements Response<MyActi
         activitiesListView.setAdapter(activitiesAdapter);
 
 
-        app.getActivities(this, this);
+        app.getActivities(this, this, loggedInUser);
 
         activitiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                                       @Override

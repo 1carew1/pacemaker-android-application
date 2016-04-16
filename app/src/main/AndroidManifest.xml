@@ -48,7 +48,7 @@
         <activity android:name=".controllers.Settings" />
         <activity
             android:name=".controllers.ProgressReports"
-            android:label="@string/progressReports" />
+            android:label="@string/progressReport" />
         <activity
             android:name=".controllers.SuggestedWorkouts"
             android:label="@string/suggested_workouts" />

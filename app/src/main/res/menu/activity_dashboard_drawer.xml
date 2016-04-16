@@ -16,7 +16,7 @@
                 <item
                     android:id="@+id/progressReports"
                     android:icon="@drawable/progress"
-                    android:title="@string/progress_reports" />
+                    android:title="@string/progressReports" />
 
                 <item
                     android:id="@+id/suggestedWorkouts"

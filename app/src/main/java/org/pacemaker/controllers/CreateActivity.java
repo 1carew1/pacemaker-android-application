@@ -72,14 +72,10 @@ public class CreateActivity extends AppCompatActivity implements Response<MyActi
                 activityDurationHour.getValue(), activityDurationMinute.getValue(),
                 datePicker, activityTimeHour.getValue(), activityTimeMinute.getValue());
 
-        if (activity.kind.equals("IncorrectChange")) {
-
-        } else {
-            app.createActivity(this, activity, this);
-            Toast finishToast = Toast.makeText(CreateActivity.this, "Activity Created", Toast.LENGTH_SHORT);
-            finishToast.show();
-            finish();
-        }
+        app.createActivity(this, activity, this);
+        Toast finishToast = Toast.makeText(CreateActivity.this, "Activity Created", Toast.LENGTH_SHORT);
+        finishToast.show();
+        finish();
 
     }
 

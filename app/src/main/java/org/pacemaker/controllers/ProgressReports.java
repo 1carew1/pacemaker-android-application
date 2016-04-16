@@ -38,6 +38,11 @@ public class ProgressReports extends AppCompatActivity implements Response<MyAct
         setContentView(R.layout.activity_progress_reports);
         finishedActivitiesListView = (ListView) findViewById(R.id.finishedActivitiesListView);
 
+        lastWeekOfWorkoutsResults = (TextView) findViewById(R.id.lastWeekOfWorkoutsResults);
+        lastMonthOfWorkoutsResults = (TextView) findViewById(R.id.lastMonthOfWorkoutsResults);
+        allTimeWorkoutResults = (TextView) findViewById(R.id.overallWorkoutResults);
+
+
         app = (PacemakerApp) getApplication();
         loggedInUser = app.getLoggedInUser();
         app.getActivities(this, this, loggedInUser);
@@ -52,19 +57,13 @@ public class ProgressReports extends AppCompatActivity implements Response<MyAct
         finishedActivitiesListView.setAdapter(activitiesAdapter);
 
         Log.i(TAG, "Getting Activities performace In Last Week");
-        lastWeekOfWorkoutsResults = (TextView) findViewById(R.id.lastWeekOfWorkoutsResults);
-        String userProgress = ActivtyUtils.kmAndTimeAsStringFromActivities(ActivtyUtils.activitiesInLastXDays(finishedActivities, 7)) + " in the last week";
-        lastWeekOfWorkoutsResults.setText(userProgress);
+        org.pacemaker.utils.ActivtyUtils.userProgressInLast7Days(lastWeekOfWorkoutsResults, finishedActivities);
 
         Log.i(TAG, "Getting Activities performace In Last Month");
-        lastMonthOfWorkoutsResults = (TextView) findViewById(R.id.lastMonthOfWorkoutsResults);
-        userProgress = ActivtyUtils.kmAndTimeAsStringFromActivities(ActivtyUtils.activitiesInLastXDays(finishedActivities, 31)) + " in the last 31 days";
-        lastMonthOfWorkoutsResults.setText(userProgress);
+        org.pacemaker.utils.ActivtyUtils.userProgressInLastMonth(lastMonthOfWorkoutsResults, finishedActivities);
 
         Log.i(TAG, "Getting Activities performace for all finished activities");
-        allTimeWorkoutResults = (TextView) findViewById(R.id.overallWorkoutResults);
-        userProgress = ActivtyUtils.kmAndTimeAsStringFromActivities(finishedActivities) + " in this app's history of your exercise";
-        allTimeWorkoutResults.setText(userProgress);
+        org.pacemaker.utils.ActivtyUtils.userProgressOverall(allTimeWorkoutResults, finishedActivities);
     }
 
     @Override

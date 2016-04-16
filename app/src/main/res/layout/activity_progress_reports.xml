@@ -43,7 +43,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/finishedActivitiesListView"
             android:layout_marginTop="20dp"
-            android:text="Progress Reports"
+            android:text="@string/progressReports"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textStyle="bold" />
 
@@ -61,7 +61,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/lineDivider1"
             android:layout_marginTop="10dp"
-            android:text="Results of Last Week of workouts"
+            android:text="@string/lastWeekWorkout"
             android:textStyle="bold" />
 
         <TextView
@@ -87,7 +87,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/lineDivider2"
             android:layout_marginTop="10dp"
-            android:text="Results of Last Month of workouts"
+            android:text="@string/lastMonthWorkout"
             android:textStyle="bold" />
 
         <TextView
@@ -113,7 +113,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/lineDivider3"
             android:layout_marginTop="10dp"
-            android:text="Results of All Time Workouts"
+            android:text="@string/OverallWorkout"
             android:textStyle="bold" />
 
         <TextView

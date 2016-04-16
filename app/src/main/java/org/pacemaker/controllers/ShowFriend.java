@@ -82,17 +82,21 @@ public class ShowFriend extends AppCompatActivity {
                     finish();
                 }
             });
-            compareWorkouts.setVisibility(View.VISIBLE);
-            compareWorkouts.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.i(TAG, "Compare Workouts clicked - Going to compare workouts");
-                    Intent compareWorkouts = new Intent(ShowFriend.this, CompareWorkouts.class);
-                    String userJson = gS.toJson(myFriend);
-                    compareWorkouts.putExtra(PacemakerENUMs.MYFRIEND.toString(), userJson);
-                    startActivity(compareWorkouts);
-                }
-            });
+            //If this user wants you to see their activities
+            if (myFriend.isFriendViewable) {
+                compareWorkouts.setVisibility(View.VISIBLE);
+                compareWorkouts.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.i(TAG, "Compare Workouts clicked - Going to compare workouts");
+                        Intent compareWorkouts = new Intent(ShowFriend.this, CompareWorkouts.class);
+                        String userJson = gS.toJson(myFriend);
+                        compareWorkouts.putExtra(PacemakerENUMs.MYFRIEND.toString(), userJson);
+                        startActivity(compareWorkouts);
+                    }
+                });
+            }
+
 
         } else if (weAreFriends.equalsIgnoreCase(PacemakerENUMs.PENDING.toString())) {
             addOrRemove.setText("Accept");

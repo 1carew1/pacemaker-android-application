@@ -35,7 +35,6 @@ public class SuggestedWorkouts extends AppCompatActivity implements Response<MyA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggested_workouts);
-        //TODO : Use strategy pattern for walking + running use distance + duration
         suggestedWorkout = new LoseFat();
         suggestedWorkoutTextView = (TextView) findViewById(R.id.suggestedWorkoutTextView);
         app = (PacemakerApp) getApplication();
@@ -66,7 +65,6 @@ public class SuggestedWorkouts extends AppCompatActivity implements Response<MyA
 
     public void calculateTheBestFitnessPlan() {
         String suggestedWorkoutString = suggestedWorkout.workout(finishedActivities);
-        //TODO : Get list of user activities - remember they may not have clicked the activities first
         suggestedWorkoutTextView.setText(suggestedWorkoutString);
 //        Toast newWorkoutToast = Toast.makeText(SuggestedWorkouts.this, suggestedWorkoutString, Toast.LENGTH_SHORT);
 //        newWorkoutToast.show();

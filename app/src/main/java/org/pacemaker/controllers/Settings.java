@@ -22,14 +22,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Settings extends AppCompatActivity {
+    //Static variables
     public static final int GET_FROM_GALLERY = 3;
     public static final String TAG = "SettingsActivity";
-
-    private ImageView userImage;
-    private Button submit;
+    //application + logged in user
     private PacemakerApp app;
     private User loggedInUser;
-
+    //views
+    private ImageView userImage;
+    private Button submit;
+    //bitmap used for image
     private Bitmap bitmap = null;
 
     @Override
@@ -48,11 +50,19 @@ public class Settings extends AppCompatActivity {
         ImageUtils.setUserImage(userImage, loggedInUser.profilePhoto);
     }
 
-    public void uploadImage(View view) {
+    /**
+     * Method used to select local image
+     * @param view
+     */
+    public void displayLocalImage(View view) {
         Log.i(TAG, "User picking photo");
         startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
     }
 
+    /**
+     * Method used to upload photo to production - currently not functional
+     * @param view
+     */
     public void submitPhoto(View view) {
         try {
             ImageUtils.uploadUserProfilePhoto(Settings.this, bitmap, loggedInUser.id);
@@ -64,6 +74,12 @@ public class Settings extends AppCompatActivity {
     }
 
 
+    /**
+     * Method used for get users local image + dusplaying it on screen
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -83,6 +99,5 @@ public class Settings extends AppCompatActivity {
             }
         }
     }
-
 
 }

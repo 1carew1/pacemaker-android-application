@@ -13,8 +13,6 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.pacemaker.R;
 import org.pacemaker.http.Response;
 import org.pacemaker.main.PacemakerApp;

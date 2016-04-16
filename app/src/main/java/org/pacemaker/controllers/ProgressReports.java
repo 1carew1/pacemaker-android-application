@@ -22,10 +22,12 @@ import java.util.List;
 
 public class ProgressReports extends AppCompatActivity implements Response<MyActivity> {
     private static final String TAG = "ProgressReports";
-
-    private List<MyActivity> finishedActivities;
+    //Application
     private PacemakerApp app;
+    //Logged in user
     private User loggedInUser;
+    //views
+    private List<MyActivity> finishedActivities;
     private ActivityAdapter activitiesAdapter;
     private ListView finishedActivitiesListView;
     private TextView lastWeekOfWorkoutsResults;
@@ -36,26 +38,32 @@ public class ProgressReports extends AppCompatActivity implements Response<MyAct
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress_reports);
-        finishedActivitiesListView = (ListView) findViewById(R.id.finishedActivitiesListView);
 
+        //associate views with variables
+        finishedActivitiesListView = (ListView) findViewById(R.id.finishedActivitiesListView);
         lastWeekOfWorkoutsResults = (TextView) findViewById(R.id.lastWeekOfWorkoutsResults);
         lastMonthOfWorkoutsResults = (TextView) findViewById(R.id.lastMonthOfWorkoutsResults);
         allTimeWorkoutResults = (TextView) findViewById(R.id.overallWorkoutResults);
 
-
+        //get the application, user and the user's activities
         app = (PacemakerApp) getApplication();
         loggedInUser = app.getLoggedInUser();
         app.getActivities(this, this, loggedInUser);
-
     }
 
+    /**
+     * Method called with app.getActivities finishes
+     * @param aList
+     */
     @Override
     public void setResponse(List<MyActivity> aList) {
         Log.i(TAG, "Getting All Finished Activities");
         finishedActivities = ActivtyUtils.finishedActivities(loggedInUser.activities);
+        //Set the adapter when the activities are obtained
         activitiesAdapter = new ActivityAdapter(this, finishedActivities);
         finishedActivitiesListView.setAdapter(activitiesAdapter);
 
+        //Display the evaluation for each time frame
         Log.i(TAG, "Getting Activities performace In Last Week");
         org.pacemaker.utils.ActivtyUtils.userProgressInLast7Days(lastWeekOfWorkoutsResults, finishedActivities);
 
@@ -66,10 +74,18 @@ public class ProgressReports extends AppCompatActivity implements Response<MyAct
         org.pacemaker.utils.ActivtyUtils.userProgressOverall(allTimeWorkoutResults, finishedActivities);
     }
 
+    /**
+     * Method if only 1 object is obtained
+     * @param anObject
+     */
     @Override
     public void setResponse(MyActivity anObject) {
     }
 
+    /**
+     * If error occurs retrieving activities, log it and toast to user
+     * @param e
+     */
     @Override
     public void errorOccurred(Exception e) {
         Toast errorRetrivingActivitesToast = Toast.makeText(this, "Error Retrieving Activities...\n" + e.getLocalizedMessage(), Toast.LENGTH_SHORT);

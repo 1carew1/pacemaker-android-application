@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 //TODO : Replace this with alternative method Application This is only good for temporary data
-//TODO : Save data to device storage ! - Used Shared Preferences or SQL Like DB
-// android.database.sqllite
+//TODO : Save data to device storage ! - Used Shared Preferences or SQL Like DB - Realm!
 
 public class PacemakerApp extends Application implements Response<User> {
     private Map<String, User> userMapViaEmail = new HashMap<String, User>();

@@ -11,11 +11,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Login extends AppCompatActivity {
+    private static final String TAG = "Login";
     private PacemakerApp app;
 
     @Override
@@ -24,6 +26,10 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
+    /**
+     * On click method for sign in button
+     * @param view
+     */
     public void signinPressed(View view) {
         app = (PacemakerApp) getApplication();
 
@@ -34,9 +40,11 @@ public class Login extends AppCompatActivity {
         String userPassword = password.getText().toString();
 
 
-
+        //Check if user login
         boolean loggedIn = app.loginUser(userEmail, userPassword);
         if (loggedIn) {
+            User u = app.getLoggedInUser();
+            Log.i(TAG, u.firstname + " " + u.lastname + " with id : " + u.id + " has logged in");
             startActivity(new Intent(this, Dashboard.class));
         } else {
             Toast toast = Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT);

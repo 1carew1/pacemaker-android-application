@@ -12,6 +12,7 @@ import org.pacemaker.http.Response;
 import org.pacemaker.main.PacemakerApp;
 import org.pacemaker.models.MyActivity;
 import org.pacemaker.utils.MyDatePicker;
+import org.pacemaker.utils.PacemakerENUMs;
 
 import android.os.Bundle;
 import android.view.View;
@@ -24,8 +25,10 @@ import java.util.List;
 public class CreateActivity extends AppCompatActivity implements Response<MyActivity> {
     private static final String TAG = "CreateActivity";
 
+    //Application for Common/Global Data
     private PacemakerApp app;
 
+    //Views Corresponding to XML
     private TextView activityType;
     private TextView activityLocation;
     private NumberPicker activityDurationHour;
@@ -41,7 +44,7 @@ public class CreateActivity extends AppCompatActivity implements Response<MyActi
         setContentView(R.layout.activity_create);
 
         app = (PacemakerApp) getApplication();
-
+        //Assign correct View to private variable
         activityType = (TextView) findViewById(R.id.activityType);
         activityLocation = (TextView) findViewById(R.id.activityLocation);
         activityDurationHour = (NumberPicker) findViewById(R.id.durationPickerHour);
@@ -51,7 +54,7 @@ public class CreateActivity extends AppCompatActivity implements Response<MyActi
         distancePicker = (NumberPicker) findViewById(R.id.distnacePicker);
         datePicker = (MyDatePicker) findViewById(R.id.datePicker);
 
-
+        //Set Max and Min number picker values
         distancePicker.setMinValue(0);
         distancePicker.setMaxValue(200);
         activityDurationHour.setMinValue(0);
@@ -64,6 +67,10 @@ public class CreateActivity extends AppCompatActivity implements Response<MyActi
         activityTimeMinute.setMaxValue(59);
     }
 
+    /**
+     * When create activity button is pressed, some sanity checking + Activity Creation
+     * @param view
+     */
     public void createActivityButtonPressed(View view) {
 
         MyActivity activity = new MyActivity();
@@ -71,23 +78,36 @@ public class CreateActivity extends AppCompatActivity implements Response<MyActi
                 distancePicker.getValue(), activityType.getText().toString(), activityLocation.getText().toString(),
                 activityDurationHour.getValue(), activityDurationMinute.getValue(),
                 datePicker, activityTimeHour.getValue(), activityTimeMinute.getValue());
-
-        app.createActivity(this, activity, this);
-        Toast finishToast = Toast.makeText(CreateActivity.this, "Activity Created", Toast.LENGTH_SHORT);
-        finishToast.show();
-        finish();
-
+        //Ensure that all views are filled in correctly
+        if (!activity.kind.equals(PacemakerENUMs.INCORRECTCHANGE.toString())) {
+            app.createActivity(this, activity, this);
+            Toast finishToast = Toast.makeText(CreateActivity.this, "Activity Created", Toast.LENGTH_SHORT);
+            finishToast.show();
+            finish();
+        }
     }
 
 
+    /**
+     * If response activity of this is a list of Activities - Run this method
+     * @param aList
+     */
     @Override
     public void setResponse(List<MyActivity> aList) {
     }
 
+    /**
+     * If response is going to be a single activity use this method
+     * @param anObject
+     */
     @Override
     public void setResponse(MyActivity anObject) {
     }
 
+    /**
+     * Upon and error log it + toast to the user
+     * @param e
+     */
     @Override
     public void errorOccurred(Exception e) {
         Toast toast = Toast.makeText(this, "Failed to create Activity", Toast.LENGTH_SHORT);

@@ -22,12 +22,8 @@ import org.pacemaker.models.User;
 import org.pacemaker.utils.ImageUtils;
 import org.pacemaker.utils.PacemakerENUMs;
 
-import io.realm.Realm;
-
 public class Dashboard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-
     /*
     Implement/ed Patterns:
    Creational
@@ -48,25 +44,25 @@ public class Dashboard extends AppCompatActivity
 
 
     //TODO : Add in a message in the dashboard telling the user of their next activity
-    //TODO : Add and unfriend people
-    //TODO : add profile photos upload + deletion
-    // TODO : Add a settings page
-    //TODO : Look into storing data + autologin
-    //TODO : Remove users from the list that are pending ! and devise a way to accept
-    public static final String TAG = "Dashboard";
+    //TODO : add profile photos upload + deletion in settings pages
+    //TODO : Look into storing data + autologin - realm
 
+    public static final String TAG = "DashboardActivity";
+    //Application
+    private PacemakerApp app;
+    //Logged in user
+    private User loggedInUser;
+    //views
     private TextView messageToUser;
     private TextView userName;
     private ImageView profilePhoto;
-    private User loggedInUser;
-    private PacemakerApp app;
-    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //Boiler plate code for navigation drawer
         setSupportActionBar(toolbar);
 
         // Use this if you want to create an email button bottom right of the page
@@ -89,21 +85,28 @@ public class Dashboard extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Get the application
         app = (PacemakerApp) getApplication();
-        realm = Realm.getInstance(this);
+        //get the logged in user
         loggedInUser = app.getLoggedInUser();
+        //associate the correct views with variables
         messageToUser = (TextView) findViewById(R.id.dashboardMessage);
         userName = (TextView) findViewById(R.id.userName);
         profilePhoto = (ImageView) findViewById(R.id.userPhoto);
+
         String messageToUserString = "Hello " + loggedInUser.firstname + " and welcome to your dashboard";
         messageToUser.setText(messageToUserString);
         userName.setText(loggedInUser.firstname + " " + loggedInUser.lastname);
         //Make username bold
         userName.setTypeface(null, Typeface.BOLD);
+        //Set the profile photo
         ImageUtils.setUserImage(profilePhoto, loggedInUser.profilePhoto);
 
     }
 
+    /**
+     * When back button is pressed exit the drawer
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -114,6 +117,11 @@ public class Dashboard extends AppCompatActivity
         }
     }
 
+    /**
+     * add items ot actionbar
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -121,6 +129,11 @@ public class Dashboard extends AppCompatActivity
         return true;
     }
 
+    /**
+     * When settings is selected run this method
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -138,6 +151,11 @@ public class Dashboard extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * When one of the navigation items are selected, run this method
+     * @param item
+     * @return
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -149,7 +167,7 @@ public class Dashboard extends AppCompatActivity
 
         Gson gS = new Gson();
 
-
+        //List of activities to start based on selection
         if (id == R.id.activitiesList) {
             i = new Intent(this, ActivitiesList.class);
         } else if (id == R.id.createActivity) {
@@ -185,7 +203,7 @@ public class Dashboard extends AppCompatActivity
         if (willIStartTheActivity) {
             startActivity(i);
         }
-
+        //CLose Drawer when finished
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

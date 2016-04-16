@@ -29,17 +29,32 @@ import java.util.List;
 public class ActivtyUtils {
     private static final String TAG = "ActivityUtils";
 
+    /**
+     * Purpose of this method is to create an activity or update a current activity
+     *
+     * @param context
+     * @param selectedActivity
+     * @param distance
+     * @param type
+     * @param location
+     * @param durationHour
+     * @param durationMinute
+     * @param datePicker
+     * @param activityTimeHour
+     * @param activityTimeMinute
+     * @return
+     */
     public static MyActivity changeActivity(Context context, MyActivity selectedActivity,
                                             int distance, String type, String location,
                                             int durationHour, int durationMinute,
                                             DatePicker datePicker, int activityTimeHour, int activityTimeMinute) {
-        String duration = subtractOneIfGreaterThanZero(durationHour) + ":" + subtractOneIfGreaterThanZero(durationMinute);
-
         if (type.isEmpty() || location.isEmpty()) {
             Toast errorToast = Toast.makeText(context, "Please Make sure everything is filled in correctly", Toast.LENGTH_SHORT);
             errorToast.show();
-            selectedActivity.kind = "IncorrectChange";
+            //If nothing is filled in correctly, make the kind of the activity incorrectchange
+            selectedActivity.kind = PacemakerENUMs.INCORRECTCHANGE.toString();
         } else {
+            String duration = subtractOneIfGreaterThanZero(durationHour) + ":" + subtractOneIfGreaterThanZero(durationMinute);
             int day = datePicker.getDayOfMonth();
             int month = datePicker.getMonth() + 1; //Month starts from 0
             int year = datePicker.getYear();
@@ -58,9 +73,15 @@ public class ActivtyUtils {
         return selectedActivity;
     }
 
+    /**
+     * The purpose of this method is to take in a string in the correct format
+     * and output the DateTime
+     *
+     * @param dateString
+     * @return
+     */
     public static DateTime stringToDatetime(String dateString) {
         //Temporary Fix to parse dates
-        // TODO : Implement better method of date parsing
         //TODO : Fix this for time parsing + Date parsing
         if (dateString.contains("+")) {
             dateString = dateString.replaceAll("\\+\\d{2}\\:\\d{2}", "");
@@ -76,6 +97,12 @@ public class ActivtyUtils {
         return dt;
     }
 
+    /**
+     * This method takes in a list of activities and returns a list of all those activities before now
+     *
+     * @param allActivities
+     * @return
+     */
     public static List<MyActivity> finishedActivities(List<MyActivity> allActivities) {
         DateTime now = new DateTime();
         Log.i(TAG, "The current time is : " + now.toDate().toString());
@@ -91,11 +118,25 @@ public class ActivtyUtils {
         return finishedActivities;
     }
 
+    /**
+     * Sort Activities by the date ascending - take in an Activity List and return an
+     * Activity list
+     *
+     * @param allActivities
+     * @return
+     */
     public static List<MyActivity> sortActivitiesByDate(List<MyActivity> allActivities) {
         Collections.sort(allActivities, new DateTimeComparator());
         return allActivities;
     }
 
+    /**
+     * The purpose of this method is to input a string in a HH:MM format and return
+     * a JODA Time Duration
+     *
+     * @param durationString
+     * @return
+     */
     public static Duration activityDuration(String durationString) {
         PeriodFormatter hoursMinutes = new PeriodFormatterBuilder().appendHours()
                 .appendSeparator(":")
@@ -106,6 +147,13 @@ public class ActivtyUtils {
         return timeDuration;
     }
 
+    /**
+     * The purpose of this is go get a list of Activities completed within X Number of days
+     *
+     * @param allActivities
+     * @param numberOfDays
+     * @return
+     */
     public static List<MyActivity> activitiesInLastXDays(List<MyActivity> allActivities, int numberOfDays) {
         DateTime now = new DateTime();
         DateTime oneWeekAgo = new DateTime().minusDays(numberOfDays);
@@ -126,6 +174,12 @@ public class ActivtyUtils {
         return finishedActivities;
     }
 
+    /**
+     * The purpose of this method is to give a performance evaluation based on the inputted activities
+     *
+     * @param userActivities
+     * @return
+     */
     public static String kmAndTimeAsStringFromActivities(List<MyActivity> userActivities) {
         String kmAndTime = "No activities have been completed";
 
@@ -148,24 +202,53 @@ public class ActivtyUtils {
         return kmAndTime;
     }
 
+    /**
+     * This method obtains the perfoamnce evaluation string and set the text of the TextView
+     *
+     * @param lastWeekOfWorkoutsResults
+     * @param listOfActivities
+     * @return
+     */
     public static String userProgressInLast7Days(TextView lastWeekOfWorkoutsResults, List<MyActivity> listOfActivities) {
         String userProgress = kmAndTimeAsStringFromActivities(ActivtyUtils.activitiesInLastXDays(listOfActivities, 7)) + " in the last week";
         lastWeekOfWorkoutsResults.setText(userProgress);
         return userProgress;
     }
 
-    public static String userProgressInLastMonth(TextView lastWeekOfWorkoutsResults, List<MyActivity> listOfActivities) {
+    /**
+     * Sets the text of the textview to be the users evaluation
+     *
+     * @param lastMonthOfWorkoutsResults
+     * @param listOfActivities
+     * @return
+     */
+    public static String userProgressInLastMonth(TextView lastMonthOfWorkoutsResults, List<MyActivity> listOfActivities) {
         String userProgress = kmAndTimeAsStringFromActivities(ActivtyUtils.activitiesInLastXDays(listOfActivities, 31)) + " in the last month";
-        lastWeekOfWorkoutsResults.setText(userProgress);
+        lastMonthOfWorkoutsResults.setText(userProgress);
         return userProgress;
     }
 
+    /**
+     * Sets the text of the textview to be the users evaluation
+     *
+     * @param lastWeekOfWorkoutsResults
+     * @param allActivities
+     * @return
+     */
     public static String userProgressOverall(TextView lastWeekOfWorkoutsResults, List<MyActivity> allActivities) {
         String userProgress = kmAndTimeAsStringFromActivities(finishedActivities(allActivities)) + " in this app's history";
         lastWeekOfWorkoutsResults.setText(userProgress);
         return userProgress;
     }
 
+    /**
+     * The reason for this method is that the NumberPickers in the XML due to being resized
+     * do not show the correct selected number so if they are edited
+     * 1 need to be subtracted from each number edited to give the correct time
+     *
+     * @param number
+     * @return
+     */
     public static int subtractOneIfGreaterThanZero(int number) {
         int numberToReturn = 0;
         if (number - 1 > 0) {
@@ -175,6 +258,12 @@ public class ActivtyUtils {
         return numberToReturn;
     }
 
+    /**
+     * A method used for rounding a double to 2 decimal places
+     *
+     * @param d
+     * @return
+     */
     public static double roundDoubleToTwoDecimalPlaces(double d) {
         DecimalFormat toDecimalFormTwoPlaces = new DecimalFormat("#.##");
         return Double.valueOf(toDecimalFormTwoPlaces.format(d));

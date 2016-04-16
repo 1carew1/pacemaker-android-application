@@ -20,6 +20,7 @@ import org.pacemaker.http.Response;
 import org.pacemaker.main.PacemakerApp;
 import org.pacemaker.models.MyActivity;
 import org.pacemaker.utils.MyDatePicker;
+import org.pacemaker.utils.PacemakerENUMs;
 
 import java.util.List;
 
@@ -27,9 +28,12 @@ import java.util.List;
 public class ShowMyActivity extends AppCompatActivity implements Response<MyActivity> {
     private static final String TAG = "UpdateActivity";
 
+    //Activity From the Activity List
     private MyActivity selectedActivity;
+    //Application containing global data
     private PacemakerApp app;
 
+    //Views Associated with the XML File for this activity
     private Button updateActivityButton;
     private TextView activityType;
     private TextView activityLocation;
@@ -45,8 +49,10 @@ public class ShowMyActivity extends AppCompatActivity implements Response<MyActi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
 
+        //Get the application
         app = (PacemakerApp) getApplication();
 
+        //Assign the correct view to the private variables
         updateActivityButton = (Button) findViewById(R.id.createActivityButton);
         activityType = (TextView) findViewById(R.id.activityType);
         activityLocation = (TextView) findViewById(R.id.activityLocation);
@@ -59,21 +65,22 @@ public class ShowMyActivity extends AppCompatActivity implements Response<MyActi
 
         //Get the MyActivity from the Activity List
         Gson gS = new Gson();
-        String target = getIntent().getStringExtra("SelectedActivity");
+        String target = getIntent().getStringExtra(PacemakerENUMs.SELECTEDACTIVITY.toString());
         selectedActivity = gS.fromJson(target, MyActivity.class);
 
-        //Create a way of parsing the date
         String dateString = selectedActivity.startTime;
         DateTime dt = org.pacemaker.utils.ActivtyUtils.stringToDatetime(dateString);
         //Set the date in the date picker
         datePicker.updateDate(dt.getYear(), dt.getMonthOfYear() - 1, dt.getDayOfMonth());
-
+        //Set the text of the fields
         activityType.setText(selectedActivity.kind);
         activityLocation.setText(selectedActivity.location);
 
+        //Obtain the duration values
         int durationHour = Integer.parseInt(selectedActivity.duration.replaceAll(":\\d{1,2}", ""));
         int durationMinute = Integer.parseInt(selectedActivity.duration.replaceAll("\\d{1,2}:", ""));
 
+        //Set the max and min values of each of the pickers
         distancePicker.setMinValue(0);
         distancePicker.setMaxValue(200);
         distancePicker.setValue((int) selectedActivity.distance);
@@ -90,24 +97,24 @@ public class ShowMyActivity extends AppCompatActivity implements Response<MyActi
         activityTimeMinute.setMaxValue(59);
         activityTimeMinute.setValue(dt.getMinuteOfHour());
 
-        //Remove the list view option as the same xml is being used for Edit + Create
+        //Change Create Activity Button to say Update Activity
         updateActivityButton.setText("Update Activity");
     }
 
-    public void listActivityButtonPressed(View view) {
-        //Do nothing if this button is pressed
-    }
 
-
+    /**
+     * When the create activity button is pressed - update the activity with the new information
+     *
+     * @param view
+     */
     public void createActivityButtonPressed(View view) {
         selectedActivity = org.pacemaker.utils.ActivtyUtils.changeActivity(this, selectedActivity,
                 distancePicker.getValue(), activityType.getText().toString(), activityLocation.getText().toString(),
                 activityDurationHour.getValue(), activityDurationMinute.getValue(),
                 datePicker, activityTimeHour.getValue(), activityTimeMinute.getValue());
 
-        if (selectedActivity.kind.equals("IncorrectChange")) {
-
-        } else {
+        //Make Sure the fields are filled in correctly
+        if (!selectedActivity.kind.equals(PacemakerENUMs.INCORRECTCHANGE.toString())) {
             app.updateActivity(this, selectedActivity, this);
             Toast finishToast = Toast.makeText(ShowMyActivity.this, "Activity Updated", Toast.LENGTH_SHORT);
             finishToast.show();
@@ -116,14 +123,29 @@ public class ShowMyActivity extends AppCompatActivity implements Response<MyActi
     }
 
 
+    /**
+     * If a list is being returned from the request then the data can be processed here
+     *
+     * @param aList
+     */
     @Override
     public void setResponse(List<MyActivity> aList) {
     }
 
+    /**
+     * Once the actiity is created + returned, this method can be used to process the data
+     *
+     * @param anObject
+     */
     @Override
     public void setResponse(MyActivity anObject) {
     }
 
+    /**
+     * Toast + Log the exception if the Activity Cannot be updated
+     *
+     * @param e
+     */
     @Override
     public void errorOccurred(Exception e) {
         Toast toast = Toast.makeText(this, "Failed to update Activity", Toast.LENGTH_SHORT);

@@ -34,6 +34,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.2.+'
     compile 'com.koushikdutta.ion:ion:2.+'
     compile 'org.apache.httpcomponents:httpcore:4.3.2'
-    compile 'io.realm:realm-android:0.86.0'
+    //compile 'io.realm:realm-android:0.86.0'
     androidTestCompile 'junit:junit:4.12'
 }

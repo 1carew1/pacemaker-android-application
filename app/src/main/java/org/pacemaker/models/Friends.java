@@ -10,7 +10,7 @@ public class Friends {
     public String accepted = "No";
 
     /**
-     * default constructor
+     * Default constructor
      */
     public Friends() {
 
@@ -18,6 +18,7 @@ public class Friends {
 
     /**
      * Constructor
+     *
      * @param userId
      * @param friendId
      */

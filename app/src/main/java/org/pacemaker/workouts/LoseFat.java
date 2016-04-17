@@ -1,6 +1,5 @@
 package org.pacemaker.workouts;
 
-import org.joda.time.Duration;
 import org.pacemaker.models.MyActivity;
 import org.pacemaker.utils.*;
 
@@ -9,7 +8,14 @@ import java.util.List;
 /**
  * Created by colmcarew on 10/04/16.
  */
-public class LoseFat implements PerscribeExercise {
+public class LoseFat implements PrescribeExercise {
+
+    /**
+     * Method used to prescribe a workout for the user to lose fat
+     *
+     * @param userActivities
+     * @return
+     */
     @Override
     public String workout(List<MyActivity> userActivities) {
         String suggestedWorkout = "Light Cardio";

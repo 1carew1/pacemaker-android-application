@@ -21,7 +21,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="10dp"
-            android:onClick="perscribeMyWorkoutClick"
+            android:onClick="lostFatWorkout"
             android:text="@string/loseWeight" />
 
         <Button
@@ -31,7 +31,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/loseWeight"
-            android:onClick="buildMuscle"
+            android:onClick="buildMuscleWorkout"
             android:text="@string/buildMuscle" />
 
         <Button
@@ -41,7 +41,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/buildMuscle"
-            android:onClick="increaseFitness"
+            android:onClick="increaseFitnessWorkout"
             android:text="@string/improveFitness" />
 
         <View

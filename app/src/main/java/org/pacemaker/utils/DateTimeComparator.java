@@ -8,6 +8,10 @@ import java.util.Comparator;
 /**
  * Created by Colm Carew on 11/10/15.
  */
+
+/**
+ * Comparator used to sort DateTimes in ascending order
+ */
 public class DateTimeComparator implements Comparator<MyActivity> {
 
     @Override

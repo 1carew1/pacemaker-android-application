@@ -25,6 +25,11 @@ public class Location {
         this.longitude = longitude;
     }
 
+    /**
+     * To string method of location
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "[" + latitude +

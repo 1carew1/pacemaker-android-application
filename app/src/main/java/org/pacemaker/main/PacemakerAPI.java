@@ -16,8 +16,16 @@ import android.content.Context;
 import android.util.ArrayMap;
 import android.util.Log;
 
+/**
+ * PacemakerAPI is a class used to execute the REST requests via a half sync half async manor so the REST request are not
+ * performed in the displayed activity
+ */
 public class PacemakerAPI {
     public static final String TAG = "PacemakerAPI";
+
+    /*
+    Methods used to generate objects that perform the desired REST functions
+     */
 
     public static void getUsers(Context context, Response<User> response, String dialogMesssage) {
         new GetUsers(context, response, dialogMesssage).execute();
@@ -68,6 +76,9 @@ public class PacemakerAPI {
     }
 }
 
+/**
+ * Private class used to GET all users
+ */
 class GetUsers extends Request {
     public GetUsers(Context context, Response<User> callback, String message) {
         super(context, callback, message);
@@ -81,6 +92,9 @@ class GetUsers extends Request {
     }
 }
 
+/**
+ * Private class used to POST a user
+ */
 class CreateUser extends Request {
     public CreateUser(Context context, Response<User> callback, String message) {
         super(context, callback, message);
@@ -93,6 +107,9 @@ class CreateUser extends Request {
     }
 }
 
+/**
+ * Class used to GET all activities of a user
+ */
 class GetActivities extends Request {
     private User user;
 
@@ -116,6 +133,9 @@ class GetActivities extends Request {
     }
 }
 
+/**
+ * Class used to POST an activity
+ */
 class CreateActivity extends Request {
     private User user;
 
@@ -131,6 +151,9 @@ class CreateActivity extends Request {
     }
 }
 
+/**
+ * Class used to PUT and activity
+ */
 class UpdateActivity extends Request {
     private User user;
     private MyActivity activity;
@@ -149,6 +172,9 @@ class UpdateActivity extends Request {
     }
 }
 
+/**
+ * Class used to delete an activity
+ */
 class DeleteActivity extends Request {
     private User user;
     private MyActivity activity;
@@ -167,6 +193,9 @@ class DeleteActivity extends Request {
     }
 }
 
+/**
+ * Class used to GET all accepted friends of a user
+ */
 class GetFriends extends Request {
     private User user;
 
@@ -201,6 +230,9 @@ class GetFriends extends Request {
     }
 }
 
+/**
+ * Class used to GET all users who are not friends with a user
+ */
 class GetUsersWhoAreNotFriends extends Request {
     private User user;
 
@@ -247,6 +279,9 @@ class GetUsersWhoAreNotFriends extends Request {
     }
 }
 
+/**
+ * Class used to add a friend
+ */
 class AddFriend extends Request {
     public static final String TAG = "AddFriendInPacemakerAPI";
     private User user;
@@ -267,6 +302,9 @@ class AddFriend extends Request {
     }
 }
 
+/**
+ * Class used to get all friends who added a user and who have not yet been accepted
+ */
 class GetPendingFriendsThatAddedMe extends Request {
     private User user;
 
@@ -297,7 +335,9 @@ class GetPendingFriendsThatAddedMe extends Request {
     }
 }
 
-
+/**
+ * Class used to get all friends that a user has added but who have not yet accepted
+ */
 class GetPendingFriendsThatIAdded extends Request {
     private User user;
 
@@ -328,6 +368,9 @@ class GetPendingFriendsThatIAdded extends Request {
     }
 }
 
+/**
+ * Class used to accept a friend request
+ */
 class AcceptFriend extends Request {
     public static final String TAG = "AddFriendInPacemakerAPI";
     private User user;
@@ -348,6 +391,9 @@ class AcceptFriend extends Request {
     }
 }
 
+/**
+ * Class used to unfriend a user
+ */
 class UnFriend extends Request {
     private User user;
     private Long friendId;

@@ -16,18 +16,22 @@ import org.pacemaker.utils.ActivtyUtils;
 import org.pacemaker.workouts.BuildMuscle;
 import org.pacemaker.workouts.ImproveFitness;
 import org.pacemaker.workouts.LoseFat;
-import org.pacemaker.workouts.PerscribeExercise;
+import org.pacemaker.workouts.PrescribeExercise;
 
 import java.util.List;
 
 public class SuggestedWorkouts extends AppCompatActivity implements Response<MyActivity> {
 
     private static final String TAG = "SuggestedWorkouts";
-
-    private PerscribeExercise suggestedWorkout;
+    //Application + Logged in user
     private PacemakerApp app;
-    private List<MyActivity> finishedActivities = null;
     private User loggedInUser;
+    //Workout to Prescribe to User
+    private PrescribeExercise suggestedWorkout = new LoseFat();
+    ;
+    //List of Users finished Activities
+    private List<MyActivity> finishedActivities = null;
+    //View to display suggested workout
     private TextView suggestedWorkoutTextView;
 
 
@@ -35,51 +39,81 @@ public class SuggestedWorkouts extends AppCompatActivity implements Response<MyA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggested_workouts);
-        suggestedWorkout = new LoseFat();
+        //associate view
         suggestedWorkoutTextView = (TextView) findViewById(R.id.suggestedWorkoutTextView);
+        //get application + loggied in user
         app = (PacemakerApp) getApplication();
         loggedInUser = app.getLoggedInUser();
+        //get all of the user's activities
         app.getActivities(this, this, loggedInUser);
 
     }
 
-    public void perscribeMyWorkoutClick(View view) {
-        //TODO : Add popup and list here asking what workout they want and have multiple startegies in place for this
-
+    /**
+     * On click method for lose fat button
+     * @param view
+     */
+    public void lostFatWorkout(View view) {
+        //Make the suggested workout to be lost fat
         suggestedWorkout = new LoseFat();
         Log.v(TAG, "Getting user workout for losing weight");
+        //Run this method to output it to screen
         calculateTheBestFitnessPlan();
     }
 
-    public void buildMuscle(View view) {
+    /**
+     * On click for build muscle button
+     * @param view
+     */
+    public void buildMuscleWorkout(View view) {
+        //User wants to build muscle
         suggestedWorkout = new BuildMuscle();
         Log.v(TAG, "Getting user workout for building muscle");
         calculateTheBestFitnessPlan();
     }
 
-    public void increaseFitness(View view) {
+    /**
+     * On click for improve fitness button
+     * @param view
+     */
+    public void increaseFitnessWorkout(View view) {
+        //User wants to improve their fitness
         suggestedWorkout = new ImproveFitness();
         Log.v(TAG, "Getting user workout for increasing fitness");
         calculateTheBestFitnessPlan();
     }
 
+    /**
+     * Method used to calculate the workout + display to user
+     */
     public void calculateTheBestFitnessPlan() {
         String suggestedWorkoutString = suggestedWorkout.workout(finishedActivities);
         suggestedWorkoutTextView.setText(suggestedWorkoutString);
-//        Toast newWorkoutToast = Toast.makeText(SuggestedWorkouts.this, suggestedWorkoutString, Toast.LENGTH_SHORT);
-//        newWorkoutToast.show();
     }
 
+    /**
+     * When app.getActivities is used, this method is ran upon completion
+     * and the users finished activities are obtained from all of their activities
+     * @param aList
+     */
     @Override
     public void setResponse(List<MyActivity> aList) {
         Log.i(TAG, "Getting All Finished Activities");
         finishedActivities = ActivtyUtils.finishedActivities(loggedInUser.activities);
     }
 
+    /**
+     * Not used here but can be if only 1 MyActivity object is being returned
+     * @param anObject
+     */
     @Override
     public void setResponse(MyActivity anObject) {
     }
 
+    /**
+     * In the event of a GET error log + toast to user
+     * @param e
+     */
     @Override
     public void errorOccurred(Exception e) {
         Toast errorRetrivingActivitesToast = Toast.makeText(this, "Error Retrieving Activities...\n" + e.getLocalizedMessage(), Toast.LENGTH_SHORT);

@@ -1,11 +1,8 @@
 package org.pacemaker.utils;
 
-import android.app.ListActivity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.DatePicker;
-import android.widget.ListView;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 

@@ -7,7 +7,13 @@ import java.util.List;
 /**
  * Created by colmcarew on 15/04/16.
  */
-public class ImproveFitness implements PerscribeExercise {
+public class ImproveFitness implements PrescribeExercise {
+    /**
+     * Method used to give the user a suggested workout to improve their fitness
+     *
+     * @param userActivities
+     * @return
+     */
     @Override
     public String workout(List<MyActivity> userActivities) {
         String suggestedWorkout = "Run 3 times a week for an hour and begin light weights";

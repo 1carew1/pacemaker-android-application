@@ -1,9 +1,7 @@
 package org.pacemaker.models;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class User {
     public Long id;
@@ -17,11 +15,21 @@ public class User {
     public List<User> friendsList = new ArrayList<>();
     public List<User> notFriendsList = new ArrayList<>();
     public List<User> pendingFriendsList = new ArrayList<>();
-   // public List<Friends> friendObjecList = new ArrayList<>();
 
+    /**
+     * Default Constructor
+     */
     public User() {
     }
 
+    /**
+     * Constructor
+     *
+     * @param firstname
+     * @param lastname
+     * @param email
+     * @param password
+     */
     public User(String firstname, String lastname, String email, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -29,6 +37,12 @@ public class User {
         this.password = password;
     }
 
+    /**
+     * Equals method
+     *
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -46,6 +60,11 @@ public class User {
 
     }
 
+    /**
+     * Hash Code
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;

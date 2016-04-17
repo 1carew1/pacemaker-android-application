@@ -18,9 +18,20 @@ public class MyActivity {
     public String duration;
     public List<Location> routes = new ArrayList<>();
 
+    /**
+     * Default Constructor
+     */
     public MyActivity() {
     }
 
+    /**
+     * Constructor
+     *
+     * @param type
+     * @param location
+     * @param distance
+     * @param duration
+     */
     public MyActivity(String type, String location, double distance, String duration) {
         this.kind = type;
         this.location = location;
@@ -28,6 +39,15 @@ public class MyActivity {
         this.duration = duration;
     }
 
+    /**
+     * Constructor
+     *
+     * @param type
+     * @param location
+     * @param distance
+     * @param startTime
+     * @param duration
+     */
     public MyActivity(String type, String location, double distance, DateTime startTime, String duration) {
         this.kind = type;
         this.location = location;
@@ -36,6 +56,11 @@ public class MyActivity {
         this.startTime = startTime.toDate().toString();
     }
 
+    /**
+     * To string method
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return toStringHelper(this).addValue(id)
@@ -46,8 +71,12 @@ public class MyActivity {
                 .toString();
     }
 
-    // 2 activities are equal if their time is equal
-
+    /**
+     * Equals method
+     *
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,6 +95,11 @@ public class MyActivity {
 
     }
 
+    /**
+     * Hash code method
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         int result;

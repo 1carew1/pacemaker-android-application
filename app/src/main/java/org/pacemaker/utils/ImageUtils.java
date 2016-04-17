@@ -20,10 +20,25 @@ import java.io.OutputStream;
  * Created by colmcarew on 27/03/16.
  */
 public class ImageUtils {
+
+    /**
+     * Method used to set an ImageView to an Image obtained via REST using the ION library
+     *
+     * @param imageView
+     * @param profilePhoto
+     */
     public static void setUserImage(ImageView imageView, String profilePhoto) {
         Ion.with(imageView).load(Rest.URL + "/getPicture/" + profilePhoto);
     }
 
+    /**
+     * Method used to post an image to production - currently not functional
+     *
+     * @param context
+     * @param bitmap
+     * @param loggedInUserId
+     * @throws IOException
+     */
     public static void uploadUserProfilePhoto(Context context, Bitmap bitmap, Long loggedInUserId) throws IOException {
         Log.i(Settings.TAG, "Image is " + bitmap.getWidth() + " width");
         File outputDir = context.getCacheDir();
@@ -36,6 +51,6 @@ public class ImageUtils {
         Log.i(Settings.TAG, "POST to production");
 
         String url = Rest.URL + "/api/users/" + loggedInUserId + "/profilephoto";
-        //TODO : Implement was of post image to production
+        //TODO : Implement way to post image to production
     }
 }

@@ -19,12 +19,26 @@ public class ActivityAdapter extends ArrayAdapter<MyActivity> {
     private Context context;
     public List<MyActivity> activities;
 
+    /**
+     * Constructor
+     *
+     * @param context
+     * @param activities
+     */
     public ActivityAdapter(Context context, List<MyActivity> activities) {
         super(context, R.layout.activity_row_layout, activities);
         this.context = context;
         this.activities = activities;
     }
 
+    /**
+     * Method used to set the view
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

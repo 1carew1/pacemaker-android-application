@@ -39,6 +39,10 @@ public class Dashboard extends AppCompatActivity
         Command - To be added - See https://github.com/greenrobot/EventBus
         Observer - To be added - https://github.com/ReactiveX/RxAndroid
         Model View Controller - Android, Models are User, View are the xml layout and Controllers are the Activities
+        memento - putExtra
+
+  Architectural Pattern
+        Half sync half async
 
      */
 
